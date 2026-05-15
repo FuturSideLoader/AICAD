@@ -1,0 +1,25 @@
+# ninja log v7
+2	295	1778881380592671538	aicad_autogen/timestamp	7d3482002efd0afc
+2	295	1778881380592671538	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+2	295	1778881380592671538	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
+2	295	1778881380592671538	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+311	2713	1778881342487851521	CMakeFiles/aicad.dir/src/main.cpp.o	ff3f5b5693f5f10b
+295	3208	1778881380603311752	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	3c07ca7417fa036d
+296	3233	1778881380603491448	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	68a769fbeab14371
+296	3479	1778881380603662279	CMakeFiles/aicad.dir/src/OccView.cpp.o	9f363b7cfe4e5f81
+3479	3771	1778881383787065261	aicad	f9bc24e4b5a46b42
+2	318	1778881552076376353	aicad_autogen/timestamp	7d3482002efd0afc
+2	318	1778881552076376353	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+2	318	1778881552076376353	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
+2	318	1778881552076376353	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+319	2664	1778881552087617293	CMakeFiles/aicad.dir/src/main.cpp.o	cd5507db6a884b85
+319	3306	1778881552087776391	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	a0facfa39f70eb5f
+319	3346	1778881552087376527	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	a62dc7f5bb342e1
+319	3568	1778881552087945352	CMakeFiles/aicad.dir/src/OccView.cpp.o	ef328cc99d0028c9
+3568	4055	1778881555335427799	aicad	ff4a9d8331c5a740
+4	29	1778881633573663199	aicad_autogen/timestamp	7d3482002efd0afc
+4	29	1778881633573663199	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+4	29	1778881633573663199	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
+4	29	1778881633573663199	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+29	2374	1778881633598663594	CMakeFiles/aicad.dir/src/main.cpp.o	cd5507db6a884b85
+2374	2850	1778881635943700634	aicad	ff4a9d8331c5a740

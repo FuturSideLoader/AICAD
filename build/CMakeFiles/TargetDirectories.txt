@@ -1,0 +1,5 @@
+/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/aicad.dir
+/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/edit_cache.dir
+/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/rebuild_cache.dir
+/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/aicad_autogen_timestamp_deps.dir
+/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/aicad_autogen.dir
