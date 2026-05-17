@@ -867,7 +867,8 @@
 		"/usr/lib/cmake/opencascade/OpenCASCADEDEToolsTargets.cmake",
 		"/usr/lib/cmake/opencascade/OpenCASCADEDEToolsTargets-release.cmake",
 		"/usr/lib/cmake/opencascade/OpenCASCADEDrawTargets.cmake",
-		"/usr/lib/cmake/opencascade/OpenCASCADEDrawTargets-release.cmake"
+		"/usr/lib/cmake/opencascade/OpenCASCADEDrawTargets-release.cmake",
+		"/home/alexis/Projet_VSCODE/AICAD/resources.qrc"
 	],
 	"CMAKE_SOURCE_DIR" : "/home/alexis/Projet_VSCODE/AICAD",
 	"CROSS_CONFIG" : false,

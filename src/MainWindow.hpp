@@ -7,6 +7,7 @@
 
 #include "OccView.hpp"
 
+#include <QIcon>
 
 
 class QCloseEvent;

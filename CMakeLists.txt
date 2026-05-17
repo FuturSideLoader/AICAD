@@ -8,6 +8,7 @@ project(AICAD
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 find_package(MPI REQUIRED COMPONENTS C)
@@ -26,6 +27,9 @@ find_package(VTK REQUIRED COMPONENTS
 find_package(OpenCASCADE REQUIRED)
 
 add_executable(aicad
+
+    resources.qrc
+
     src/main.cpp
     
     src/MainWindow.hpp

@@ -21,6 +21,7 @@
 #include <QFileInfo>
 #include <vector>
 #include <QToolBar>
+#include <QIcon>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -148,41 +149,41 @@ MainWindow::MainWindow(QWidget* parent)
 
 void MainWindow::createMenus()
 {
-    m_newAction = new QAction("New", this);
+    m_newAction = new QAction(QIcon(":/icons/resources/icons/new.svg"), "New", this);
     m_newAction->setShortcut(QKeySequence::New);
     connect(m_newAction, &QAction::triggered, this, &MainWindow::newDocument);
 
-    m_openAction = new QAction("Open...", this);
+    m_openAction = new QAction(QIcon(":/icons/resources/icons/open.svg"), "Open...", this);
     m_openAction->setShortcut(QKeySequence::Open);
     connect(m_openAction, &QAction::triggered, this, &MainWindow::openDocument);
 
-    m_saveAction = new QAction("Save", this);
+    m_saveAction = new QAction(QIcon(":/icons/resources/icons/save.svg"), "Save", this);
     m_saveAction->setShortcut(QKeySequence::Save);
     connect(m_saveAction, &QAction::triggered, this, &MainWindow::saveDocument);
 
-    m_saveAsAction = new QAction("Save As...", this);
+    m_saveAsAction = new QAction(QIcon(":/icons/resources/icons/save.svg"), "Save As...", this);
     m_saveAsAction->setShortcut(QKeySequence::SaveAs);
     connect(m_saveAsAction, &QAction::triggered, this, &MainWindow::saveDocumentAs);
 
-    m_undoAction = new QAction("Undo", this);
+    m_undoAction = new QAction(QIcon(":/icons/resources/icons/undo.svg"), "Undo", this);
     m_undoAction->setShortcut(QKeySequence::Undo);
     connect(m_undoAction, &QAction::triggered, this, &MainWindow::undo);
 
-    m_redoAction = new QAction("Redo", this);
+    m_redoAction = new QAction(QIcon(":/icons/resources/icons/redo.svg"), "Redo", this);
     m_redoAction->setShortcut(QKeySequence::Redo);
     connect(m_redoAction, &QAction::triggered, this, &MainWindow::redo);
 
-    m_deleteAction = new QAction("Delete Selected Object", this);
+    m_deleteAction = new QAction(QIcon(":/icons/resources/icons/delete.svg"), "Delete Selected Object", this);
     m_deleteAction->setShortcut(QKeySequence::Delete);
     connect(m_deleteAction, &QAction::triggered, this, &MainWindow::deleteSelectedObject);
 
-    m_fitAllAction = new QAction("Fit All", this);
+    m_fitAllAction = new QAction(QIcon(":/icons/resources/icons/fit.svg"), "Fit All", this);
     connect(m_fitAllAction, &QAction::triggered, m_view, &OccView::fitAll);
 
-    m_addMarkerAction = new QAction("Add Marker", this);
+    m_addMarkerAction = new QAction(QIcon(":/icons/resources/icons/marker.svg"), "Add Marker", this);
     connect(m_addMarkerAction, &QAction::triggered, this, &MainWindow::addAiMarker);
 
-    m_createBoxAction = new QAction("Box", this);
+    m_createBoxAction = new QAction(QIcon(":/icons/resources/icons/box.svg"), "Box", this);
     connect(m_createBoxAction, &QAction::triggered, this, &MainWindow::addBox);
 
     auto* fileMenu = menuBar()->addMenu("&File");

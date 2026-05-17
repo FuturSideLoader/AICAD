@@ -4,6 +4,7 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/4.3.2/CMakeCXXCompiler.cmake \
 	/home/alexis/Projet_VSCODE/AICAD/build/CMakeFiles/4.3.2/CMakeSystem.cmake \
 	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
+	/home/alexis/Projet_VSCODE/AICAD/resources.qrc \
 	/home/alexis/Projet_VSCODE/AICAD/src/MainWindow.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/OccView.cpp \
@@ -901,6 +902,7 @@ aicad_autogen/timestamp: \
 	/usr/include/qt6/QtCore/qversiontagging.h \
 	/usr/include/qt6/QtCore/qxptype_traits.h \
 	/usr/include/qt6/QtCore/qyieldcpu.h \
+	/usr/include/qt6/QtGui/QIcon \
 	/usr/include/qt6/QtGui/qaction.h \
 	/usr/include/qt6/QtGui/qbitmap.h \
 	/usr/include/qt6/QtGui/qbrush.h \
