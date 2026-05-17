@@ -1,14 +1,14 @@
 # ninja log v7
-1	334	1779023861917020786	aicad_autogen/timestamp	7d3482002efd0afc
-1	334	1779023861917020786	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
-1	334	1779023861917020786	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
-1	334	1779023861917020786	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
-336	1395	1779023861928312201	CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o	55cdc4687ebf1405
-338	1397	1779023861929929470	CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o	103b9ad7c827201a
-338	1398	1779023861930163947	CMakeFiles/aicad.dir/src/cad/CadBox.cpp.o	273e3aed3e2cf8e4
-336	2828	1779023861928427296	CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o	4c2464ab68eada43
-336	2878	1779023861927851755	CMakeFiles/aicad.dir/src/main.cpp.o	29b5621440838ed1
-336	3554	1779023861927650397	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	15e93653b7b21d44
-336	3679	1779023861928197568	CMakeFiles/aicad.dir/src/OccView.cpp.o	9591c1528f6376d1
-336	4157	1779023861928068965	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	bae090a9f4e0007d
-4157	4613	1779023865747816761	aicad	4258af55e3e9c1a9
+1	324	1779024893619061695	aicad_autogen/timestamp	7d3482002efd0afc
+1	324	1779024893619061695	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+1	324	1779024893619061695	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
+1	324	1779024893619061695	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+326	1369	1779024893631111537	CMakeFiles/aicad.dir/src/cad/CadBox.cpp.o	273e3aed3e2cf8e4
+326	1394	1779024893630715451	CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o	55cdc4687ebf1405
+326	1397	1779024893630994695	CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o	103b9ad7c827201a
+326	2833	1779024893630852900	CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o	4c2464ab68eada43
+325	3396	1779024893630317615	CMakeFiles/aicad.dir/src/main.cpp.o	29b5621440838ed1
+325	3657	1779024893630072173	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	15e93653b7b21d44
+325	3692	1779024893630590171	CMakeFiles/aicad.dir/src/OccView.cpp.o	9591c1528f6376d1
+325	4094	1779024893630489076	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	bae090a9f4e0007d
+4094	4557	1779024897399007332	aicad	4258af55e3e9c1a9

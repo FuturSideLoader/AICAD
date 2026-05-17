@@ -126,23 +126,12 @@ void OccView::updateMarkerDisplay(std::shared_ptr<AiMarker> marker)
 
 void OccView::selectMarkerVisual(int markerId)
 {
-    if (m_context.IsNull()) {
+    if (markerId <= 0) {
+        selectObjectVisual(0, PickedObjectKind::None);
         return;
-    } 
-
-    if (m_selectedMarkerId > 0 && m_selectedMarkerId != markerId) {
-        setMarkerColor(m_selectedMarkerId, Quantity_NOC_YELLOW);
     }
 
-    m_selectedMarkerId = markerId;
-
-    if (m_selectedMarkerId > 0) {
-        setMarkerColor(m_selectedMarkerId, Quantity_NOC_LIMEGREEN);
-    }
-
-    if (!m_view.IsNull()) {
-        m_view->Redraw();
-    }
+    selectObjectVisual(markerId, PickedObjectKind::Marker);
 }
 
 void OccView::removeMarkerDisplay(int markerId)
@@ -153,8 +142,10 @@ void OccView::removeMarkerDisplay(int markerId)
 
     removeMarkerVisual(markerId);
 
-    if (m_selectedMarkerId == markerId) {
-        m_selectedMarkerId = 0;
+    if (m_selectedObjectKind == PickedObjectKind::Marker
+        && m_selectedObjectId == markerId) {
+        m_selectedObjectId = 0;
+        m_selectedObjectKind = PickedObjectKind::None;
     }
 
     if (!m_view.IsNull()) {
@@ -274,7 +265,7 @@ void OccView::mouseReleaseEvent(QMouseEvent* event)
     const int distanceSquared = delta.x() * delta.x() + delta.y() * delta.y();
 
     if (distanceSquared <= 16) {
-        tryPickMarkerAt(event->pos());
+        tryPickObjectAt(event->pos());
     }
 }
 
@@ -320,6 +311,36 @@ void OccView::tryPickMarkerAt(const QPoint& position)
 
     if (markerId > 0) {
         emit markerPicked(markerId);
+    }
+}
+
+void OccView::tryPickObjectAt(const QPoint& position)
+{
+    if (m_context.IsNull() || m_view.IsNull()) {
+        return;
+    }
+
+    m_context->MoveTo(position.x(), position.y(), m_view, Standard_False);
+
+    if (!m_context->HasDetected()) {
+        return;
+    }
+
+    Handle(AIS_InteractiveObject) detectedObject =
+        m_context->DetectedInteractive();
+
+    int objectId = 0;
+    const PickedObjectKind kind =
+        findPickedObjectKindFromObject(detectedObject, objectId);
+
+    if (objectId <= 0 || kind == PickedObjectKind::None) {
+        return;
+    }
+
+    emit objectPicked(objectId, kind);
+
+    if (kind == PickedObjectKind::Marker) {
+        emit markerPicked(objectId);
     }
 }
 
@@ -398,6 +419,11 @@ void OccView::displayBox(std::shared_ptr<CadBox> box)
     BoxVisual visual = createBoxVisual(box);
     m_boxVisuals[box->id()] = visual;
 
+    if (box->id() == m_selectedObjectId
+        && m_selectedObjectKind == PickedObjectKind::Box) {
+        setBoxColor(box->id(), Quantity_NOC_LIMEGREEN);
+        }
+
     if (!m_view.IsNull()) {
         m_view->Redraw();
     }
@@ -414,6 +440,11 @@ void OccView::updateBoxDisplay(std::shared_ptr<CadBox> box)
     BoxVisual visual = createBoxVisual(box);
     m_boxVisuals[box->id()] = visual;
 
+    if (box->id() == m_selectedObjectId
+        && m_selectedObjectKind == PickedObjectKind::Box) {
+        setBoxColor(box->id(), Quantity_NOC_LIMEGREEN);
+    }
+
     if (!m_view.IsNull()) {
         m_view->Redraw();
     }
@@ -426,6 +457,12 @@ void OccView::removeBoxDisplay(int boxId)
     }
 
     removeBoxVisual(boxId);
+
+    if (m_selectedObjectKind == PickedObjectKind::Box
+        && m_selectedObjectId == boxId) {
+        m_selectedObjectId = 0;
+        m_selectedObjectKind = PickedObjectKind::None;
+    }
 
     if (!m_view.IsNull()) {
         m_view->Redraw();
@@ -496,5 +533,92 @@ void OccView::clearSceneObjects()
 
     if (!m_view.IsNull()) {
         m_view->Redraw();
+    }
+}
+
+PickedObjectKind OccView::findPickedObjectKindFromObject(
+    const Handle(AIS_InteractiveObject)& object,
+    int& objectId
+) const
+{
+    objectId = 0;
+
+    if (object.IsNull()) {
+        return PickedObjectKind::None;
+    }
+
+    for (const auto& [markerId, visual] : m_markerVisuals) {
+        if (!visual.sphere.IsNull() && visual.sphere == object) {
+            objectId = markerId;
+            return PickedObjectKind::Marker;
+        }
+
+        if (!visual.point.IsNull() && visual.point == object) {
+            objectId = markerId;
+            return PickedObjectKind::Marker;
+        }
+    }
+
+    for (const auto& [boxId, visual] : m_boxVisuals) {
+        if (!visual.shape.IsNull() && visual.shape == object) {
+            objectId = boxId;
+            return PickedObjectKind::Box;
+        }
+    }
+
+    return PickedObjectKind::None;
+}
+
+void OccView::selectObjectVisual(int objectId, PickedObjectKind kind)
+{
+    if (m_context.IsNull()) {
+        return;
+    }
+
+    if (m_selectedObjectId > 0) {
+        if (m_selectedObjectKind == PickedObjectKind::Marker) {
+            setMarkerColor(m_selectedObjectId, Quantity_NOC_YELLOW);
+        }
+
+        if (m_selectedObjectKind == PickedObjectKind::Box) {
+            setBoxColor(m_selectedObjectId, Quantity_NOC_SKYBLUE);
+        }
+    }
+
+    m_selectedObjectId = objectId;
+    m_selectedObjectKind = kind;
+
+    if (m_selectedObjectId > 0) {
+        if (m_selectedObjectKind == PickedObjectKind::Marker) {
+            setMarkerColor(m_selectedObjectId, Quantity_NOC_LIMEGREEN);
+        }
+
+        if (m_selectedObjectKind == PickedObjectKind::Box) {
+            setBoxColor(m_selectedObjectId, Quantity_NOC_LIMEGREEN);
+        }
+    }
+
+    if (!m_view.IsNull()) {
+        m_view->Redraw();
+    }
+}
+
+
+void OccView::setBoxColor(int boxId, const Quantity_Color& color)
+{
+    auto it = m_boxVisuals.find(boxId);
+
+    if (it == m_boxVisuals.end()) {
+        return;
+    }
+
+    if (!it->second.shape.IsNull()) {
+        Handle(AIS_Shape) boxShape =
+            Handle(AIS_Shape)::DownCast(it->second.shape);
+
+        if (!boxShape.IsNull()) {
+            boxShape->SetColor(color);
+            m_context->Redisplay(boxShape, Standard_False);
+        }
     }
 }

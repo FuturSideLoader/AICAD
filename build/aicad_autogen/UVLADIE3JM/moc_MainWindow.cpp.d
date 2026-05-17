@@ -1,5 +1,6 @@
 /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/UVLADIE3JM/moc_MainWindow.cpp: /home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
   /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
+  /home/alexis/Projet_VSCODE/AICAD/src/OccView.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
@@ -19,18 +20,23 @@
   /usr/include/assert.h \
   /usr/include/bits/atomic_wide_counter.h \
   /usr/include/bits/byteswap.h \
+  /usr/include/bits/confname.h \
   /usr/include/bits/cpu-set.h \
   /usr/include/bits/endian.h \
   /usr/include/bits/endianness.h \
+  /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
+  /usr/include/bits/getopt_core.h \
+  /usr/include/bits/getopt_posix.h \
   /usr/include/bits/libc-header-start.h \
   /usr/include/bits/local_lim.h \
   /usr/include/bits/locale.h \
   /usr/include/bits/long-double.h \
   /usr/include/bits/posix1_lim.h \
   /usr/include/bits/posix2_lim.h \
+  /usr/include/bits/posix_opt.h \
   /usr/include/bits/pthread_stack_min-dynamic.h \
   /usr/include/bits/pthreadtypes-arch.h \
   /usr/include/bits/pthreadtypes.h \
@@ -77,6 +83,7 @@
   /usr/include/bits/typesizes.h \
   /usr/include/bits/uintn-identity.h \
   /usr/include/bits/uio_lim.h \
+  /usr/include/bits/unistd_ext.h \
   /usr/include/bits/waitflags.h \
   /usr/include/bits/waitstatus.h \
   /usr/include/bits/wchar.h \
@@ -111,12 +118,14 @@
   /usr/include/c++/16.1.1/bits/cpp_type_traits.h \
   /usr/include/c++/16.1.1/bits/cxxabi_forced.h \
   /usr/include/c++/16.1.1/bits/cxxabi_init_exception.h \
+  /usr/include/c++/16.1.1/bits/deque.tcc \
   /usr/include/c++/16.1.1/bits/enable_special_members.h \
   /usr/include/c++/16.1.1/bits/erase_if.h \
   /usr/include/c++/16.1.1/bits/exception.h \
   /usr/include/c++/16.1.1/bits/exception_defines.h \
   /usr/include/c++/16.1.1/bits/exception_ptr.h \
   /usr/include/c++/16.1.1/bits/formatfwd.h \
+  /usr/include/c++/16.1.1/bits/fstream.tcc \
   /usr/include/c++/16.1.1/bits/functexcept.h \
   /usr/include/c++/16.1.1/bits/functional_hash.h \
   /usr/include/c++/16.1.1/bits/hash_bytes.h \
@@ -154,6 +163,7 @@
   /usr/include/c++/16.1.1/bits/postypes.h \
   /usr/include/c++/16.1.1/bits/predefined_ops.h \
   /usr/include/c++/16.1.1/bits/ptr_traits.h \
+  /usr/include/c++/16.1.1/bits/quoted_string.h \
   /usr/include/c++/16.1.1/bits/range_access.h \
   /usr/include/c++/16.1.1/bits/ranges_algo.h \
   /usr/include/c++/16.1.1/bits/ranges_algobase.h \
@@ -177,6 +187,7 @@
   /usr/include/c++/16.1.1/bits/stl_algobase.h \
   /usr/include/c++/16.1.1/bits/stl_bvector.h \
   /usr/include/c++/16.1.1/bits/stl_construct.h \
+  /usr/include/c++/16.1.1/bits/stl_deque.h \
   /usr/include/c++/16.1.1/bits/stl_function.h \
   /usr/include/c++/16.1.1/bits/stl_heap.h \
   /usr/include/c++/16.1.1/bits/stl_iterator.h \
@@ -231,6 +242,7 @@
   /usr/include/c++/16.1.1/cwctype \
   /usr/include/c++/16.1.1/debug/assertions.h \
   /usr/include/c++/16.1.1/debug/debug.h \
+  /usr/include/c++/16.1.1/deque \
   /usr/include/c++/16.1.1/exception \
   /usr/include/c++/16.1.1/ext/aligned_buffer.h \
   /usr/include/c++/16.1.1/ext/alloc_traits.h \
@@ -240,10 +252,13 @@
   /usr/include/c++/16.1.1/ext/string_conversions.h \
   /usr/include/c++/16.1.1/ext/type_traits.h \
   /usr/include/c++/16.1.1/format \
+  /usr/include/c++/16.1.1/fstream \
   /usr/include/c++/16.1.1/functional \
   /usr/include/c++/16.1.1/initializer_list \
+  /usr/include/c++/16.1.1/iomanip \
   /usr/include/c++/16.1.1/ios \
   /usr/include/c++/16.1.1/iosfwd \
+  /usr/include/c++/16.1.1/iostream \
   /usr/include/c++/16.1.1/istream \
   /usr/include/c++/16.1.1/iterator \
   /usr/include/c++/16.1.1/limits \
@@ -285,6 +300,7 @@
   /usr/include/c++/16.1.1/tr1/special_function_util.h \
   /usr/include/c++/16.1.1/tuple \
   /usr/include/c++/16.1.1/type_traits \
+  /usr/include/c++/16.1.1/typeindex \
   /usr/include/c++/16.1.1/typeinfo \
   /usr/include/c++/16.1.1/unordered_map \
   /usr/include/c++/16.1.1/unordered_set \
@@ -293,8 +309,10 @@
   /usr/include/c++/16.1.1/vector \
   /usr/include/c++/16.1.1/version \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
+  /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
@@ -312,8 +330,10 @@
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/inttypes.h \
   /usr/include/libintl.h \
   /usr/include/limits.h \
+  /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
   /usr/include/linux/posix_types.h \
@@ -321,9 +341,410 @@
   /usr/include/linux/stddef.h \
   /usr/include/linux/types.h \
   /usr/include/locale.h \
+  /usr/include/opencascade/AIS_DataMapOfIOStatus.hxx \
+  /usr/include/opencascade/AIS_DisplayMode.hxx \
+  /usr/include/opencascade/AIS_DisplayStatus.hxx \
+  /usr/include/opencascade/AIS_DragAction.hxx \
+  /usr/include/opencascade/AIS_GlobalStatus.hxx \
+  /usr/include/opencascade/AIS_InteractiveContext.hxx \
+  /usr/include/opencascade/AIS_InteractiveObject.hxx \
+  /usr/include/opencascade/AIS_KindOfInteractive.hxx \
+  /usr/include/opencascade/AIS_ListOfInteractive.hxx \
+  /usr/include/opencascade/AIS_NArray1OfEntityOwner.hxx \
+  /usr/include/opencascade/AIS_NListOfEntityOwner.hxx \
+  /usr/include/opencascade/AIS_SelectStatus.hxx \
+  /usr/include/opencascade/AIS_Selection.hxx \
+  /usr/include/opencascade/AIS_SelectionModesConcurrency.hxx \
+  /usr/include/opencascade/AIS_SelectionScheme.hxx \
+  /usr/include/opencascade/AIS_StatusOfDetection.hxx \
+  /usr/include/opencascade/AIS_StatusOfPick.hxx \
+  /usr/include/opencascade/AIS_TypeOfIso.hxx \
+  /usr/include/opencascade/Aspect_Background.hxx \
+  /usr/include/opencascade/Aspect_Display.hxx \
+  /usr/include/opencascade/Aspect_DisplayConnection.hxx \
+  /usr/include/opencascade/Aspect_Drawable.hxx \
+  /usr/include/opencascade/Aspect_Eye.hxx \
+  /usr/include/opencascade/Aspect_FBConfig.hxx \
+  /usr/include/opencascade/Aspect_FillMethod.hxx \
+  /usr/include/opencascade/Aspect_FrustumLRBT.hxx \
+  /usr/include/opencascade/Aspect_GenId.hxx \
+  /usr/include/opencascade/Aspect_GradientBackground.hxx \
+  /usr/include/opencascade/Aspect_GradientFillMethod.hxx \
+  /usr/include/opencascade/Aspect_GraphicsLibrary.hxx \
+  /usr/include/opencascade/Aspect_GridDrawMode.hxx \
+  /usr/include/opencascade/Aspect_GridType.hxx \
+  /usr/include/opencascade/Aspect_HatchStyle.hxx \
+  /usr/include/opencascade/Aspect_InteriorStyle.hxx \
+  /usr/include/opencascade/Aspect_PolygonOffsetMode.hxx \
+  /usr/include/opencascade/Aspect_RenderingContext.hxx \
+  /usr/include/opencascade/Aspect_SkydomeBackground.hxx \
+  /usr/include/opencascade/Aspect_TypeOfDeflection.hxx \
+  /usr/include/opencascade/Aspect_TypeOfDisplayText.hxx \
+  /usr/include/opencascade/Aspect_TypeOfFacingModel.hxx \
+  /usr/include/opencascade/Aspect_TypeOfHighlightMethod.hxx \
+  /usr/include/opencascade/Aspect_TypeOfLine.hxx \
+  /usr/include/opencascade/Aspect_TypeOfMarker.hxx \
+  /usr/include/opencascade/Aspect_TypeOfResize.hxx \
+  /usr/include/opencascade/Aspect_TypeOfStyleText.hxx \
+  /usr/include/opencascade/Aspect_TypeOfTriedronPosition.hxx \
+  /usr/include/opencascade/Aspect_VKey.hxx \
+  /usr/include/opencascade/Aspect_VKeyFlags.hxx \
+  /usr/include/opencascade/Aspect_Window.hxx \
+  /usr/include/opencascade/Aspect_XAtom.hxx \
+  /usr/include/opencascade/BVH_BinaryTree.hxx \
+  /usr/include/opencascade/BVH_Box.hxx \
+  /usr/include/opencascade/BVH_Builder.hxx \
+  /usr/include/opencascade/BVH_Constants.hxx \
+  /usr/include/opencascade/BVH_QuadTree.hxx \
+  /usr/include/opencascade/BVH_Set.hxx \
+  /usr/include/opencascade/BVH_Tree.hxx \
+  /usr/include/opencascade/BVH_Types.hxx \
+  /usr/include/opencascade/Bnd_Box.hxx \
+  /usr/include/opencascade/Bnd_Range.hxx \
+  /usr/include/opencascade/Font_FontAspect.hxx \
+  /usr/include/opencascade/Font_Hinting.hxx \
+  /usr/include/opencascade/Font_NameOfFont.hxx \
+  /usr/include/opencascade/GeomAbs_Shape.hxx \
+  /usr/include/opencascade/Graphic3d_AlphaMode.hxx \
+  /usr/include/opencascade/Graphic3d_AspectFillArea3d.hxx \
+  /usr/include/opencascade/Graphic3d_AspectLine3d.hxx \
+  /usr/include/opencascade/Graphic3d_AspectText3d.hxx \
+  /usr/include/opencascade/Graphic3d_Aspects.hxx \
+  /usr/include/opencascade/Graphic3d_BSDF.hxx \
+  /usr/include/opencascade/Graphic3d_BndBox3d.hxx \
+  /usr/include/opencascade/Graphic3d_BndBox4f.hxx \
+  /usr/include/opencascade/Graphic3d_BoundBuffer.hxx \
+  /usr/include/opencascade/Graphic3d_Buffer.hxx \
+  /usr/include/opencascade/Graphic3d_BufferRange.hxx \
+  /usr/include/opencascade/Graphic3d_BufferType.hxx \
+  /usr/include/opencascade/Graphic3d_CLight.hxx \
+  /usr/include/opencascade/Graphic3d_CStructure.hxx \
+  /usr/include/opencascade/Graphic3d_CView.hxx \
+  /usr/include/opencascade/Graphic3d_Camera.hxx \
+  /usr/include/opencascade/Graphic3d_CameraTile.hxx \
+  /usr/include/opencascade/Graphic3d_CappingFlags.hxx \
+  /usr/include/opencascade/Graphic3d_ClipPlane.hxx \
+  /usr/include/opencascade/Graphic3d_CubeMap.hxx \
+  /usr/include/opencascade/Graphic3d_CubeMapOrder.hxx \
+  /usr/include/opencascade/Graphic3d_CubeMapSide.hxx \
+  /usr/include/opencascade/Graphic3d_DataStructureManager.hxx \
+  /usr/include/opencascade/Graphic3d_DiagnosticInfo.hxx \
+  /usr/include/opencascade/Graphic3d_DisplayPriority.hxx \
+  /usr/include/opencascade/Graphic3d_GraduatedTrihedron.hxx \
+  /usr/include/opencascade/Graphic3d_GraphicDriver.hxx \
+  /usr/include/opencascade/Graphic3d_Group.hxx \
+  /usr/include/opencascade/Graphic3d_GroupAspect.hxx \
+  /usr/include/opencascade/Graphic3d_HatchStyle.hxx \
+  /usr/include/opencascade/Graphic3d_HorizontalTextAlignment.hxx \
+  /usr/include/opencascade/Graphic3d_IndexBuffer.hxx \
+  /usr/include/opencascade/Graphic3d_LevelOfTextureAnisotropy.hxx \
+  /usr/include/opencascade/Graphic3d_LightSet.hxx \
+  /usr/include/opencascade/Graphic3d_MapOfAspectsToAspects.hxx \
+  /usr/include/opencascade/Graphic3d_MapOfObject.hxx \
+  /usr/include/opencascade/Graphic3d_MapOfStructure.hxx \
+  /usr/include/opencascade/Graphic3d_MarkerImage.hxx \
+  /usr/include/opencascade/Graphic3d_Mat4.hxx \
+  /usr/include/opencascade/Graphic3d_Mat4d.hxx \
+  /usr/include/opencascade/Graphic3d_MaterialAspect.hxx \
+  /usr/include/opencascade/Graphic3d_NMapOfTransient.hxx \
+  /usr/include/opencascade/Graphic3d_NameOfMaterial.hxx \
+  /usr/include/opencascade/Graphic3d_NameOfTexture2D.hxx \
+  /usr/include/opencascade/Graphic3d_NameOfTextureEnv.hxx \
+  /usr/include/opencascade/Graphic3d_PBRMaterial.hxx \
+  /usr/include/opencascade/Graphic3d_PolygonOffset.hxx \
+  /usr/include/opencascade/Graphic3d_PresentationAttributes.hxx \
+  /usr/include/opencascade/Graphic3d_RenderTransparentMethod.hxx \
+  /usr/include/opencascade/Graphic3d_RenderingMode.hxx \
+  /usr/include/opencascade/Graphic3d_RenderingParams.hxx \
+  /usr/include/opencascade/Graphic3d_SequenceOfGroup.hxx \
+  /usr/include/opencascade/Graphic3d_SequenceOfHClipPlane.hxx \
+  /usr/include/opencascade/Graphic3d_SequenceOfStructure.hxx \
+  /usr/include/opencascade/Graphic3d_ShaderAttribute.hxx \
+  /usr/include/opencascade/Graphic3d_ShaderObject.hxx \
+  /usr/include/opencascade/Graphic3d_ShaderProgram.hxx \
+  /usr/include/opencascade/Graphic3d_ShaderVariable.hxx \
+  /usr/include/opencascade/Graphic3d_ShaderVariable.lxx \
+  /usr/include/opencascade/Graphic3d_StereoMode.hxx \
+  /usr/include/opencascade/Graphic3d_Structure.hxx \
+  /usr/include/opencascade/Graphic3d_StructureManager.hxx \
+  /usr/include/opencascade/Graphic3d_TextPath.hxx \
+  /usr/include/opencascade/Graphic3d_Texture2D.hxx \
+  /usr/include/opencascade/Graphic3d_TextureEnv.hxx \
+  /usr/include/opencascade/Graphic3d_TextureMap.hxx \
+  /usr/include/opencascade/Graphic3d_TextureParams.hxx \
+  /usr/include/opencascade/Graphic3d_TextureRoot.hxx \
+  /usr/include/opencascade/Graphic3d_TextureSet.hxx \
+  /usr/include/opencascade/Graphic3d_TextureSetBits.hxx \
+  /usr/include/opencascade/Graphic3d_TextureUnit.hxx \
+  /usr/include/opencascade/Graphic3d_ToneMappingMethod.hxx \
+  /usr/include/opencascade/Graphic3d_TransModeFlags.hxx \
+  /usr/include/opencascade/Graphic3d_TransformPers.hxx \
+  /usr/include/opencascade/Graphic3d_TransformUtils.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfAnswer.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfBackfacingModel.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfBackground.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfConnection.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfLightSource.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfLimit.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfMaterial.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfPrimitiveArray.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfReflection.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfShaderObject.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfShadingModel.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfStructure.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfTexture.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfTextureFilter.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfTextureMode.hxx \
+  /usr/include/opencascade/Graphic3d_TypeOfVisualization.hxx \
+  /usr/include/opencascade/Graphic3d_Vec.hxx \
+  /usr/include/opencascade/Graphic3d_Vec2.hxx \
+  /usr/include/opencascade/Graphic3d_Vec3.hxx \
+  /usr/include/opencascade/Graphic3d_Vec4.hxx \
+  /usr/include/opencascade/Graphic3d_Vertex.hxx \
+  /usr/include/opencascade/Graphic3d_VerticalTextAlignment.hxx \
+  /usr/include/opencascade/Graphic3d_ViewAffinity.hxx \
+  /usr/include/opencascade/Graphic3d_WorldViewProjState.hxx \
+  /usr/include/opencascade/Graphic3d_ZLayerId.hxx \
+  /usr/include/opencascade/Graphic3d_ZLayerSettings.hxx \
+  /usr/include/opencascade/Image_Color.hxx \
+  /usr/include/opencascade/Image_CompressedFormat.hxx \
+  /usr/include/opencascade/Image_Format.hxx \
+  /usr/include/opencascade/Image_PixMap.hxx \
+  /usr/include/opencascade/Image_PixMapData.hxx \
+  /usr/include/opencascade/Message.hxx \
+  /usr/include/opencascade/Message_Gravity.hxx \
+  /usr/include/opencascade/Message_Messenger.hxx \
+  /usr/include/opencascade/Message_MetricType.hxx \
+  /usr/include/opencascade/Message_Printer.hxx \
+  /usr/include/opencascade/Message_SequenceOfPrinters.hxx \
+  /usr/include/opencascade/NCollection_Allocator.hxx \
+  /usr/include/opencascade/NCollection_Array1.hxx \
+  /usr/include/opencascade/NCollection_Array2.hxx \
+  /usr/include/opencascade/NCollection_BaseAllocator.hxx \
+  /usr/include/opencascade/NCollection_BaseList.hxx \
+  /usr/include/opencascade/NCollection_BaseMap.hxx \
+  /usr/include/opencascade/NCollection_BasePointerVector.hxx \
+  /usr/include/opencascade/NCollection_BaseSequence.hxx \
+  /usr/include/opencascade/NCollection_Buffer.hxx \
+  /usr/include/opencascade/NCollection_DataMap.hxx \
+  /usr/include/opencascade/NCollection_DefaultHasher.hxx \
+  /usr/include/opencascade/NCollection_DefineAlloc.hxx \
+  /usr/include/opencascade/NCollection_DefineHArray1.hxx \
+  /usr/include/opencascade/NCollection_DefineHasher.hxx \
+  /usr/include/opencascade/NCollection_DynamicArray.hxx \
+  /usr/include/opencascade/NCollection_Handle.hxx \
+  /usr/include/opencascade/NCollection_IndexedDataMap.hxx \
+  /usr/include/opencascade/NCollection_IndexedIterator.hxx \
+  /usr/include/opencascade/NCollection_IndexedMap.hxx \
+  /usr/include/opencascade/NCollection_Iterator.hxx \
+  /usr/include/opencascade/NCollection_Lerp.hxx \
+  /usr/include/opencascade/NCollection_List.hxx \
+  /usr/include/opencascade/NCollection_ListNode.hxx \
+  /usr/include/opencascade/NCollection_Map.hxx \
+  /usr/include/opencascade/NCollection_MapAlgo.hxx \
+  /usr/include/opencascade/NCollection_Mat3.hxx \
+  /usr/include/opencascade/NCollection_Mat4.hxx \
+  /usr/include/opencascade/NCollection_OccAllocator.hxx \
+  /usr/include/opencascade/NCollection_Sequence.hxx \
+  /usr/include/opencascade/NCollection_Shared.hxx \
+  /usr/include/opencascade/NCollection_StlIterator.hxx \
+  /usr/include/opencascade/NCollection_TListIterator.hxx \
+  /usr/include/opencascade/NCollection_TListNode.hxx \
+  /usr/include/opencascade/NCollection_Vec2.hxx \
+  /usr/include/opencascade/NCollection_Vec3.hxx \
+  /usr/include/opencascade/NCollection_Vec4.hxx \
+  /usr/include/opencascade/NCollection_Vector.hxx \
+  /usr/include/opencascade/OSD_Chronometer.hxx \
+  /usr/include/opencascade/OSD_MemInfo.hxx \
+  /usr/include/opencascade/OSD_PThread.hxx \
+  /usr/include/opencascade/OSD_Path.hxx \
+  /usr/include/opencascade/OSD_SysType.hxx \
+  /usr/include/opencascade/OSD_Thread.hxx \
+  /usr/include/opencascade/OSD_ThreadFunction.hxx \
+  /usr/include/opencascade/OpenGl_Caps.hxx \
+  /usr/include/opencascade/OpenGl_Clipping.hxx \
+  /usr/include/opencascade/OpenGl_Context.hxx \
+  /usr/include/opencascade/OpenGl_GraphicDriver.hxx \
+  /usr/include/opencascade/OpenGl_LineAttributes.hxx \
+  /usr/include/opencascade/OpenGl_Material.hxx \
+  /usr/include/opencascade/OpenGl_MatrixState.hxx \
+  /usr/include/opencascade/OpenGl_Resource.hxx \
+  /usr/include/opencascade/OpenGl_ShaderProgramDumpLevel.hxx \
+  /usr/include/opencascade/OpenGl_TextureSet.hxx \
+  /usr/include/opencascade/OpenGl_Vec.hxx \
+  /usr/include/opencascade/Precision.hxx \
+  /usr/include/opencascade/Prs3d_BasicAspect.hxx \
+  /usr/include/opencascade/Prs3d_DimensionUnits.hxx \
+  /usr/include/opencascade/Prs3d_Drawer.hxx \
+  /usr/include/opencascade/Prs3d_LineAspect.hxx \
+  /usr/include/opencascade/Prs3d_Presentation.hxx \
+  /usr/include/opencascade/Prs3d_ShadingAspect.hxx \
+  /usr/include/opencascade/Prs3d_TextAspect.hxx \
+  /usr/include/opencascade/Prs3d_TypeOfHLR.hxx \
+  /usr/include/opencascade/Prs3d_TypeOfHighlight.hxx \
+  /usr/include/opencascade/Prs3d_VertexDrawMode.hxx \
+  /usr/include/opencascade/PrsMgr_DisplayStatus.hxx \
+  /usr/include/opencascade/PrsMgr_ListOfPresentableObjects.hxx \
+  /usr/include/opencascade/PrsMgr_ListOfPresentations.hxx \
+  /usr/include/opencascade/PrsMgr_PresentableObject.hxx \
+  /usr/include/opencascade/PrsMgr_Presentation.hxx \
+  /usr/include/opencascade/PrsMgr_PresentationManager.hxx \
+  /usr/include/opencascade/PrsMgr_Presentations.hxx \
+  /usr/include/opencascade/PrsMgr_TypeOfPresentation3d.hxx \
+  /usr/include/opencascade/Quantity_Color.hxx \
+  /usr/include/opencascade/Quantity_ColorRGBA.hxx \
+  /usr/include/opencascade/Quantity_NameOfColor.hxx \
+  /usr/include/opencascade/Quantity_TypeOfColor.hxx \
+  /usr/include/opencascade/Select3D_BVHBuilder3d.hxx \
+  /usr/include/opencascade/Select3D_BndBox3d.hxx \
+  /usr/include/opencascade/Select3D_SensitiveEntity.hxx \
+  /usr/include/opencascade/Select3D_TypeOfSensitivity.hxx \
+  /usr/include/opencascade/SelectBasics_PickResult.hxx \
+  /usr/include/opencascade/SelectBasics_SelectingVolumeManager.hxx \
+  /usr/include/opencascade/SelectMgr_AndOrFilter.hxx \
+  /usr/include/opencascade/SelectMgr_BVHThreadPool.hxx \
+  /usr/include/opencascade/SelectMgr_BaseIntersector.hxx \
+  /usr/include/opencascade/SelectMgr_CompositionFilter.hxx \
+  /usr/include/opencascade/SelectMgr_EntityOwner.hxx \
+  /usr/include/opencascade/SelectMgr_Filter.hxx \
+  /usr/include/opencascade/SelectMgr_FilterType.hxx \
+  /usr/include/opencascade/SelectMgr_IndexedDataMapOfOwnerCriterion.hxx \
+  /usr/include/opencascade/SelectMgr_IndexedMapOfOwner.hxx \
+  /usr/include/opencascade/SelectMgr_ListOfFilter.hxx \
+  /usr/include/opencascade/SelectMgr_PickingStrategy.hxx \
+  /usr/include/opencascade/SelectMgr_SelectableObject.hxx \
+  /usr/include/opencascade/SelectMgr_SelectableObjectSet.hxx \
+  /usr/include/opencascade/SelectMgr_SelectingVolumeManager.hxx \
+  /usr/include/opencascade/SelectMgr_Selection.hxx \
+  /usr/include/opencascade/SelectMgr_SelectionManager.hxx \
+  /usr/include/opencascade/SelectMgr_SelectionType.hxx \
+  /usr/include/opencascade/SelectMgr_SensitiveEntity.hxx \
+  /usr/include/opencascade/SelectMgr_SequenceOfOwner.hxx \
+  /usr/include/opencascade/SelectMgr_SequenceOfSelection.hxx \
+  /usr/include/opencascade/SelectMgr_SortCriterion.hxx \
+  /usr/include/opencascade/SelectMgr_StateOfSelection.hxx \
+  /usr/include/opencascade/SelectMgr_ToleranceMap.hxx \
+  /usr/include/opencascade/SelectMgr_TypeOfBVHUpdate.hxx \
+  /usr/include/opencascade/SelectMgr_TypeOfDepthTolerance.hxx \
+  /usr/include/opencascade/SelectMgr_TypeOfUpdate.hxx \
+  /usr/include/opencascade/SelectMgr_VectorTypes.hxx \
+  /usr/include/opencascade/SelectMgr_ViewClipRange.hxx \
+  /usr/include/opencascade/SelectMgr_ViewerSelector.hxx \
+  /usr/include/opencascade/Standard.hxx \
+  /usr/include/opencascade/Standard_Assert.hxx \
+  /usr/include/opencascade/Standard_Boolean.hxx \
+  /usr/include/opencascade/Standard_CString.hxx \
+  /usr/include/opencascade/Standard_Character.hxx \
+  /usr/include/opencascade/Standard_Condition.hxx \
+  /usr/include/opencascade/Standard_ConstructionError.hxx \
+  /usr/include/opencascade/Standard_DefineAlloc.hxx \
+  /usr/include/opencascade/Standard_DefineException.hxx \
+  /usr/include/opencascade/Standard_DefineHandle.hxx \
+  /usr/include/opencascade/Standard_DimensionError.hxx \
+  /usr/include/opencascade/Standard_DimensionMismatch.hxx \
+  /usr/include/opencascade/Standard_DomainError.hxx \
+  /usr/include/opencascade/Standard_Dump.hxx \
+  /usr/include/opencascade/Standard_ErrorHandler.hxx \
+  /usr/include/opencascade/Standard_ExtCharacter.hxx \
+  /usr/include/opencascade/Standard_Failure.hxx \
+  /usr/include/opencascade/Standard_Handle.hxx \
+  /usr/include/opencascade/Standard_HandlerStatus.hxx \
+  /usr/include/opencascade/Standard_HashUtils.hxx \
+  /usr/include/opencascade/Standard_HashUtils.lxx \
+  /usr/include/opencascade/Standard_IStream.hxx \
+  /usr/include/opencascade/Standard_Integer.hxx \
+  /usr/include/opencascade/Standard_JmpBuf.hxx \
+  /usr/include/opencascade/Standard_Macro.hxx \
+  /usr/include/opencascade/Standard_Mutex.hxx \
+  /usr/include/opencascade/Standard_NoSuchObject.hxx \
+  /usr/include/opencascade/Standard_NotImplemented.hxx \
+  /usr/include/opencascade/Standard_OStream.hxx \
+  /usr/include/opencascade/Standard_OutOfMemory.hxx \
+  /usr/include/opencascade/Standard_OutOfRange.hxx \
+  /usr/include/opencascade/Standard_PCharacter.hxx \
+  /usr/include/opencascade/Standard_PErrorHandler.hxx \
+  /usr/include/opencascade/Standard_PExtCharacter.hxx \
+  /usr/include/opencascade/Standard_PrimitiveTypes.hxx \
+  /usr/include/opencascade/Standard_ProgramError.hxx \
+  /usr/include/opencascade/Standard_RangeError.hxx \
+  /usr/include/opencascade/Standard_Real.hxx \
+  /usr/include/opencascade/Standard_SStream.hxx \
+  /usr/include/opencascade/Standard_ShortReal.hxx \
+  /usr/include/opencascade/Standard_Std.hxx \
+  /usr/include/opencascade/Standard_Stream.hxx \
+  /usr/include/opencascade/Standard_ThreadId.hxx \
+  /usr/include/opencascade/Standard_Transient.hxx \
+  /usr/include/opencascade/Standard_Type.hxx \
+  /usr/include/opencascade/Standard_TypeDef.hxx \
+  /usr/include/opencascade/Standard_TypeMismatch.hxx \
+  /usr/include/opencascade/Standard_WarningsDisable.hxx \
+  /usr/include/opencascade/Standard_WarningsRestore.hxx \
+  /usr/include/opencascade/StdFail_NotDone.hxx \
+  /usr/include/opencascade/StdSelect_TypeOfSelectionImage.hxx \
+  /usr/include/opencascade/StdSelect_ViewerSelector3d.hxx \
+  /usr/include/opencascade/TColStd_Array1OfByte.hxx \
+  /usr/include/opencascade/TColStd_Array1OfInteger.hxx \
+  /usr/include/opencascade/TColStd_Array2OfReal.hxx \
+  /usr/include/opencascade/TColStd_HArray1OfByte.hxx \
+  /usr/include/opencascade/TColStd_HArray1OfInteger.hxx \
+  /usr/include/opencascade/TColStd_IndexedDataMapOfStringString.hxx \
+  /usr/include/opencascade/TColStd_ListOfInteger.hxx \
+  /usr/include/opencascade/TColStd_MapOfInteger.hxx \
+  /usr/include/opencascade/TColStd_PackedMapOfInteger.hxx \
+  /usr/include/opencascade/TColStd_SequenceOfInteger.hxx \
+  /usr/include/opencascade/TColgp_Array1OfPnt.hxx \
+  /usr/include/opencascade/TColgp_Array1OfPnt2d.hxx \
+  /usr/include/opencascade/TColgp_HArray1OfPnt.hxx \
+  /usr/include/opencascade/TCollection_AsciiString.hxx \
+  /usr/include/opencascade/TCollection_AsciiString.lxx \
+  /usr/include/opencascade/TCollection_ExtendedString.hxx \
+  /usr/include/opencascade/TCollection_HAsciiString.hxx \
+  /usr/include/opencascade/TCollection_HAsciiString.lxx \
+  /usr/include/opencascade/TCollection_HExtendedString.hxx \
+  /usr/include/opencascade/TopAbs_ShapeEnum.hxx \
+  /usr/include/opencascade/TopLoc_Datum3D.hxx \
+  /usr/include/opencascade/TopLoc_ItemLocation.hxx \
+  /usr/include/opencascade/TopLoc_Location.hxx \
+  /usr/include/opencascade/TopLoc_Location.lxx \
+  /usr/include/opencascade/TopLoc_SListOfItemLocation.hxx \
+  /usr/include/opencascade/V3d_ImageDumpOptions.hxx \
+  /usr/include/opencascade/V3d_Light.hxx \
+  /usr/include/opencascade/V3d_ListOfLight.hxx \
+  /usr/include/opencascade/V3d_ListOfView.hxx \
+  /usr/include/opencascade/V3d_StereoDumpOptions.hxx \
+  /usr/include/opencascade/V3d_Trihedron.hxx \
+  /usr/include/opencascade/V3d_TypeOfAxe.hxx \
+  /usr/include/opencascade/V3d_TypeOfOrientation.hxx \
+  /usr/include/opencascade/V3d_TypeOfView.hxx \
+  /usr/include/opencascade/V3d_TypeOfVisualization.hxx \
+  /usr/include/opencascade/V3d_View.hxx \
+  /usr/include/opencascade/V3d_Viewer.hxx \
+  /usr/include/opencascade/gp.hxx \
+  /usr/include/opencascade/gp_Ax1.hxx \
+  /usr/include/opencascade/gp_Ax2.hxx \
+  /usr/include/opencascade/gp_Ax2d.hxx \
+  /usr/include/opencascade/gp_Ax3.hxx \
+  /usr/include/opencascade/gp_Dir.hxx \
+  /usr/include/opencascade/gp_Dir2d.hxx \
+  /usr/include/opencascade/gp_GTrsf.hxx \
+  /usr/include/opencascade/gp_Lin.hxx \
+  /usr/include/opencascade/gp_Mat.hxx \
+  /usr/include/opencascade/gp_Mat2d.hxx \
+  /usr/include/opencascade/gp_Pln.hxx \
+  /usr/include/opencascade/gp_Pnt.hxx \
+  /usr/include/opencascade/gp_Pnt2d.hxx \
+  /usr/include/opencascade/gp_Trsf.hxx \
+  /usr/include/opencascade/gp_Trsf2d.hxx \
+  /usr/include/opencascade/gp_TrsfForm.hxx \
+  /usr/include/opencascade/gp_Vec.hxx \
+  /usr/include/opencascade/gp_Vec2d.hxx \
+  /usr/include/opencascade/gp_VectorWithNullMagnitude.hxx \
+  /usr/include/opencascade/gp_XY.hxx \
+  /usr/include/opencascade/gp_XYZ.hxx \
   /usr/include/pthread.h \
   /usr/include/qt6/QtCore/QJsonObject \
   /usr/include/qt6/QtCore/QObject \
+  /usr/include/qt6/QtCore/QPoint \
   /usr/include/qt6/QtCore/QString \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20bit.h \
@@ -491,6 +912,7 @@
   /usr/include/qt6/QtGui/qtransform.h \
   /usr/include/qt6/QtGui/qwindowdefs.h \
   /usr/include/qt6/QtWidgets/QMainWindow \
+  /usr/include/qt6/QtWidgets/QWidget \
   /usr/include/qt6/QtWidgets/qmainwindow.h \
   /usr/include/qt6/QtWidgets/qsizepolicy.h \
   /usr/include/qt6/QtWidgets/qtabwidget.h \
@@ -499,6 +921,7 @@
   /usr/include/qt6/QtWidgets/qtwidgetsglobal.h \
   /usr/include/qt6/QtWidgets/qwidget.h \
   /usr/include/sched.h \
+  /usr/include/setjmp.h \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/stdio.h \
@@ -510,8 +933,10 @@
   /usr/include/sys/single_threaded.h \
   /usr/include/sys/types.h \
   /usr/include/time.h \
+  /usr/include/unistd.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/float.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdarg.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdbool.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stddef.h

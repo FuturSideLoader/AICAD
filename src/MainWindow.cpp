@@ -93,13 +93,6 @@ MainWindow::MainWindow(QWidget* parent)
     connect(
         m_view,
         &OccView::markerPicked,
-        this,
-        &MainWindow::selectMarkerById
-    );
-
-    connect(
-        m_view,
-        &OccView::markerPicked,
         m_view,
         &OccView::selectMarkerVisual
     );
@@ -137,6 +130,13 @@ MainWindow::MainWindow(QWidget* parent)
         &CadDocument::boxUpdated,
         this,
         &MainWindow::onBoxUpdated
+    );
+
+    connect(
+        m_view,
+        &OccView::objectPicked,
+        this,
+        &MainWindow::selectObjectById
     );
 
     clearPropertiesPanel();
@@ -646,7 +646,11 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
 {
     if (item == nullptr) {
         clearPropertiesPanel();
-        m_view->selectMarkerVisual(0);
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(0, PickedObjectKind::None);
+        }
+
         return;
     }
 
@@ -656,7 +660,11 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
 
     if (marker != nullptr) {
         showMarkerProperties(marker);
-        m_view->selectMarkerVisual(marker->id());
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(marker->id(), PickedObjectKind::Marker);
+        }
+
         return;
     }
 
@@ -664,12 +672,19 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
 
     if (box != nullptr) {
         showBoxProperties(box);
-        m_view->selectMarkerVisual(0);
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(box->id(), PickedObjectKind::Box);
+        }
+
         return;
     }
 
     clearPropertiesPanel();
-    m_view->selectMarkerVisual(0);
+
+    if (m_view != nullptr) {
+        m_view->selectObjectVisual(0, PickedObjectKind::None);
+    }
 }
 
 void MainWindow::onPositionEditorChanged()
@@ -726,29 +741,7 @@ void MainWindow::onBoxEditorChanged()
 
 void MainWindow::selectMarkerById(int markerId)
 {
-    std::shared_ptr<AiMarker> marker = m_document.findMarkerById(markerId);
-
-    if (marker == nullptr) {
-        clearPropertiesPanel();
-        m_view->selectMarkerVisual(0);
-        return;
-    }
-
-    showMarkerProperties(marker);
-    m_view->selectMarkerVisual(markerId);
-
-    if (m_objectList == nullptr) {
-        return;
-    }
-
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* item = m_objectList->item(index);
-
-        if (item != nullptr && item->data(Qt::UserRole).toInt() == markerId) {
-            m_objectList->setCurrentItem(item);
-            break;
-        }
-    }
+    selectObjectById(markerId, PickedObjectKind::Marker);
 }
 
 void MainWindow::showMarkerProperties(const std::shared_ptr<AiMarker>& marker)
@@ -1095,5 +1088,61 @@ void MainWindow::onBoxRemoved(int boxId)
 
     if (m_view != nullptr) {
         m_view->selectMarkerVisual(0);
+    }
+}
+
+void MainWindow::selectObjectById(int objectId, PickedObjectKind kind)
+{
+    if (objectId <= 0 || kind == PickedObjectKind::None) {
+        clearPropertiesPanel();
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(0, PickedObjectKind::None);
+        }
+
+        return;
+    }
+
+    if (kind == PickedObjectKind::Marker) {
+        std::shared_ptr<AiMarker> marker = m_document.findMarkerById(objectId);
+
+        if (marker == nullptr) {
+            clearPropertiesPanel();
+            return;
+        }
+
+        showMarkerProperties(marker);
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(objectId, PickedObjectKind::Marker);
+        }
+    }
+
+    if (kind == PickedObjectKind::Box) {
+        std::shared_ptr<CadBox> box = m_document.findBoxById(objectId);
+
+        if (box == nullptr) {
+            clearPropertiesPanel();
+            return;
+        }
+
+        showBoxProperties(box);
+
+        if (m_view != nullptr) {
+            m_view->selectObjectVisual(objectId, PickedObjectKind::Box);
+        }
+    }
+
+    if (m_objectList == nullptr) {
+        return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* item = m_objectList->item(index);
+
+        if (item != nullptr && item->data(Qt::UserRole).toInt() == objectId) {
+            m_objectList->setCurrentItem(item);
+            break;
+        }
     }
 }

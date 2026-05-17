@@ -42,6 +42,10 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         "markerPicked",
         "",
         "markerId",
+        "objectPicked",
+        "objectId",
+        "PickedObjectKind",
+        "kind",
         "fitAll",
         "displayMarker",
         "std::shared_ptr<AiMarker>",
@@ -56,7 +60,8 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         "clearSceneObjects",
         "updateBoxDisplay",
         "removeBoxDisplay",
-        "boxId"
+        "boxId",
+        "selectObjectVisual"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -64,39 +69,47 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         QtMocHelpers::SignalData<void(int)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 3 },
         }}),
+        // Signal 'objectPicked'
+        QtMocHelpers::SignalData<void(int, PickedObjectKind)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 5 }, { 0x80000000 | 6, 7 },
+        }}),
         // Slot 'fitAll'
-        QtMocHelpers::SlotData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'displayMarker'
-        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(5, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { 0x80000000 | 6, 7 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(9, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 10, 11 },
         }}),
         // Slot 'updateMarkerDisplay'
-        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(8, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { 0x80000000 | 6, 7 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 10, 11 },
         }}),
         // Slot 'selectMarkerVisual'
-        QtMocHelpers::SlotData<void(int)>(9, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(int)>(13, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 3 },
         }}),
         // Slot 'removeMarkerDisplay'
-        QtMocHelpers::SlotData<void(int)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(int)>(14, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 3 },
         }}),
         // Slot 'clearSceneMarkers'
-        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'displayBox'
-        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { 0x80000000 | 13, 14 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(16, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 17, 18 },
         }}),
         // Slot 'clearSceneObjects'
-        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(19, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'updateBoxDisplay'
-        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(16, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { 0x80000000 | 13, 14 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(20, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 17, 18 },
         }}),
         // Slot 'removeBoxDisplay'
-        QtMocHelpers::SlotData<void(int)>(17, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 18 },
+        QtMocHelpers::SlotData<void(int)>(21, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 22 },
+        }}),
+        // Slot 'selectObjectVisual'
+        QtMocHelpers::SlotData<void(int, PickedObjectKind)>(23, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 5 }, { 0x80000000 | 6, 7 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -122,21 +135,25 @@ void OccView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->markerPicked((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 1: _t->fitAll(); break;
-        case 2: _t->displayMarker((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
-        case 3: _t->updateMarkerDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
-        case 4: _t->selectMarkerVisual((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 5: _t->removeMarkerDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 6: _t->clearSceneMarkers(); break;
-        case 7: _t->displayBox((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
-        case 8: _t->clearSceneObjects(); break;
-        case 9: _t->updateBoxDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
-        case 10: _t->removeBoxDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 1: _t->objectPicked((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<PickedObjectKind>>(_a[2]))); break;
+        case 2: _t->fitAll(); break;
+        case 3: _t->displayMarker((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 4: _t->updateMarkerDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 5: _t->selectMarkerVisual((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->removeMarkerDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 7: _t->clearSceneMarkers(); break;
+        case 8: _t->displayBox((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 9: _t->clearSceneObjects(); break;
+        case 10: _t->updateBoxDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 11: _t->removeBoxDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 12: _t->selectObjectVisual((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<PickedObjectKind>>(_a[2]))); break;
         default: ;
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
         if (QtMocHelpers::indexOfMethod<void (OccView::*)(int )>(_a, &OccView::markerPicked, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (OccView::*)(int , PickedObjectKind )>(_a, &OccView::objectPicked, 1))
             return;
     }
 }
@@ -160,14 +177,14 @@ int OccView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 13;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 13)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        _id -= 13;
     }
     return _id;
 }
@@ -176,5 +193,11 @@ int OccView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 void OccView::markerPicked(int _t1)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
+}
+
+// SIGNAL 1
+void OccView::objectPicked(int _t1, PickedObjectKind _t2)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1, _t2);
 }
 QT_WARNING_POP

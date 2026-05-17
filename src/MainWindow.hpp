@@ -5,6 +5,8 @@
 
 #include "cad/CadDocument.hpp"
 
+#include "OccView.hpp"
+
 class QCloseEvent;
 class QDoubleSpinBox;
 class QLabel;
@@ -58,6 +60,8 @@ private slots:
     void onBoxEditorChanged();
 
     void selectMarkerById(int markerId);
+
+    void selectObjectById(int objectId, PickedObjectKind kind);
 
 private:
     void createMenus();

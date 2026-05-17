@@ -15,6 +15,13 @@
 #include <unordered_map>
 #include "cad/CadBox.hpp"
 
+enum class PickedObjectKind
+{
+    None,
+    Marker,
+    Box
+};
+
 class OccView final : public QWidget
 {
     Q_OBJECT
@@ -33,9 +40,11 @@ public slots:
     void clearSceneObjects();
     void updateBoxDisplay(std::shared_ptr<CadBox> box);
     void removeBoxDisplay(int boxId);
+    void selectObjectVisual(int objectId, PickedObjectKind kind);
 
 signals:
     void markerPicked(int markerId);
+    void objectPicked(int objectId, PickedObjectKind kind);
 
 protected:
     void showEvent(QShowEvent* event) override;
@@ -61,6 +70,17 @@ private:
 
     void removeBoxVisual(int boxId);
     BoxVisual createBoxVisual(const std::shared_ptr<CadBox>& box);
+
+    void tryPickObjectAt(const QPoint& position);
+    PickedObjectKind findPickedObjectKindFromObject(
+        const Handle(AIS_InteractiveObject)& object,
+        int& objectId
+    ) const;
+
+    void setBoxColor(int boxId, const Quantity_Color& color);
+
+    int m_selectedObjectId = 0;
+    PickedObjectKind m_selectedObjectKind = PickedObjectKind::None;
 
 private:
     void initializeOpenCascade();
