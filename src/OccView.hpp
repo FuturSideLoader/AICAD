@@ -32,6 +32,7 @@ public slots:
     void displayBox(std::shared_ptr<CadBox> box);
     void clearSceneObjects();
     void updateBoxDisplay(std::shared_ptr<CadBox> box);
+    void removeBoxDisplay(int boxId);
 
 signals:
     void markerPicked(int markerId);

@@ -189,13 +189,13 @@ void MainWindow::createMenus()
 
     editMenu->addSeparator();
 
-    QAction* deleteAction = editMenu->addAction("Delete Selected Marker");
+    QAction* deleteAction = editMenu->addAction("Delete Selected Object");
     deleteAction->setShortcut(QKeySequence::Delete);
     connect(
         deleteAction,
         &QAction::triggered,
         this,
-        &MainWindow::deleteSelectedMarker
+        &MainWindow::deleteSelectedObject
     );
 
     auto* viewMenu = menuBar()->addMenu("&View");
@@ -310,6 +310,20 @@ void MainWindow::createPropertiesPanel()
         qOverload<double>(&QDoubleSpinBox::valueChanged),
         this,
         &MainWindow::onBoxEditorChanged
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::boxRemoved,
+        m_view,
+        &OccView::removeBoxDisplay
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::boxRemoved,
+        this,
+        &MainWindow::onBoxRemoved
     );
 }
 
@@ -518,28 +532,45 @@ void MainWindow::addAiMarker()
     setDocumentModified(true);
 }
 
-void MainWindow::deleteSelectedMarker()
+void MainWindow::deleteSelectedObject()
 {
-    if (m_selectedObjectKind != SelectedObjectKind::Marker
+    if (m_selectedObjectKind == SelectedObjectKind::None
         || m_selectedObjectId <= 0) {
-        statusBar()->showMessage("No marker selected");
+        statusBar()->showMessage("No object selected");
         return;
     }
 
-    const int markerIdToDelete = m_selectedObjectId;
+    const int objectIdToDelete = m_selectedObjectId;
 
     saveUndoSnapshot();
 
-    if (!m_document.removeMarkerById(markerIdToDelete)) {
-        statusBar()->showMessage("Failed to delete selected marker");
+    if (m_selectedObjectKind == SelectedObjectKind::Marker) {
+        if (!m_document.removeMarkerById(objectIdToDelete)) {
+            statusBar()->showMessage("Failed to delete selected marker");
+            return;
+        }
+
+        statusBar()->showMessage(
+            QString("Marker %1 deleted").arg(objectIdToDelete)
+        );
+
+        setDocumentModified(true);
         return;
     }
 
-    statusBar()->showMessage(
-        QString("Marker %1 deleted").arg(markerIdToDelete)
-    );
+    if (m_selectedObjectKind == SelectedObjectKind::Box) {
+        if (!m_document.removeBoxById(objectIdToDelete)) {
+            statusBar()->showMessage("Failed to delete selected box");
+            return;
+        }
 
-    setDocumentModified(true);
+        statusBar()->showMessage(
+            QString("Box %1 deleted").arg(objectIdToDelete)
+        );
+
+        setDocumentModified(true);
+        return;
+    }
 }
 
 void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)
@@ -589,7 +620,8 @@ void MainWindow::onMarkerRemoved(int markerId)
 {
     removeObjectListItem(markerId);
 
-    if (m_selectedObjectId == markerId) {
+    if (m_selectedObjectKind == SelectedObjectKind::Marker
+        && m_selectedObjectId == markerId) {
         clearPropertiesPanel();
     }
 
@@ -597,7 +629,6 @@ void MainWindow::onMarkerRemoved(int markerId)
         m_view->selectMarkerVisual(0);
     }
 }
-
 void MainWindow::onDocumentCleared()
 {
     if (m_objectList != nullptr) {
@@ -1050,5 +1081,19 @@ void MainWindow::updateObjectListItem(const std::shared_ptr<CadBox>& box)
             item->setText(box->name());
             return;
         }
+    }
+}
+
+void MainWindow::onBoxRemoved(int boxId)
+{
+    removeObjectListItem(boxId);
+
+    if (m_selectedObjectKind == SelectedObjectKind::Box
+        && m_selectedObjectId == boxId) {
+        clearPropertiesPanel();
+    }
+
+    if (m_view != nullptr) {
+        m_view->selectMarkerVisual(0);
     }
 }

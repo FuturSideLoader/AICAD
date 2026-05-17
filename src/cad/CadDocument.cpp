@@ -218,6 +218,27 @@ bool CadDocument::updateBox(
     return true;
 }
 
+bool CadDocument::removeBoxById(int id)
+{
+    const auto it = std::remove_if(
+        m_boxes.begin(),
+        m_boxes.end(),
+        [id](const std::shared_ptr<CadBox>& box) {
+            return box != nullptr && box->id() == id;
+        }
+    );
+
+    if (it == m_boxes.end()) {
+        return false;
+    }
+
+    m_boxes.erase(it, m_boxes.end());
+
+    emit boxRemoved(id);
+
+    return true;
+}
+
 void CadDocument::clear()
 {
     m_markers.clear();

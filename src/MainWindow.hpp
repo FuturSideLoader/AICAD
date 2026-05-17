@@ -40,7 +40,9 @@ private slots:
 
     void addAiMarker();
     void addBox();
-    void deleteSelectedMarker();
+    void deleteSelectedObject();
+
+    void onBoxRemoved(int boxId);
 
     void onMarkerAdded(std::shared_ptr<AiMarker> marker);
     void onMarkerUpdated(std::shared_ptr<AiMarker> marker);

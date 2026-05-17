@@ -61,6 +61,7 @@ public:
         double width,
         double height
     );
+    bool removeBoxById(int id);
     bool removeMarkerById(int id);
 
     void clear();
@@ -74,6 +75,7 @@ signals:
     void markerRemoved(int markerId);
 
     void boxAdded(std::shared_ptr<CadBox> box);
+    void boxRemoved(int boxId);
 
     void documentCleared();
 
