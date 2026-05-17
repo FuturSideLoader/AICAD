@@ -15,6 +15,7 @@
 #include <Quantity_Color.hxx>
 #include <TopoDS_Shape.hxx>
 #include <gp_Pnt.hxx>
+#include <vector>
 
 #include <cmath>
 
@@ -358,5 +359,29 @@ void OccView::setMarkerColor(int markerId, const Quantity_Color& color)
             sphereShape->SetColor(color);
             m_context->Redisplay(sphereShape, Standard_False);
         }
+    }
+}
+
+void OccView::clearSceneMarkers()
+{
+    if (m_context.IsNull()) {
+        return;
+    }
+
+    std::vector<int> idsToRemove;
+
+    for (const auto& [markerId, visual] : m_markerVisuals) {
+        Q_UNUSED(visual);
+        idsToRemove.push_back(markerId);
+    }
+
+    for (int markerId : idsToRemove) {
+        removeMarkerVisual(markerId);
+    }
+
+    m_selectedMarkerId = 0;
+
+    if (!m_view.IsNull()) {
+        m_view->Redraw();
     }
 }

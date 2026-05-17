@@ -48,7 +48,7 @@ build CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o: CXX_COMPILER__a
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/aicad_autogen
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -59,7 +59,7 @@ build CMakeFiles/aicad.dir/src/main.cpp.o: CXX_COMPILER__aicad_unscanned_ /home/
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/main.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -70,7 +70,7 @@ build CMakeFiles/aicad.dir/src/MainWindow.cpp.o: CXX_COMPILER__aicad_unscanned_ 
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/MainWindow.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -81,7 +81,7 @@ build CMakeFiles/aicad.dir/src/OccView.cpp.o: CXX_COMPILER__aicad_unscanned_ /ho
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/OccView.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -92,7 +92,7 @@ build CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o: CXX_COMPILER__aicad_unscanned
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src/cad
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -103,7 +103,7 @@ build CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o: CXX_COMPILER__aicad_unscan
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src/cad
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/
@@ -114,7 +114,7 @@ build CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o: CXX_COMPILER__aicad_unscanne
   DEFINES = -DFMT_SHARED -DGLAD_API_CALL_EXPORT -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DSCN_DISABLE_FAST_FLOAT=0 -DSCN_DISABLE_REGEX=0 -DSCN_REGEX_BACKEND=0 -Dkiss_fft_scalar=double
   DEP_FILE = CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o.d
   FLAGS = -std=gnu++20 -Wall -Wextra -Wpedantic -mno-direct-extern-access -fopenmp
-  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6 -isystem /usr/include/qt6/QtCore -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
+  INCLUDES = -I/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/include -I/home/alexis/Projet_VSCODE/AICAD/src -isystem /usr/include/opencascade -isystem /usr/include/qt6/QtCore -isystem /usr/include/qt6 -isystem /usr/lib/qt6/mkspecs/linux-g++ -isystem /usr/include/qt6/QtWidgets -isystem /usr/include/qt6/QtGui -isystem /usr/include/vtk -isystem /home/alexis/miniconda3/include -isystem /usr/include/vtk/vtkscn/include -isystem /usr/include/vtk/vtkscn -isystem /usr/include/vtk/token -isystem /usr/include/vtk/vtkkissfft -isystem /usr/include/freetype2 -isystem /usr/include/vtk/vtkglad
   OBJECT_DIR = CMakeFiles/aicad.dir
   OBJECT_FILE_DIR = CMakeFiles/aicad.dir/src/cad
   TARGET_COMPILE_PDB = CMakeFiles/aicad.dir/

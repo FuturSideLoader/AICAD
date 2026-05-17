@@ -27,6 +27,7 @@ public slots:
     void updateMarkerDisplay(std::shared_ptr<AiMarker> marker);
     void selectMarkerVisual(int markerId);
     void removeMarkerDisplay(int markerId);
+    void clearSceneMarkers();
 
 signals:
     void markerPicked(int markerId);

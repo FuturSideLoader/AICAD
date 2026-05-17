@@ -18,12 +18,17 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
 
 private slots:
+    void newDocument();
+    void openDocument();
+    void saveDocumentAs();
+
     void addAiMarker();
     void deleteSelectedMarker();
 
     void onMarkerAdded(std::shared_ptr<AiMarker> marker);
     void onMarkerUpdated(std::shared_ptr<AiMarker> marker);
     void onMarkerRemoved(int markerId);
+    void onDocumentCleared();
 
     void onObjectSelected(QListWidgetItem* item);
     void onPositionEditorChanged();
@@ -33,6 +38,9 @@ private:
     void createMenus();
     void createObjectPanel();
     void createPropertiesPanel();
+
+    bool saveDocumentToFile(const QString& filePath);
+    bool loadDocumentFromFile(const QString& filePath);
 
     void showMarkerProperties(const std::shared_ptr<AiMarker>& marker);
     void clearPropertiesPanel();

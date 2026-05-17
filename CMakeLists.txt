@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 find_package(MPI REQUIRED COMPONENTS C)
 find_package(FastFloat REQUIRED CONFIG)
 find_package(VTK REQUIRED COMPONENTS
@@ -50,6 +50,7 @@ target_include_directories(aicad PRIVATE
 )
 
 target_link_libraries(aicad PRIVATE
+    Qt6::Core
     Qt6::Widgets
     ${OpenCASCADE_LIBRARIES}
 )

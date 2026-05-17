@@ -48,7 +48,8 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         "marker",
         "updateMarkerDisplay",
         "selectMarkerVisual",
-        "removeMarkerDisplay"
+        "removeMarkerDisplay",
+        "clearSceneMarkers"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -74,6 +75,8 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         QtMocHelpers::SlotData<void(int)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::Int, 3 },
         }}),
+        // Slot 'clearSceneMarkers'
+        QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -103,6 +106,7 @@ void OccView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 3: _t->updateMarkerDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
         case 4: _t->selectMarkerVisual((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 5: _t->removeMarkerDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->clearSceneMarkers(); break;
         default: ;
         }
     }
@@ -131,14 +135,14 @@ int OccView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

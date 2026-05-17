@@ -4,12 +4,16 @@
 #include <QAction>
 #include <QDockWidget>
 #include <QDoubleSpinBox>
+#include <QFile>
+#include <QFileDialog>
 #include <QFormLayout>
+#include <QJsonDocument>
 #include <QKeySequence>
 #include <QLabel>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMenuBar>
+#include <QMessageBox>
 #include <QStatusBar>
 #include <QVariant>
 #include <QWidget>
@@ -70,6 +74,20 @@ MainWindow::MainWindow(QWidget* parent)
     );
 
     connect(
+        &m_document,
+        &CadDocument::documentCleared,
+        this,
+        &MainWindow::onDocumentCleared
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::documentCleared,
+        m_view,
+        &OccView::clearSceneMarkers
+    );
+
+    connect(
         m_view,
         &OccView::markerPicked,
         this,
@@ -92,12 +110,26 @@ MainWindow::MainWindow(QWidget* parent)
 
     clearPropertiesPanel();
 
-    statusBar()->showMessage("AICAD V0.10 - Marker deletion ready");
+    statusBar()->showMessage("AICAD V0.11 - Document save/load ready");
 }
 
 void MainWindow::createMenus()
 {
     auto* fileMenu = menuBar()->addMenu("&File");
+
+    QAction* newAction = fileMenu->addAction("New");
+    newAction->setShortcut(QKeySequence::New);
+    connect(newAction, &QAction::triggered, this, &MainWindow::newDocument);
+
+    QAction* openAction = fileMenu->addAction("Open...");
+    openAction->setShortcut(QKeySequence::Open);
+    connect(openAction, &QAction::triggered, this, &MainWindow::openDocument);
+
+    QAction* saveAsAction = fileMenu->addAction("Save As...");
+    saveAsAction->setShortcut(QKeySequence::SaveAs);
+    connect(saveAsAction, &QAction::triggered, this, &MainWindow::saveDocumentAs);
+
+    fileMenu->addSeparator();
     fileMenu->addAction("Exit", this, &QWidget::close);
 
     auto* editMenu = menuBar()->addMenu("&Edit");
@@ -188,6 +220,109 @@ void MainWindow::createPropertiesPanel()
     );
 }
 
+void MainWindow::newDocument()
+{
+    m_document.clear();
+    statusBar()->showMessage("New document created");
+}
+
+void MainWindow::openDocument()
+{
+    const QString filePath = QFileDialog::getOpenFileName(
+        this,
+        "Open AICAD document",
+        QString(),
+        "AICAD Documents (*.aicad);;JSON Files (*.json);;All Files (*)"
+    );
+
+    if (filePath.isEmpty()) {
+        return;
+    }
+
+    if (!loadDocumentFromFile(filePath)) {
+        QMessageBox::warning(
+            this,
+            "Open failed",
+            "Could not open this AICAD document."
+        );
+        return;
+    }
+
+    statusBar()->showMessage(QString("Opened %1").arg(filePath));
+}
+
+void MainWindow::saveDocumentAs()
+{
+    QString filePath = QFileDialog::getSaveFileName(
+        this,
+        "Save AICAD document",
+        QString(),
+        "AICAD Documents (*.aicad);;JSON Files (*.json);;All Files (*)"
+    );
+
+    if (filePath.isEmpty()) {
+        return;
+    }
+
+    if (!filePath.endsWith(".aicad", Qt::CaseInsensitive)
+        && !filePath.endsWith(".json", Qt::CaseInsensitive)) {
+        filePath += ".aicad";
+    }
+
+    if (!saveDocumentToFile(filePath)) {
+        QMessageBox::warning(
+            this,
+            "Save failed",
+            "Could not save this AICAD document."
+        );
+        return;
+    }
+
+    statusBar()->showMessage(QString("Saved %1").arg(filePath));
+}
+
+bool MainWindow::saveDocumentToFile(const QString& filePath)
+{
+    QFile file(filePath);
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        return false;
+    }
+
+    const QJsonDocument jsonDocument(m_document.toJson());
+
+    file.write(jsonDocument.toJson(QJsonDocument::Indented));
+    file.close();
+
+    return true;
+}
+
+bool MainWindow::loadDocumentFromFile(const QString& filePath)
+{
+    QFile file(filePath);
+
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+
+    const QByteArray data = file.readAll();
+    file.close();
+
+    QJsonParseError parseError;
+    const QJsonDocument jsonDocument =
+        QJsonDocument::fromJson(data, &parseError);
+
+    if (parseError.error != QJsonParseError::NoError) {
+        return false;
+    }
+
+    if (!jsonDocument.isObject()) {
+        return false;
+    }
+
+    return m_document.loadFromJson(jsonDocument.object());
+}
+
 void MainWindow::addAiMarker()
 {
     const int existingMarkerCount =
@@ -269,6 +404,19 @@ void MainWindow::onMarkerRemoved(int markerId)
     if (m_selectedMarkerId == markerId) {
         clearPropertiesPanel();
     }
+
+    if (m_view != nullptr) {
+        m_view->selectMarkerVisual(0);
+    }
+}
+
+void MainWindow::onDocumentCleared()
+{
+    if (m_objectList != nullptr) {
+        m_objectList->clear();
+    }
+
+    clearPropertiesPanel();
 
     if (m_view != nullptr) {
         m_view->selectMarkerVisual(0);

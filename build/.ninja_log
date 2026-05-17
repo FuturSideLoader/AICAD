@@ -1,13 +1,13 @@
 # ninja log v7
-2	324	1779018422335803304	aicad_autogen/timestamp	7d3482002efd0afc
-2	324	1779018422335803304	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
-2	324	1779018422335803304	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
-2	324	1779018422335803304	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
-326	1351	1779018422347209951	CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o	c84f12abc0d606af
-326	1388	1779018422347027153	CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o	c414756917448ee2
-326	2206	1779018422347120987	CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o	7eccf3dd075df134
-325	2686	1779018422346557816	CMakeFiles/aicad.dir/src/main.cpp.o	3f808ac4979d88fc
-325	3279	1779018422346385318	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	a8694500db9a5caf
-326	3497	1779018422346886308	CMakeFiles/aicad.dir/src/OccView.cpp.o	44e464851ed32dd3
-326	3604	1779018422346705262	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	6398ad89b60a50ee
-3604	4051	1779018425623811012	aicad	178e423cbebe0223
+1	325	1779018682700381483	aicad_autogen/timestamp	7d3482002efd0afc
+1	325	1779018682700381483	aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+1	325	1779018682700381483	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/timestamp	7d3482002efd0afc
+1	325	1779018682700381483	/home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/mocs_compilation.cpp	7d3482002efd0afc
+327	1335	1779018682711719846	CMakeFiles/aicad.dir/src/cad/AiMarker.cpp.o	55cdc4687ebf1405
+327	1350	1779018682711953390	CMakeFiles/aicad.dir/src/cad/CadObject.cpp.o	103b9ad7c827201a
+327	2688	1779018682711865713	CMakeFiles/aicad.dir/src/cad/CadDocument.cpp.o	4c2464ab68eada43
+326	2814	1779018682711392228	CMakeFiles/aicad.dir/src/main.cpp.o	29b5621440838ed1
+326	3455	1779018682711137663	CMakeFiles/aicad.dir/aicad_autogen/mocs_compilation.cpp.o	15e93653b7b21d44
+326	3537	1779018682711622264	CMakeFiles/aicad.dir/src/OccView.cpp.o	9591c1528f6376d1
+326	3798	1779018682711514908	CMakeFiles/aicad.dir/src/MainWindow.cpp.o	bae090a9f4e0007d
+3798	4239	1779018686182388842	aicad	178e423cbebe0223
