@@ -190,6 +190,34 @@ bool CadDocument::removeMarkerById(int id)
     return true;
 }
 
+bool CadDocument::updateBox(
+    int id,
+    double x,
+    double y,
+    double z,
+    double length,
+    double width,
+    double height
+)
+{
+    std::shared_ptr<CadBox> box = findBoxById(id);
+
+    if (box == nullptr) {
+        return false;
+    }
+
+    if (length <= 0.0 || width <= 0.0 || height <= 0.0) {
+        return false;
+    }
+
+    box->setPosition(x, y, z);
+    box->setDimensions(length, width, height);
+
+    emit boxUpdated(box);
+
+    return true;
+}
+
 void CadDocument::clear()
 {
     m_markers.clear();

@@ -52,6 +52,15 @@ public:
     std::shared_ptr<CadBox> findBoxById(int id) const;
 
     bool updateMarkerPosition(int id, double x, double y, double z);
+    bool updateBox(
+        int id,
+        double x,
+        double y,
+        double z,
+        double length,
+        double width,
+        double height
+    );
     bool removeMarkerById(int id);
 
     void clear();
@@ -67,6 +76,8 @@ signals:
     void boxAdded(std::shared_ptr<CadBox> box);
 
     void documentCleared();
+
+    void boxUpdated(std::shared_ptr<CadBox> box);
 
 private:
     std::vector<std::shared_ptr<AiMarker>> m_markers;

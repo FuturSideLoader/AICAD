@@ -403,6 +403,22 @@ void OccView::displayBox(std::shared_ptr<CadBox> box)
     }
 }
 
+void OccView::updateBoxDisplay(std::shared_ptr<CadBox> box)
+{
+    if (m_context.IsNull() || box == nullptr) {
+        return;
+    }
+
+    removeBoxVisual(box->id());
+
+    BoxVisual visual = createBoxVisual(box);
+    m_boxVisuals[box->id()] = visual;
+
+    if (!m_view.IsNull()) {
+        m_view->Redraw();
+    }
+}
+
 
 void OccView::removeBoxVisual(int boxId)
 {

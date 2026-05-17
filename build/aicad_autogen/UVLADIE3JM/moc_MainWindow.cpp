@@ -47,6 +47,7 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "undo",
         "redo",
         "addAiMarker",
+        "addBox",
         "deleteSelectedMarker",
         "onMarkerAdded",
         "std::shared_ptr<AiMarker>",
@@ -54,16 +55,17 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "onMarkerUpdated",
         "onMarkerRemoved",
         "markerId",
+        "onBoxAdded",
+        "std::shared_ptr<CadBox>",
+        "box",
+        "onBoxUpdated",
         "onDocumentCleared",
         "onObjectSelected",
         "QListWidgetItem*",
         "item",
         "onPositionEditorChanged",
-        "selectMarkerById",
-        "addBox",
-        "onBoxAdded",
-        "std::shared_ptr<CadBox>",
-        "box"
+        "onBoxEditorChanged",
+        "selectMarkerById"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -81,37 +83,43 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SlotData<void()>(7, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'addAiMarker'
         QtMocHelpers::SlotData<void()>(8, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'deleteSelectedMarker'
+        // Slot 'addBox'
         QtMocHelpers::SlotData<void()>(9, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'deleteSelectedMarker'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onMarkerAdded'
-        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 11, 12 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 12, 13 },
         }}),
         // Slot 'onMarkerUpdated'
-        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(13, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 11, 12 },
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 12, 13 },
         }}),
         // Slot 'onMarkerRemoved'
-        QtMocHelpers::SlotData<void(int)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 15 },
+        QtMocHelpers::SlotData<void(int)>(15, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 16 },
         }}),
-        // Slot 'onDocumentCleared'
-        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onObjectSelected'
-        QtMocHelpers::SlotData<void(QListWidgetItem *)>(17, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        // Slot 'onBoxAdded'
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(17, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 18, 19 },
         }}),
-        // Slot 'onPositionEditorChanged'
-        QtMocHelpers::SlotData<void()>(20, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'selectMarkerById'
-        QtMocHelpers::SlotData<void(int)>(21, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 15 },
+        // Slot 'onBoxUpdated'
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(20, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 18, 19 },
         }}),
-        // Slot 'addBox'
-        QtMocHelpers::SlotData<void()>(22, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onBoxAdded'
-        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(23, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 24, 25 },
+        // Slot 'onDocumentCleared'
+        QtMocHelpers::SlotData<void()>(21, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onObjectSelected'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(22, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 23, 24 },
+        }}),
+        // Slot 'onPositionEditorChanged'
+        QtMocHelpers::SlotData<void()>(25, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onBoxEditorChanged'
+        QtMocHelpers::SlotData<void()>(26, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'selectMarkerById'
+        QtMocHelpers::SlotData<void(int)>(27, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 16 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -143,16 +151,18 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 4: _t->undo(); break;
         case 5: _t->redo(); break;
         case 6: _t->addAiMarker(); break;
-        case 7: _t->deleteSelectedMarker(); break;
-        case 8: _t->onMarkerAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
-        case 9: _t->onMarkerUpdated((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
-        case 10: _t->onMarkerRemoved((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 11: _t->onDocumentCleared(); break;
-        case 12: _t->onObjectSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
-        case 13: _t->onPositionEditorChanged(); break;
-        case 14: _t->selectMarkerById((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
-        case 15: _t->addBox(); break;
-        case 16: _t->onBoxAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 7: _t->addBox(); break;
+        case 8: _t->deleteSelectedMarker(); break;
+        case 9: _t->onMarkerAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 10: _t->onMarkerUpdated((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 11: _t->onMarkerRemoved((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 12: _t->onBoxAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 13: _t->onBoxUpdated((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 14: _t->onDocumentCleared(); break;
+        case 15: _t->onObjectSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 16: _t->onPositionEditorChanged(); break;
+        case 17: _t->onBoxEditorChanged(); break;
+        case 18: _t->selectMarkerById((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     }
@@ -177,14 +187,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 19;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 19)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 17;
+        _id -= 19;
     }
     return _id;
 }

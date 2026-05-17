@@ -53,7 +53,8 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         "displayBox",
         "std::shared_ptr<CadBox>",
         "box",
-        "clearSceneObjects"
+        "clearSceneObjects",
+        "updateBoxDisplay"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -87,6 +88,10 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         }}),
         // Slot 'clearSceneObjects'
         QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPublic, QMetaType::Void),
+        // Slot 'updateBoxDisplay'
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(16, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 13, 14 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -119,6 +124,7 @@ void OccView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 6: _t->clearSceneMarkers(); break;
         case 7: _t->displayBox((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
         case 8: _t->clearSceneObjects(); break;
+        case 9: _t->updateBoxDisplay((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
         default: ;
         }
     }
@@ -147,14 +153,14 @@ int OccView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

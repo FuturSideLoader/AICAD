@@ -12,6 +12,13 @@ class QListWidget;
 class QListWidgetItem;
 class OccView;
 
+enum class SelectedObjectKind
+{
+    None,
+    Marker,
+    Box
+};
+
 class MainWindow final : public QMainWindow
 {
     Q_OBJECT
@@ -32,19 +39,23 @@ private slots:
     void redo();
 
     void addAiMarker();
+    void addBox();
     void deleteSelectedMarker();
 
     void onMarkerAdded(std::shared_ptr<AiMarker> marker);
     void onMarkerUpdated(std::shared_ptr<AiMarker> marker);
     void onMarkerRemoved(int markerId);
+
+    void onBoxAdded(std::shared_ptr<CadBox> box);
+    void onBoxUpdated(std::shared_ptr<CadBox> box);
+
     void onDocumentCleared();
 
     void onObjectSelected(QListWidgetItem* item);
     void onPositionEditorChanged();
-    void selectMarkerById(int markerId);
+    void onBoxEditorChanged();
 
-    void addBox();
-    void onBoxAdded(std::shared_ptr<CadBox> box);
+    void selectMarkerById(int markerId);
 
 private:
     void createMenus();
@@ -63,11 +74,12 @@ private:
     void rebuildObjectPanelFromDocument();
 
     void showMarkerProperties(const std::shared_ptr<AiMarker>& marker);
-    void clearPropertiesPanel();
-    void updateObjectListItem(const std::shared_ptr<AiMarker>& marker);
-    void removeObjectListItem(int markerId);
-
     void showBoxProperties(const std::shared_ptr<CadBox>& box);
+    void clearPropertiesPanel();
+
+    void updateObjectListItem(const std::shared_ptr<AiMarker>& marker);
+    void updateObjectListItem(const std::shared_ptr<CadBox>& box);
+    void removeObjectListItem(int objectId);
 
 private:
     CadDocument m_document;
@@ -83,6 +95,10 @@ private:
     QDoubleSpinBox* m_propertyYEditor = nullptr;
     QDoubleSpinBox* m_propertyZEditor = nullptr;
 
+    QDoubleSpinBox* m_propertyLengthEditor = nullptr;
+    QDoubleSpinBox* m_propertyWidthEditor = nullptr;
+    QDoubleSpinBox* m_propertyHeightEditor = nullptr;
+
     QString m_currentFilePath;
     bool m_documentModified = false;
 
@@ -90,6 +106,8 @@ private:
     QVector<QJsonObject> m_redoStack;
     bool m_isRestoringSnapshot = false;
 
-    int m_selectedMarkerId = 0;
+    int m_selectedObjectId = 0;
+    SelectedObjectKind m_selectedObjectKind = SelectedObjectKind::None;
+
     bool m_isUpdatingPropertiesUi = false;
 };
