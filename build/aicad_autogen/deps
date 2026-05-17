@@ -8,6 +8,12 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/OccView.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/OccView.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/main.cpp \
 	/home/alexis/miniconda3/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake \
 	/home/alexis/miniconda3/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake \
@@ -131,6 +137,7 @@ aicad_autogen/timestamp: \
 	/usr/include/c++/16.1.1/bits/exception.h \
 	/usr/include/c++/16.1.1/bits/exception_defines.h \
 	/usr/include/c++/16.1.1/bits/exception_ptr.h \
+	/usr/include/c++/16.1.1/bits/formatfwd.h \
 	/usr/include/c++/16.1.1/bits/fstream.tcc \
 	/usr/include/c++/16.1.1/bits/functexcept.h \
 	/usr/include/c++/16.1.1/bits/functional_hash.h \
@@ -154,6 +161,7 @@ aicad_autogen/timestamp: \
 	/usr/include/c++/16.1.1/bits/max_size_type.h \
 	/usr/include/c++/16.1.1/bits/memory_resource.h \
 	/usr/include/c++/16.1.1/bits/memoryfwd.h \
+	/usr/include/c++/16.1.1/bits/monostate.h \
 	/usr/include/c++/16.1.1/bits/move.h \
 	/usr/include/c++/16.1.1/bits/nested_exception.h \
 	/usr/include/c++/16.1.1/bits/new_allocator.h \
@@ -216,6 +224,8 @@ aicad_autogen/timestamp: \
 	/usr/include/c++/16.1.1/bits/streambuf_iterator.h \
 	/usr/include/c++/16.1.1/bits/string_view.tcc \
 	/usr/include/c++/16.1.1/bits/stringfwd.h \
+	/usr/include/c++/16.1.1/bits/unicode-data.h \
+	/usr/include/c++/16.1.1/bits/unicode.h \
 	/usr/include/c++/16.1.1/bits/uniform_int_dist.h \
 	/usr/include/c++/16.1.1/bits/unique_ptr.h \
 	/usr/include/c++/16.1.1/bits/unordered_map.h \
@@ -270,14 +280,19 @@ aicad_autogen/timestamp: \
 	/usr/include/c++/16.1.1/map \
 	/usr/include/c++/16.1.1/memory \
 	/usr/include/c++/16.1.1/new \
+	/usr/include/c++/16.1.1/numbers \
 	/usr/include/c++/16.1.1/numeric \
 	/usr/include/c++/16.1.1/optional \
 	/usr/include/c++/16.1.1/ostream \
 	/usr/include/c++/16.1.1/pstl/execution_defs.h \
+	/usr/include/c++/16.1.1/pstl/glue_algorithm_defs.h \
+	/usr/include/c++/16.1.1/pstl/glue_memory_defs.h \
 	/usr/include/c++/16.1.1/pstl/glue_numeric_defs.h \
 	/usr/include/c++/16.1.1/pstl/pstl_config.h \
+	/usr/include/c++/16.1.1/ranges \
 	/usr/include/c++/16.1.1/ratio \
 	/usr/include/c++/16.1.1/set \
+	/usr/include/c++/16.1.1/span \
 	/usr/include/c++/16.1.1/sstream \
 	/usr/include/c++/16.1.1/stdexcept \
 	/usr/include/c++/16.1.1/streambuf \
@@ -740,6 +755,9 @@ aicad_autogen/timestamp: \
 	/usr/include/opencascade/gp_XY.hxx \
 	/usr/include/opencascade/gp_XYZ.hxx \
 	/usr/include/pthread.h \
+	/usr/include/qt6/QtCore/QObject \
+	/usr/include/qt6/QtCore/QPoint \
+	/usr/include/qt6/QtCore/QString \
 	/usr/include/qt6/QtCore/q17memory.h \
 	/usr/include/qt6/QtCore/q20bit.h \
 	/usr/include/qt6/QtCore/q20functional.h \
@@ -868,7 +886,6 @@ aicad_autogen/timestamp: \
 	/usr/include/qt6/QtCore/qversiontagging.h \
 	/usr/include/qt6/QtCore/qxptype_traits.h \
 	/usr/include/qt6/QtCore/qyieldcpu.h \
-	/usr/include/qt6/QtGui/QPaintEngine \
 	/usr/include/qt6/QtGui/qaction.h \
 	/usr/include/qt6/QtGui/qbitmap.h \
 	/usr/include/qt6/QtGui/qbrush.h \
@@ -882,17 +899,13 @@ aicad_autogen/timestamp: \
 	/usr/include/qt6/QtGui/qimage.h \
 	/usr/include/qt6/QtGui/qkeysequence.h \
 	/usr/include/qt6/QtGui/qpaintdevice.h \
-	/usr/include/qt6/QtGui/qpaintengine.h \
-	/usr/include/qt6/QtGui/qpainter.h \
 	/usr/include/qt6/QtGui/qpalette.h \
-	/usr/include/qt6/QtGui/qpen.h \
 	/usr/include/qt6/QtGui/qpixelformat.h \
 	/usr/include/qt6/QtGui/qpixmap.h \
 	/usr/include/qt6/QtGui/qpolygon.h \
 	/usr/include/qt6/QtGui/qregion.h \
 	/usr/include/qt6/QtGui/qrgb.h \
 	/usr/include/qt6/QtGui/qrgba64.h \
-	/usr/include/qt6/QtGui/qtextoption.h \
 	/usr/include/qt6/QtGui/qtgui-config.h \
 	/usr/include/qt6/QtGui/qtguiexports.h \
 	/usr/include/qt6/QtGui/qtguiglobal.h \
@@ -1392,26 +1405,33 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/CMakeCCompiler.cmake.in \
 	/usr/share/cmake/Modules/CMakeCCompilerABI.c \
 	/usr/share/cmake/Modules/CMakeCInformation.cmake \
+	/usr/share/cmake/Modules/CMakeCXXCompiler.cmake.in \
+	/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp \
 	/usr/share/cmake/Modules/CMakeCXXInformation.cmake \
 	/usr/share/cmake/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
 	/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake \
 	/usr/share/cmake/Modules/CMakeCompilerIdDetection.cmake \
 	/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake \
+	/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake \
 	/usr/share/cmake/Modules/CMakeDetermineCompiler.cmake \
 	/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake \
 	/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake \
 	/usr/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake \
+	/usr/share/cmake/Modules/CMakeDetermineSystem.cmake \
 	/usr/share/cmake/Modules/CMakeFindBinUtils.cmake \
 	/usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake \
 	/usr/share/cmake/Modules/CMakeGenericSystem.cmake \
 	/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake \
 	/usr/share/cmake/Modules/CMakeLanguageInformation.cmake \
+	/usr/share/cmake/Modules/CMakeNinjaFindMake.cmake \
 	/usr/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake \
 	/usr/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake \
 	/usr/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake \
+	/usr/share/cmake/Modules/CMakeSystem.cmake.in \
 	/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake \
 	/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake \
 	/usr/share/cmake/Modules/CMakeTestCCompiler.cmake \
+	/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake \
 	/usr/share/cmake/Modules/CMakeTestCompilerCommon.cmake \
 	/usr/share/cmake/Modules/CheckCCompilerFlag.cmake \
 	/usr/share/cmake/Modules/CheckCSourceCompiles.cmake \
@@ -1432,6 +1452,7 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
 	/usr/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake \
@@ -1441,16 +1462,22 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/GNU-C.cmake \
+	/usr/share/cmake/Modules/Compiler/GNU-CXX-CXXImportStd.cmake \
+	/usr/share/cmake/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/GNU-CXX.cmake \
 	/usr/share/cmake/Modules/Compiler/GNU-FindBinUtils.cmake \
 	/usr/share/cmake/Modules/Compiler/GNU.cmake \
 	/usr/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake \
+	/usr/share/cmake/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
 	/usr/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
@@ -1462,15 +1489,20 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake \
+	/usr/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
 	/usr/share/cmake/Modules/ExternalData.cmake \
 	/usr/share/cmake/Modules/FindFontconfig.cmake \
 	/usr/share/cmake/Modules/FindJPEG.cmake \
@@ -1492,6 +1524,7 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake \
 	/usr/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake \
 	/usr/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake \
+	/usr/share/cmake/Modules/Internal/CMakeInspectCXXLinker.cmake \
 	/usr/share/cmake/Modules/Internal/CheckCompilerFlag.cmake \
 	/usr/share/cmake/Modules/Internal/CheckFlagCommonConfig.cmake \
 	/usr/share/cmake/Modules/Internal/CheckSourceCompiles.cmake \
@@ -1504,6 +1537,7 @@ aicad_autogen/timestamp: \
 	/usr/share/cmake/Modules/Platform/Linker/Linux-GNU-C.cmake \
 	/usr/share/cmake/Modules/Platform/Linker/Linux-GNU-CXX.cmake \
 	/usr/share/cmake/Modules/Platform/Linker/Linux-GNU.cmake \
+	/usr/share/cmake/Modules/Platform/Linux-Determine-CXX.cmake \
 	/usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake \
 	/usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake \
 	/usr/share/cmake/Modules/Platform/Linux-GNU.cmake \

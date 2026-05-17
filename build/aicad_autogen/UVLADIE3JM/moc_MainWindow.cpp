@@ -38,10 +38,50 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
-        "MainWindow"
+        "MainWindow",
+        "addAiMarker",
+        "",
+        "deleteSelectedMarker",
+        "onMarkerAdded",
+        "std::shared_ptr<AiMarker>",
+        "marker",
+        "onMarkerUpdated",
+        "onMarkerRemoved",
+        "markerId",
+        "onObjectSelected",
+        "QListWidgetItem*",
+        "item",
+        "onPositionEditorChanged",
+        "selectMarkerById"
     };
 
     QtMocHelpers::UintData qt_methods {
+        // Slot 'addAiMarker'
+        QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'deleteSelectedMarker'
+        QtMocHelpers::SlotData<void()>(3, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onMarkerAdded'
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(4, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 5, 6 },
+        }}),
+        // Slot 'onMarkerUpdated'
+        QtMocHelpers::SlotData<void(std::shared_ptr<AiMarker>)>(7, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 5, 6 },
+        }}),
+        // Slot 'onMarkerRemoved'
+        QtMocHelpers::SlotData<void(int)>(8, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 9 },
+        }}),
+        // Slot 'onObjectSelected'
+        QtMocHelpers::SlotData<void(QListWidgetItem *)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 11, 12 },
+        }}),
+        // Slot 'onPositionEditorChanged'
+        QtMocHelpers::SlotData<void()>(13, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'selectMarkerById'
+        QtMocHelpers::SlotData<void(int)>(14, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 9 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -63,10 +103,19 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<MainWindow *>(_o);
-    (void)_t;
-    (void)_c;
-    (void)_id;
-    (void)_a;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: _t->addAiMarker(); break;
+        case 1: _t->deleteSelectedMarker(); break;
+        case 2: _t->onMarkerAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 3: _t->onMarkerUpdated((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<AiMarker>>>(_a[1]))); break;
+        case 4: _t->onMarkerRemoved((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        case 5: _t->onObjectSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 6: _t->onPositionEditorChanged(); break;
+        case 7: _t->selectMarkerById((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
+        default: ;
+        }
+    }
 }
 
 const QMetaObject *MainWindow::metaObject() const
@@ -85,6 +134,18 @@ void *MainWindow::qt_metacast(const char *_clname)
 int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 8)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 8;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 8)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 8;
+    }
     return _id;
 }
 QT_WARNING_POP

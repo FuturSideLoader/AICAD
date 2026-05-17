@@ -1,5 +1,7 @@
 /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/UVLADIE3JM/moc_OccView.cpp: /home/alexis/Projet_VSCODE/AICAD/src/OccView.hpp \
   /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -119,6 +121,7 @@
   /usr/include/c++/16.1.1/bits/exception.h \
   /usr/include/c++/16.1.1/bits/exception_defines.h \
   /usr/include/c++/16.1.1/bits/exception_ptr.h \
+  /usr/include/c++/16.1.1/bits/formatfwd.h \
   /usr/include/c++/16.1.1/bits/fstream.tcc \
   /usr/include/c++/16.1.1/bits/functexcept.h \
   /usr/include/c++/16.1.1/bits/functional_hash.h \
@@ -142,6 +145,7 @@
   /usr/include/c++/16.1.1/bits/max_size_type.h \
   /usr/include/c++/16.1.1/bits/memory_resource.h \
   /usr/include/c++/16.1.1/bits/memoryfwd.h \
+  /usr/include/c++/16.1.1/bits/monostate.h \
   /usr/include/c++/16.1.1/bits/move.h \
   /usr/include/c++/16.1.1/bits/nested_exception.h \
   /usr/include/c++/16.1.1/bits/new_allocator.h \
@@ -204,6 +208,8 @@
   /usr/include/c++/16.1.1/bits/streambuf_iterator.h \
   /usr/include/c++/16.1.1/bits/string_view.tcc \
   /usr/include/c++/16.1.1/bits/stringfwd.h \
+  /usr/include/c++/16.1.1/bits/unicode-data.h \
+  /usr/include/c++/16.1.1/bits/unicode.h \
   /usr/include/c++/16.1.1/bits/uniform_int_dist.h \
   /usr/include/c++/16.1.1/bits/unique_ptr.h \
   /usr/include/c++/16.1.1/bits/unordered_map.h \
@@ -258,14 +264,19 @@
   /usr/include/c++/16.1.1/map \
   /usr/include/c++/16.1.1/memory \
   /usr/include/c++/16.1.1/new \
+  /usr/include/c++/16.1.1/numbers \
   /usr/include/c++/16.1.1/numeric \
   /usr/include/c++/16.1.1/optional \
   /usr/include/c++/16.1.1/ostream \
   /usr/include/c++/16.1.1/pstl/execution_defs.h \
+  /usr/include/c++/16.1.1/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/16.1.1/pstl/glue_memory_defs.h \
   /usr/include/c++/16.1.1/pstl/glue_numeric_defs.h \
   /usr/include/c++/16.1.1/pstl/pstl_config.h \
+  /usr/include/c++/16.1.1/ranges \
   /usr/include/c++/16.1.1/ratio \
   /usr/include/c++/16.1.1/set \
+  /usr/include/c++/16.1.1/span \
   /usr/include/c++/16.1.1/sstream \
   /usr/include/c++/16.1.1/stdexcept \
   /usr/include/c++/16.1.1/streambuf \
@@ -728,6 +739,8 @@
   /usr/include/opencascade/gp_XY.hxx \
   /usr/include/opencascade/gp_XYZ.hxx \
   /usr/include/pthread.h \
+  /usr/include/qt6/QtCore/QPoint \
+  /usr/include/qt6/QtCore/QString \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20bit.h \
   /usr/include/qt6/QtCore/q20functional.h \
@@ -856,7 +869,6 @@
   /usr/include/qt6/QtCore/qversiontagging.h \
   /usr/include/qt6/QtCore/qxptype_traits.h \
   /usr/include/qt6/QtCore/qyieldcpu.h \
-  /usr/include/qt6/QtGui/QPaintEngine \
   /usr/include/qt6/QtGui/qaction.h \
   /usr/include/qt6/QtGui/qbitmap.h \
   /usr/include/qt6/QtGui/qbrush.h \
@@ -870,17 +882,13 @@
   /usr/include/qt6/QtGui/qimage.h \
   /usr/include/qt6/QtGui/qkeysequence.h \
   /usr/include/qt6/QtGui/qpaintdevice.h \
-  /usr/include/qt6/QtGui/qpaintengine.h \
-  /usr/include/qt6/QtGui/qpainter.h \
   /usr/include/qt6/QtGui/qpalette.h \
-  /usr/include/qt6/QtGui/qpen.h \
   /usr/include/qt6/QtGui/qpixelformat.h \
   /usr/include/qt6/QtGui/qpixmap.h \
   /usr/include/qt6/QtGui/qpolygon.h \
   /usr/include/qt6/QtGui/qregion.h \
   /usr/include/qt6/QtGui/qrgb.h \
   /usr/include/qt6/QtGui/qrgba64.h \
-  /usr/include/qt6/QtGui/qtextoption.h \
   /usr/include/qt6/QtGui/qtgui-config.h \
   /usr/include/qt6/QtGui/qtguiexports.h \
   /usr/include/qt6/QtGui/qtguiglobal.h \

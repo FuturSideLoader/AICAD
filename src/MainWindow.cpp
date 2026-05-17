@@ -1,22 +1,418 @@
 #include "MainWindow.hpp"
 #include "OccView.hpp"
 
+#include <QAction>
+#include <QDockWidget>
+#include <QDoubleSpinBox>
+#include <QFormLayout>
+#include <QKeySequence>
+#include <QLabel>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QVariant>
+#include <QWidget>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
+      m_document(this),
       m_view(new OccView(this))
 {
     setWindowTitle("AICAD - CAD for Linux");
 
     setCentralWidget(m_view);
 
+    createMenus();
+    createObjectPanel();
+    createPropertiesPanel();
+
+    connect(
+        &m_document,
+        &CadDocument::markerAdded,
+        m_view,
+        &OccView::displayMarker
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::markerAdded,
+        this,
+        &MainWindow::onMarkerAdded
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::markerUpdated,
+        this,
+        &MainWindow::onMarkerUpdated
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::markerUpdated,
+        m_view,
+        &OccView::updateMarkerDisplay
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::markerRemoved,
+        this,
+        &MainWindow::onMarkerRemoved
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::markerRemoved,
+        m_view,
+        &OccView::removeMarkerDisplay
+    );
+
+    connect(
+        m_view,
+        &OccView::markerPicked,
+        this,
+        &MainWindow::selectMarkerById
+    );
+
+    connect(
+        m_view,
+        &OccView::markerPicked,
+        m_view,
+        &OccView::selectMarkerVisual
+    );
+
+    connect(
+        m_objectList,
+        &QListWidget::itemClicked,
+        this,
+        &MainWindow::onObjectSelected
+    );
+
+    clearPropertiesPanel();
+
+    statusBar()->showMessage("AICAD V0.10 - Marker deletion ready");
+}
+
+void MainWindow::createMenus()
+{
     auto* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction("Exit", this, &QWidget::close);
+
+    auto* editMenu = menuBar()->addMenu("&Edit");
+
+    QAction* deleteAction = editMenu->addAction("Delete Selected Marker");
+    deleteAction->setShortcut(QKeySequence::Delete);
+    connect(
+        deleteAction,
+        &QAction::triggered,
+        this,
+        &MainWindow::deleteSelectedMarker
+    );
 
     auto* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction("Fit All", m_view, &OccView::fitAll);
 
-    statusBar()->showMessage("AICAD V0.1 - OpenCascade viewer ready");
+    auto* aiMenu = menuBar()->addMenu("&AI");
+    aiMenu->addAction("Add Marker", this, &MainWindow::addAiMarker);
+}
+
+void MainWindow::createObjectPanel()
+{
+    auto* dock = new QDockWidget("Objects", this);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    m_objectList = new QListWidget(dock);
+    dock->setWidget(m_objectList);
+
+    addDockWidget(Qt::LeftDockWidgetArea, dock);
+}
+
+void MainWindow::createPropertiesPanel()
+{
+    auto* dock = new QDockWidget("Properties", this);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+
+    auto* panel = new QWidget(dock);
+    auto* layout = new QFormLayout(panel);
+
+    m_propertyNameValue = new QLabel(panel);
+    m_propertyTypeValue = new QLabel(panel);
+
+    m_propertyXEditor = new QDoubleSpinBox(panel);
+    m_propertyYEditor = new QDoubleSpinBox(panel);
+    m_propertyZEditor = new QDoubleSpinBox(panel);
+
+    for (QDoubleSpinBox* editor : {
+             m_propertyXEditor,
+             m_propertyYEditor,
+             m_propertyZEditor
+         }) {
+        editor->setRange(-1000000.0, 1000000.0);
+        editor->setDecimals(2);
+        editor->setSingleStep(1.0);
+        editor->setSuffix(" mm");
+    }
+
+    layout->addRow("Name:", m_propertyNameValue);
+    layout->addRow("Type:", m_propertyTypeValue);
+    layout->addRow("X:", m_propertyXEditor);
+    layout->addRow("Y:", m_propertyYEditor);
+    layout->addRow("Z:", m_propertyZEditor);
+
+    panel->setLayout(layout);
+    dock->setWidget(panel);
+
+    addDockWidget(Qt::RightDockWidgetArea, dock);
+
+    connect(
+        m_propertyXEditor,
+        qOverload<double>(&QDoubleSpinBox::valueChanged),
+        this,
+        &MainWindow::onPositionEditorChanged
+    );
+
+    connect(
+        m_propertyYEditor,
+        qOverload<double>(&QDoubleSpinBox::valueChanged),
+        this,
+        &MainWindow::onPositionEditorChanged
+    );
+
+    connect(
+        m_propertyZEditor,
+        qOverload<double>(&QDoubleSpinBox::valueChanged),
+        this,
+        &MainWindow::onPositionEditorChanged
+    );
+}
+
+void MainWindow::addAiMarker()
+{
+    const int existingMarkerCount =
+        static_cast<int>(m_document.markers().size());
+
+    const double offset = static_cast<double>(existingMarkerCount) * 20.0;
+
+    std::shared_ptr<AiMarker> marker = m_document.addMarker(
+        20.0 + offset,
+        20.0 + offset,
+        80.0
+    );
+
+    statusBar()->showMessage(
+        QString("%1 added at X=%2 Y=%3 Z=%4")
+            .arg(marker->name())
+            .arg(marker->x())
+            .arg(marker->y())
+            .arg(marker->z())
+    );
+}
+
+void MainWindow::deleteSelectedMarker()
+{
+    if (m_selectedMarkerId <= 0) {
+        statusBar()->showMessage("No marker selected");
+        return;
+    }
+
+    const int markerIdToDelete = m_selectedMarkerId;
+
+    if (!m_document.removeMarkerById(markerIdToDelete)) {
+        statusBar()->showMessage("Failed to delete selected marker");
+        return;
+    }
+
+    statusBar()->showMessage(
+        QString("Marker %1 deleted").arg(markerIdToDelete)
+    );
+}
+
+void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)
+{
+    if (marker == nullptr || m_objectList == nullptr) {
+        return;
+    }
+
+    auto* item = new QListWidgetItem(marker->name());
+    item->setData(Qt::UserRole, marker->id());
+
+    m_objectList->addItem(item);
+}
+
+void MainWindow::onMarkerUpdated(std::shared_ptr<AiMarker> marker)
+{
+    if (marker == nullptr) {
+        return;
+    }
+
+    updateObjectListItem(marker);
+
+    if (marker->id() == m_selectedMarkerId) {
+        showMarkerProperties(marker);
+    }
+
+    statusBar()->showMessage(
+        QString("%1 updated: X=%2 Y=%3 Z=%4")
+            .arg(marker->name())
+            .arg(marker->x())
+            .arg(marker->y())
+            .arg(marker->z())
+    );
+}
+
+void MainWindow::onMarkerRemoved(int markerId)
+{
+    removeObjectListItem(markerId);
+
+    if (m_selectedMarkerId == markerId) {
+        clearPropertiesPanel();
+    }
+
+    if (m_view != nullptr) {
+        m_view->selectMarkerVisual(0);
+    }
+}
+
+void MainWindow::onObjectSelected(QListWidgetItem* item)
+{
+    if (item == nullptr) {
+        clearPropertiesPanel();
+        m_view->selectMarkerVisual(0);
+        return;
+    }
+
+    const int selectedId = item->data(Qt::UserRole).toInt();
+
+    std::shared_ptr<AiMarker> marker = m_document.findMarkerById(selectedId);
+
+    if (marker != nullptr) {
+        showMarkerProperties(marker);
+        m_view->selectMarkerVisual(marker->id());
+        return;
+    }
+
+    clearPropertiesPanel();
+    m_view->selectMarkerVisual(0);
+}
+
+void MainWindow::onPositionEditorChanged()
+{
+    if (m_isUpdatingPropertiesUi || m_selectedMarkerId <= 0) {
+        return;
+    }
+
+    m_document.updateMarkerPosition(
+        m_selectedMarkerId,
+        m_propertyXEditor->value(),
+        m_propertyYEditor->value(),
+        m_propertyZEditor->value()
+    );
+}
+
+void MainWindow::selectMarkerById(int markerId)
+{
+    std::shared_ptr<AiMarker> marker = m_document.findMarkerById(markerId);
+
+    if (marker == nullptr) {
+        clearPropertiesPanel();
+        m_view->selectMarkerVisual(0);
+        return;
+    }
+
+    showMarkerProperties(marker);
+    m_view->selectMarkerVisual(markerId);
+
+    if (m_objectList == nullptr) {
+        return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* item = m_objectList->item(index);
+
+        if (item != nullptr && item->data(Qt::UserRole).toInt() == markerId) {
+            m_objectList->setCurrentItem(item);
+            break;
+        }
+    }
+}
+
+void MainWindow::showMarkerProperties(const std::shared_ptr<AiMarker>& marker)
+{
+    if (marker == nullptr) {
+        clearPropertiesPanel();
+        return;
+    }
+
+    m_isUpdatingPropertiesUi = true;
+
+    m_selectedMarkerId = marker->id();
+
+    m_propertyNameValue->setText(marker->name());
+    m_propertyTypeValue->setText("AI Marker");
+
+    m_propertyXEditor->setEnabled(true);
+    m_propertyYEditor->setEnabled(true);
+    m_propertyZEditor->setEnabled(true);
+
+    m_propertyXEditor->setValue(marker->x());
+    m_propertyYEditor->setValue(marker->y());
+    m_propertyZEditor->setValue(marker->z());
+
+    m_isUpdatingPropertiesUi = false;
+
+    statusBar()->showMessage(QString("%1 selected").arg(marker->name()));
+}
+
+void MainWindow::clearPropertiesPanel()
+{
+    m_isUpdatingPropertiesUi = true;
+
+    m_selectedMarkerId = 0;
+
+    m_propertyNameValue->setText("-");
+    m_propertyTypeValue->setText("-");
+
+    m_propertyXEditor->setValue(0.0);
+    m_propertyYEditor->setValue(0.0);
+    m_propertyZEditor->setValue(0.0);
+
+    m_propertyXEditor->setEnabled(false);
+    m_propertyYEditor->setEnabled(false);
+    m_propertyZEditor->setEnabled(false);
+
+    m_isUpdatingPropertiesUi = false;
+}
+
+void MainWindow::updateObjectListItem(const std::shared_ptr<AiMarker>& marker)
+{
+    if (marker == nullptr || m_objectList == nullptr) {
+        return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* item = m_objectList->item(index);
+
+        if (item != nullptr && item->data(Qt::UserRole).toInt() == marker->id()) {
+            item->setText(marker->name());
+            return;
+        }
+    }
+}
+
+void MainWindow::removeObjectListItem(int markerId)
+{
+    if (m_objectList == nullptr) {
+        return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* item = m_objectList->item(index);
+
+        if (item != nullptr && item->data(Qt::UserRole).toInt() == markerId) {
+            delete m_objectList->takeItem(index);
+            return;
+        }
+    }
 }

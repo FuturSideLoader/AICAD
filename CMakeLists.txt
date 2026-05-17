@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
 project(AICAD
-    VERSION 0.1.0
+    VERSION 0.4.0
     LANGUAGES C CXX
 )
 
@@ -27,13 +27,25 @@ find_package(OpenCASCADE REQUIRED)
 
 add_executable(aicad
     src/main.cpp
+    
     src/MainWindow.hpp
     src/MainWindow.cpp
+    
     src/OccView.hpp
     src/OccView.cpp
+    
+    src/cad/AiMarker.hpp
+    src/cad/AiMarker.cpp
+
+    src/cad/CadDocument.hpp
+    src/cad/CadDocument.cpp
+
+    src/cad/CadObject.hpp
+    src/cad/CadObject.cpp
 )
 
 target_include_directories(aicad PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${OpenCASCADE_INCLUDE_DIR}
 )
 

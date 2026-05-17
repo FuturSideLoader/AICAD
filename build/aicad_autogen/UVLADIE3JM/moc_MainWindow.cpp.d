@@ -1,5 +1,8 @@
 /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/UVLADIE3JM/moc_MainWindow.cpp: /home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
   /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -301,6 +304,8 @@
   /usr/include/linux/types.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
+  /usr/include/qt6/QtCore/QObject \
+  /usr/include/qt6/QtCore/QString \
   /usr/include/qt6/QtCore/q17memory.h \
   /usr/include/qt6/QtCore/q20bit.h \
   /usr/include/qt6/QtCore/q20functional.h \
