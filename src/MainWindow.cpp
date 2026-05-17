@@ -17,13 +17,15 @@
 #include <QStatusBar>
 #include <QVariant>
 #include <QWidget>
+#include <QCloseEvent>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       m_document(this),
       m_view(new OccView(this))
 {
-    setWindowTitle("AICAD - CAD for Linux");
+    updateWindowTitle();
 
     setCentralWidget(m_view);
 
@@ -125,6 +127,10 @@ void MainWindow::createMenus()
     openAction->setShortcut(QKeySequence::Open);
     connect(openAction, &QAction::triggered, this, &MainWindow::openDocument);
 
+    QAction* saveAction = fileMenu->addAction("Save");
+    saveAction->setShortcut(QKeySequence::Save);
+    connect(saveAction, &QAction::triggered, this, &MainWindow::saveDocument);
+
     QAction* saveAsAction = fileMenu->addAction("Save As...");
     saveAsAction->setShortcut(QKeySequence::SaveAs);
     connect(saveAsAction, &QAction::triggered, this, &MainWindow::saveDocumentAs);
@@ -222,12 +228,23 @@ void MainWindow::createPropertiesPanel()
 
 void MainWindow::newDocument()
 {
+    if (!maybeSaveBeforeDestructiveAction()) {
+        return;
+    }
+
+    m_currentFilePath.clear();
     m_document.clear();
+    setDocumentModified(false);
+
     statusBar()->showMessage("New document created");
 }
 
 void MainWindow::openDocument()
 {
+    if (!maybeSaveBeforeDestructiveAction()) {
+        return;
+    }
+
     const QString filePath = QFileDialog::getOpenFileName(
         this,
         "Open AICAD document",
@@ -248,7 +265,30 @@ void MainWindow::openDocument()
         return;
     }
 
+    m_currentFilePath = filePath;
+    setDocumentModified(false);
+
     statusBar()->showMessage(QString("Opened %1").arg(filePath));
+}
+
+void MainWindow::saveDocument()
+{
+    if (m_currentFilePath.isEmpty()) {
+        saveDocumentAs();
+        return;
+    }
+
+    if (!saveDocumentToFile(m_currentFilePath)) {
+        QMessageBox::warning(
+            this,
+            "Save failed",
+            "Could not save this AICAD document."
+        );
+        return;
+    }
+
+    setDocumentModified(false);
+    statusBar()->showMessage(QString("Saved %1").arg(m_currentFilePath));
 }
 
 void MainWindow::saveDocumentAs()
@@ -256,7 +296,7 @@ void MainWindow::saveDocumentAs()
     QString filePath = QFileDialog::getSaveFileName(
         this,
         "Save AICAD document",
-        QString(),
+        m_currentFilePath,
         "AICAD Documents (*.aicad);;JSON Files (*.json);;All Files (*)"
     );
 
@@ -277,6 +317,9 @@ void MainWindow::saveDocumentAs()
         );
         return;
     }
+
+    m_currentFilePath = filePath;
+    setDocumentModified(false);
 
     statusBar()->showMessage(QString("Saved %1").arg(filePath));
 }
@@ -343,6 +386,7 @@ void MainWindow::addAiMarker()
             .arg(marker->y())
             .arg(marker->z())
     );
+    setDocumentModified(true);
 }
 
 void MainWindow::deleteSelectedMarker()
@@ -362,6 +406,7 @@ void MainWindow::deleteSelectedMarker()
     statusBar()->showMessage(
         QString("Marker %1 deleted").arg(markerIdToDelete)
     );
+    setDocumentModified(true);
 }
 
 void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)
@@ -451,12 +496,14 @@ void MainWindow::onPositionEditorChanged()
         return;
     }
 
-    m_document.updateMarkerPosition(
+    if (m_document.updateMarkerPosition(
         m_selectedMarkerId,
         m_propertyXEditor->value(),
         m_propertyYEditor->value(),
         m_propertyZEditor->value()
-    );
+    )) {
+    setDocumentModified(true);
+    }
 }
 
 void MainWindow::selectMarkerById(int markerId)
@@ -563,4 +610,63 @@ void MainWindow::removeObjectListItem(int markerId)
             return;
         }
     }
+}
+
+
+bool MainWindow::maybeSaveBeforeDestructiveAction()
+{
+    if (!m_documentModified) {
+        return true;
+    }
+
+    const QMessageBox::StandardButton result = QMessageBox::question(
+        this,
+        "Unsaved changes",
+        "The current document has unsaved changes. Do you want to save it?",
+        QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+        QMessageBox::Save
+    );
+
+    if (result == QMessageBox::Cancel) {
+        return false;
+    }
+
+    if (result == QMessageBox::Discard) {
+        return true;
+    }
+
+    saveDocument();
+
+    return !m_documentModified;
+}
+
+void MainWindow::setDocumentModified(bool modified)
+{
+    m_documentModified = modified;
+    updateWindowTitle();
+}
+
+void MainWindow::updateWindowTitle()
+{
+    QString documentName = "Untitled";
+
+    if (!m_currentFilePath.isEmpty()) {
+        documentName = QFileInfo(m_currentFilePath).fileName();
+    }
+
+    if (m_documentModified) {
+        documentName += "*";
+    }
+
+    setWindowTitle(QString("AICAD - %1").arg(documentName));
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    if (!maybeSaveBeforeDestructiveAction()) {
+        event->ignore();
+        return;
+    }
+
+    event->accept();
 }
