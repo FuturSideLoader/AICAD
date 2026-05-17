@@ -20,6 +20,7 @@
 #include <QCloseEvent>
 #include <QFileInfo>
 #include <vector>
+#include <QToolBar>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget* parent)
     setCentralWidget(m_view);
 
     createMenus();
+    createToolbar();
     createObjectPanel();
     createPropertiesPanel();
 
@@ -146,66 +148,94 @@ MainWindow::MainWindow(QWidget* parent)
 
 void MainWindow::createMenus()
 {
+    m_newAction = new QAction("New", this);
+    m_newAction->setShortcut(QKeySequence::New);
+    connect(m_newAction, &QAction::triggered, this, &MainWindow::newDocument);
+
+    m_openAction = new QAction("Open...", this);
+    m_openAction->setShortcut(QKeySequence::Open);
+    connect(m_openAction, &QAction::triggered, this, &MainWindow::openDocument);
+
+    m_saveAction = new QAction("Save", this);
+    m_saveAction->setShortcut(QKeySequence::Save);
+    connect(m_saveAction, &QAction::triggered, this, &MainWindow::saveDocument);
+
+    m_saveAsAction = new QAction("Save As...", this);
+    m_saveAsAction->setShortcut(QKeySequence::SaveAs);
+    connect(m_saveAsAction, &QAction::triggered, this, &MainWindow::saveDocumentAs);
+
+    m_undoAction = new QAction("Undo", this);
+    m_undoAction->setShortcut(QKeySequence::Undo);
+    connect(m_undoAction, &QAction::triggered, this, &MainWindow::undo);
+
+    m_redoAction = new QAction("Redo", this);
+    m_redoAction->setShortcut(QKeySequence::Redo);
+    connect(m_redoAction, &QAction::triggered, this, &MainWindow::redo);
+
+    m_deleteAction = new QAction("Delete Selected Object", this);
+    m_deleteAction->setShortcut(QKeySequence::Delete);
+    connect(m_deleteAction, &QAction::triggered, this, &MainWindow::deleteSelectedObject);
+
+    m_fitAllAction = new QAction("Fit All", this);
+    connect(m_fitAllAction, &QAction::triggered, m_view, &OccView::fitAll);
+
+    m_addMarkerAction = new QAction("Add Marker", this);
+    connect(m_addMarkerAction, &QAction::triggered, this, &MainWindow::addAiMarker);
+
+    m_createBoxAction = new QAction("Box", this);
+    connect(m_createBoxAction, &QAction::triggered, this, &MainWindow::addBox);
+
     auto* fileMenu = menuBar()->addMenu("&File");
-
-    QAction* newAction = fileMenu->addAction("New");
-    newAction->setShortcut(QKeySequence::New);
-    connect(newAction, &QAction::triggered, this, &MainWindow::newDocument);
-
-    QAction* openAction = fileMenu->addAction("Open...");
-    openAction->setShortcut(QKeySequence::Open);
-    connect(openAction, &QAction::triggered, this, &MainWindow::openDocument);
-
-    QAction* saveAction = fileMenu->addAction("Save");
-    saveAction->setShortcut(QKeySequence::Save);
-    connect(saveAction, &QAction::triggered, this, &MainWindow::saveDocument);
-
-    QAction* saveAsAction = fileMenu->addAction("Save As...");
-    saveAsAction->setShortcut(QKeySequence::SaveAs);
-    connect(saveAsAction, &QAction::triggered, this, &MainWindow::saveDocumentAs);
-
+    fileMenu->addAction(m_newAction);
+    fileMenu->addAction(m_openAction);
+    fileMenu->addAction(m_saveAction);
+    fileMenu->addAction(m_saveAsAction);
     fileMenu->addSeparator();
     fileMenu->addAction("Exit", this, &QWidget::close);
 
     auto* editMenu = menuBar()->addMenu("&Edit");
-
-    QAction* undoAction = editMenu->addAction("undo");
-    undoAction->setShortcut(QKeySequence::Undo);
-    connect(
-        undoAction,
-        &QAction::triggered,
-        this,
-        &MainWindow::undo
-    );
-
-    QAction* redoAction = editMenu->addAction("redo");
-    redoAction->setShortcut(QKeySequence::Redo);
-    connect(
-        redoAction,
-        &QAction::triggered,
-        this,
-        &MainWindow::redo
-    );
-
+    editMenu->addAction(m_undoAction);
+    editMenu->addAction(m_redoAction);
     editMenu->addSeparator();
-
-    QAction* deleteAction = editMenu->addAction("Delete Selected Object");
-    deleteAction->setShortcut(QKeySequence::Delete);
-    connect(
-        deleteAction,
-        &QAction::triggered,
-        this,
-        &MainWindow::deleteSelectedObject
-    );
+    editMenu->addAction(m_deleteAction);
 
     auto* viewMenu = menuBar()->addMenu("&View");
-    viewMenu->addAction("Fit All", m_view, &OccView::fitAll);
+    viewMenu->addAction(m_fitAllAction);
 
     auto* createMenu = menuBar()->addMenu("&Create");
-    createMenu->addAction("Box", this, &MainWindow::addBox);
+    createMenu->addAction(m_createBoxAction);
 
     auto* aiMenu = menuBar()->addMenu("&AI");
-    aiMenu->addAction("Add Marker", this, &MainWindow::addAiMarker);
+    aiMenu->addAction(m_addMarkerAction);
+}
+
+void MainWindow::createToolbar()
+{
+    auto* mainToolBar = addToolBar("Main Toolbar");
+    mainToolBar->setMovable(true);
+    mainToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+
+    mainToolBar->addAction(m_newAction);
+    mainToolBar->addAction(m_openAction);
+    mainToolBar->addAction(m_saveAction);
+
+    mainToolBar->addSeparator();
+
+    mainToolBar->addAction(m_undoAction);
+    mainToolBar->addAction(m_redoAction);
+
+    mainToolBar->addSeparator();
+
+    mainToolBar->addAction(m_addMarkerAction);
+    mainToolBar->addAction(m_createBoxAction);
+
+    mainToolBar->addSeparator();
+
+    mainToolBar->addAction(m_deleteAction);
+
+    mainToolBar->addSeparator();
+
+    mainToolBar->addAction(m_fitAllAction);
 }
 
 void MainWindow::createObjectPanel()

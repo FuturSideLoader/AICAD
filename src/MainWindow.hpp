@@ -7,12 +7,15 @@
 
 #include "OccView.hpp"
 
+
+
 class QCloseEvent;
 class QDoubleSpinBox;
 class QLabel;
 class QListWidget;
 class QListWidgetItem;
 class OccView;
+class QAction;
 
 enum class SelectedObjectKind
 {
@@ -87,6 +90,8 @@ private:
     void updateObjectListItem(const std::shared_ptr<CadBox>& box);
     void removeObjectListItem(int objectId);
 
+    void createToolbar();
+
 private:
     CadDocument m_document;
 
@@ -116,4 +121,18 @@ private:
     SelectedObjectKind m_selectedObjectKind = SelectedObjectKind::None;
 
     bool m_isUpdatingPropertiesUi = false;
+
+    QAction* m_newAction = nullptr;
+    QAction* m_openAction = nullptr;
+    QAction* m_saveAction = nullptr;
+    QAction* m_saveAsAction = nullptr;
+
+    QAction* m_undoAction = nullptr;
+    QAction* m_redoAction = nullptr;
+    QAction* m_deleteAction = nullptr;
+
+    QAction* m_fitAllAction = nullptr;
+
+    QAction* m_addMarkerAction = nullptr;
+    QAction* m_createBoxAction = nullptr;
 };
