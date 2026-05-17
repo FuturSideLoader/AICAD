@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include "cad/CadBox.hpp"
 
 class OccView final : public QWidget
 {
@@ -28,6 +29,8 @@ public slots:
     void selectMarkerVisual(int markerId);
     void removeMarkerDisplay(int markerId);
     void clearSceneMarkers();
+    void displayBox(std::shared_ptr<CadBox> box);
+    void clearSceneObjects();
 
 signals:
     void markerPicked(int markerId);
@@ -46,6 +49,16 @@ private:
         Handle(AIS_InteractiveObject) sphere;
         Handle(AIS_InteractiveObject) point;
     };
+
+    struct BoxVisual
+    {
+        Handle(AIS_InteractiveObject) shape;
+    };
+
+    std::unordered_map<int, BoxVisual> m_boxVisuals;
+
+    void removeBoxVisual(int boxId);
+    BoxVisual createBoxVisual(const std::shared_ptr<CadBox>& box);
 
 private:
     void initializeOpenCascade();

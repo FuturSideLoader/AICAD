@@ -49,7 +49,11 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         "updateMarkerDisplay",
         "selectMarkerVisual",
         "removeMarkerDisplay",
-        "clearSceneMarkers"
+        "clearSceneMarkers",
+        "displayBox",
+        "std::shared_ptr<CadBox>",
+        "box",
+        "clearSceneObjects"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -77,6 +81,12 @@ template <> constexpr inline auto OccView::qt_create_metaobjectdata<qt_meta_tag_
         }}),
         // Slot 'clearSceneMarkers'
         QtMocHelpers::SlotData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
+        // Slot 'displayBox'
+        QtMocHelpers::SlotData<void(std::shared_ptr<CadBox>)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 13, 14 },
+        }}),
+        // Slot 'clearSceneObjects'
+        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -107,6 +117,8 @@ void OccView::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 4: _t->selectMarkerVisual((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 5: _t->removeMarkerDisplay((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 6: _t->clearSceneMarkers(); break;
+        case 7: _t->displayBox((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
+        case 8: _t->clearSceneObjects(); break;
         default: ;
         }
     }
@@ -135,14 +147,14 @@ int OccView::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
 }

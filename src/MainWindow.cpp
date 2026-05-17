@@ -19,6 +19,7 @@
 #include <QWidget>
 #include <QCloseEvent>
 #include <QFileInfo>
+#include <vector>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -86,7 +87,7 @@ MainWindow::MainWindow(QWidget* parent)
         &m_document,
         &CadDocument::documentCleared,
         m_view,
-        &OccView::clearSceneMarkers
+        &OccView::clearSceneObjects
     );
 
     connect(
@@ -108,6 +109,20 @@ MainWindow::MainWindow(QWidget* parent)
         &QListWidget::itemClicked,
         this,
         &MainWindow::onObjectSelected
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::boxAdded,
+        m_view,
+        &OccView::displayBox
+    );
+
+    connect(
+        &m_document,
+        &CadDocument::boxAdded,
+        this,
+        &MainWindow::onBoxAdded
     );
 
     clearPropertiesPanel();
@@ -140,6 +155,26 @@ void MainWindow::createMenus()
 
     auto* editMenu = menuBar()->addMenu("&Edit");
 
+    QAction* undoAction = editMenu->addAction("undo");
+    undoAction->setShortcut(QKeySequence::Undo);
+    connect(
+        undoAction,
+        &QAction::triggered,
+        this,
+        &MainWindow::undo
+    );
+
+    QAction* redoAction = editMenu->addAction("redo");
+    redoAction->setShortcut(QKeySequence::Redo);
+    connect(
+        redoAction,
+        &QAction::triggered,
+        this,
+        &MainWindow::redo
+    );
+
+    editMenu->addSeparator();
+
     QAction* deleteAction = editMenu->addAction("Delete Selected Marker");
     deleteAction->setShortcut(QKeySequence::Delete);
     connect(
@@ -151,6 +186,9 @@ void MainWindow::createMenus()
 
     auto* viewMenu = menuBar()->addMenu("&View");
     viewMenu->addAction("Fit All", m_view, &OccView::fitAll);
+
+    auto* createMenu = menuBar()->addMenu("&Create");
+    createMenu->addAction("Box", this, &MainWindow::addBox);
 
     auto* aiMenu = menuBar()->addMenu("&AI");
     aiMenu->addAction("Add Marker", this, &MainWindow::addAiMarker);
@@ -233,6 +271,9 @@ void MainWindow::newDocument()
     }
 
     m_currentFilePath.clear();
+    m_undoStack.clear();
+    m_redoStack.clear();
+
     m_document.clear();
     setDocumentModified(false);
 
@@ -267,6 +308,9 @@ void MainWindow::openDocument()
 
     m_currentFilePath = filePath;
     setDocumentModified(false);
+
+    m_undoStack.clear();
+    m_redoStack.clear();
 
     statusBar()->showMessage(QString("Opened %1").arg(filePath));
 }
@@ -324,6 +368,38 @@ void MainWindow::saveDocumentAs()
     statusBar()->showMessage(QString("Saved %1").arg(filePath));
 }
 
+void MainWindow::undo()
+{
+    if (m_undoStack.isEmpty()) {
+        statusBar()->showMessage("Nothing to undo");
+        return;
+    }
+
+    m_redoStack.push_back(m_document.toJson());
+
+    const QJsonObject snapshot = m_undoStack.takeLast();
+    restoreDocumentSnapshot(snapshot);
+
+    setDocumentModified(true);
+    statusBar()->showMessage("Undo");
+}
+
+void MainWindow::redo()
+{
+    if (m_redoStack.isEmpty()) {
+        statusBar()->showMessage("Nothing to redo");
+        return;
+    }
+
+    m_undoStack.push_back(m_document.toJson());
+
+    const QJsonObject snapshot = m_redoStack.takeLast();
+    restoreDocumentSnapshot(snapshot);
+
+    setDocumentModified(true);
+    statusBar()->showMessage("Redo");
+}
+
 bool MainWindow::saveDocumentToFile(const QString& filePath)
 {
     QFile file(filePath);
@@ -368,6 +444,10 @@ bool MainWindow::loadDocumentFromFile(const QString& filePath)
 
 void MainWindow::addAiMarker()
 {
+
+    saveUndoSnapshot();
+
+
     const int existingMarkerCount =
         static_cast<int>(m_document.markers().size());
 
@@ -398,6 +478,8 @@ void MainWindow::deleteSelectedMarker()
 
     const int markerIdToDelete = m_selectedMarkerId;
 
+    saveUndoSnapshot();
+
     if (!m_document.removeMarkerById(markerIdToDelete)) {
         statusBar()->showMessage("Failed to delete selected marker");
         return;
@@ -413,6 +495,16 @@ void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)
 {
     if (marker == nullptr || m_objectList == nullptr) {
         return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* existingItem = m_objectList->item(index);
+
+        if (existingItem != nullptr
+            && existingItem->data(Qt::UserRole).toInt() == marker->id()) {
+            existingItem->setText(marker->name());
+            return;
+        }
     }
 
     auto* item = new QListWidgetItem(marker->name());
@@ -486,6 +578,14 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
         return;
     }
 
+    std::shared_ptr<CadBox> box = m_document.findBoxById(selectedId);
+
+    if (box != nullptr) {
+        showBoxProperties(box);
+        m_view->selectMarkerVisual(0);
+        return;
+    }
+
     clearPropertiesPanel();
     m_view->selectMarkerVisual(0);
 }
@@ -495,6 +595,8 @@ void MainWindow::onPositionEditorChanged()
     if (m_isUpdatingPropertiesUi || m_selectedMarkerId <= 0) {
         return;
     }
+
+    saveUndoSnapshot();
 
     if (m_document.updateMarkerPosition(
         m_selectedMarkerId,
@@ -661,6 +763,68 @@ void MainWindow::updateWindowTitle()
     setWindowTitle(QString("AICAD - %1").arg(documentName));
 }
 
+void MainWindow::saveUndoSnapshot()
+{
+    if (m_isRestoringSnapshot) {
+        return;
+    }
+
+    m_undoStack.push_back(m_document.toJson());
+    m_redoStack.clear();
+
+    constexpr int maxUndoSteps = 100;
+
+    while (m_undoStack.size() > maxUndoSteps) {
+        m_undoStack.removeFirst();
+    }
+}
+
+void MainWindow::restoreDocumentSnapshot(const QJsonObject& snapshot)
+{
+    m_isRestoringSnapshot = true;
+
+    m_document.loadFromJson(snapshot);
+
+    rebuildObjectPanelFromDocument();
+    clearPropertiesPanel();
+
+    if (m_view != nullptr) {
+        m_view->selectMarkerVisual(0);
+        m_view->fitAll();
+    }
+
+    m_isRestoringSnapshot = false;
+}
+
+void MainWindow::rebuildObjectPanelFromDocument()
+{
+    if (m_objectList == nullptr) {
+        return;
+    }
+
+    m_objectList->clear();
+
+    for (const std::shared_ptr<AiMarker>& marker : m_document.markers()) {
+        if (marker == nullptr) {
+            continue;
+        }
+
+        auto* item = new QListWidgetItem(marker->name());
+        item->setData(Qt::UserRole, marker->id());
+        m_objectList->addItem(item);
+    }
+
+    for (const std::shared_ptr<CadBox>& box : m_document.boxes()) {
+        if (box == nullptr) {
+            continue;
+        }
+
+        auto* item = new QListWidgetItem(box->name());
+        item->setData(Qt::UserRole, box->id());
+        m_objectList->addItem(item);
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     if (!maybeSaveBeforeDestructiveAction()) {
@@ -669,4 +833,75 @@ void MainWindow::closeEvent(QCloseEvent* event)
     }
 
     event->accept();
+}
+
+
+void MainWindow::addBox()
+{
+    saveUndoSnapshot();
+
+    std::shared_ptr<CadBox> box = m_document.addBox(
+        0.0,
+        0.0,
+        0.0,
+        100.0,
+        80.0,
+        60.0
+    );
+
+    statusBar()->showMessage(
+        QString("%1 created").arg(box->name())
+    );
+
+    setDocumentModified(true);
+}
+
+
+void MainWindow::onBoxAdded(std::shared_ptr<CadBox> box)
+{
+    if (box == nullptr || m_objectList == nullptr) {
+        return;
+    }
+
+    for (int index = 0; index < m_objectList->count(); ++index) {
+        QListWidgetItem* existingItem = m_objectList->item(index);
+
+        if (existingItem != nullptr
+            && existingItem->data(Qt::UserRole).toInt() == box->id()) {
+            existingItem->setText(box->name());
+            return;
+        }
+    }
+
+    auto* item = new QListWidgetItem(box->name());
+    item->setData(Qt::UserRole, box->id());
+
+    m_objectList->addItem(item);
+}
+
+void MainWindow::showBoxProperties(const std::shared_ptr<CadBox>& box)
+{
+    if (box == nullptr) {
+        clearPropertiesPanel();
+        return;
+    }
+
+    m_isUpdatingPropertiesUi = true;
+
+    m_selectedMarkerId = 0;
+
+    m_propertyNameValue->setText(box->name());
+    m_propertyTypeValue->setText("Box");
+
+    m_propertyXEditor->setEnabled(false);
+    m_propertyYEditor->setEnabled(false);
+    m_propertyZEditor->setEnabled(false);
+
+    m_propertyXEditor->setValue(box->x());
+    m_propertyYEditor->setValue(box->y());
+    m_propertyZEditor->setValue(box->z());
+
+    m_isUpdatingPropertiesUi = false;
+
+    statusBar()->showMessage(QString("%1 selected").arg(box->name()));
 }

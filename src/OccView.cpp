@@ -16,8 +16,9 @@
 #include <TopoDS_Shape.hxx>
 #include <gp_Pnt.hxx>
 #include <vector>
-
 #include <cmath>
+#include <gp_Trsf.hxx>
+#include <TopLoc_Location.hxx>
 
 OccView::OccView(QWidget* parent)
     : QWidget(parent)
@@ -380,6 +381,89 @@ void OccView::clearSceneMarkers()
     }
 
     m_selectedMarkerId = 0;
+
+    if (!m_view.IsNull()) {
+        m_view->Redraw();
+    }
+}
+
+void OccView::displayBox(std::shared_ptr<CadBox> box)
+{
+    if (m_context.IsNull() || box == nullptr) {
+        return;
+    }
+
+    removeBoxVisual(box->id());
+
+    BoxVisual visual = createBoxVisual(box);
+    m_boxVisuals[box->id()] = visual;
+
+    if (!m_view.IsNull()) {
+        m_view->Redraw();
+    }
+}
+
+
+void OccView::removeBoxVisual(int boxId)
+{
+    if (m_context.IsNull()) {
+        return;
+    }
+
+    auto it = m_boxVisuals.find(boxId);
+
+    if (it == m_boxVisuals.end()) {
+        return;
+    }
+
+    if (!it->second.shape.IsNull()) {
+        m_context->Remove(it->second.shape, Standard_False);
+    }
+
+    m_boxVisuals.erase(it);
+}
+
+OccView::BoxVisual OccView::createBoxVisual(
+    const std::shared_ptr<CadBox>& box
+)
+{
+    BoxVisual visual;
+
+    TopoDS_Shape shape = BRepPrimAPI_MakeBox(
+        box->length(),
+        box->width(),
+        box->height()
+    ).Shape();
+
+    gp_Trsf transform;
+    transform.SetTranslation(gp_Vec(box->x(), box->y(), box->z()));
+    shape.Location(TopLoc_Location(transform));
+
+    Handle(AIS_Shape) aisShape = new AIS_Shape(shape);
+    aisShape->SetColor(Quantity_NOC_SKYBLUE);
+    aisShape->SetDisplayMode(AIS_Shaded);
+
+    m_context->Display(aisShape, Standard_False);
+
+    visual.shape = aisShape;
+
+    return visual;
+}
+
+void OccView::clearSceneObjects()
+{
+    clearSceneMarkers();
+
+    std::vector<int> boxIds;
+
+    for (const auto& [boxId, visual] : m_boxVisuals) {
+        Q_UNUSED(visual);
+        boxIds.push_back(boxId);
+    }
+
+    for (int boxId : boxIds) {
+        removeBoxVisual(boxId);
+    }
 
     if (!m_view.IsNull()) {
         m_view->Redraw();

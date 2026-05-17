@@ -15,6 +15,11 @@ const std::vector<std::shared_ptr<AiMarker>>& CadDocument::markers() const
     return m_markers;
 }
 
+const std::vector<std::shared_ptr<CadBox>>& CadDocument::boxes() const
+{
+    return m_boxes;
+}
+
 std::shared_ptr<AiMarker> CadDocument::addMarker(
     double x,
     double y,
@@ -63,11 +68,82 @@ std::shared_ptr<AiMarker> CadDocument::addMarkerWithId(
     return marker;
 }
 
+std::shared_ptr<CadBox> CadDocument::addBox(
+    double x,
+    double y,
+    double z,
+    double length,
+    double width,
+    double height
+)
+{
+    auto box = std::make_shared<CadBox>(
+        m_nextObjectId++,
+        x,
+        y,
+        z,
+        length,
+        width,
+        height
+    );
+
+    m_boxes.push_back(box);
+
+    emit boxAdded(box);
+
+    return box;
+}
+
+std::shared_ptr<CadBox> CadDocument::addBoxWithId(
+    int id,
+    const QString& name,
+    double x,
+    double y,
+    double z,
+    double length,
+    double width,
+    double height
+)
+{
+    auto box = std::make_shared<CadBox>(
+        id,
+        x,
+        y,
+        z,
+        length,
+        width,
+        height
+    );
+
+    box->setName(name);
+
+    m_boxes.push_back(box);
+
+    if (id >= m_nextObjectId) {
+        m_nextObjectId = id + 1;
+    }
+
+    emit boxAdded(box);
+
+    return box;
+}
+
 std::shared_ptr<AiMarker> CadDocument::findMarkerById(int id) const
 {
     for (const auto& marker : m_markers) {
         if (marker != nullptr && marker->id() == id) {
             return marker;
+        }
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<CadBox> CadDocument::findBoxById(int id) const
+{
+    for (const auto& box : m_boxes) {
+        if (box != nullptr && box->id() == id) {
+            return box;
         }
     }
 
@@ -117,6 +193,7 @@ bool CadDocument::removeMarkerById(int id)
 void CadDocument::clear()
 {
     m_markers.clear();
+    m_boxes.clear();
     m_nextObjectId = 1;
 
     emit documentCleared();
@@ -147,7 +224,28 @@ QJsonObject CadDocument::toJson() const
         markersArray.append(markerObject);
     }
 
+    QJsonArray boxesArray;
+
+    for (const auto& box : m_boxes) {
+        if (box == nullptr) {
+            continue;
+        }
+
+        QJsonObject boxObject;
+        boxObject["id"] = box->id();
+        boxObject["name"] = box->name();
+        boxObject["x"] = box->x();
+        boxObject["y"] = box->y();
+        boxObject["z"] = box->z();
+        boxObject["length"] = box->length();
+        boxObject["width"] = box->width();
+        boxObject["height"] = box->height();
+
+        boxesArray.append(boxObject);
+    }
+
     rootObject["markers"] = markersArray;
+    rootObject["boxes"] = boxesArray;
 
     return rootObject;
 }
@@ -188,6 +286,31 @@ bool CadDocument::loadFromJson(const QJsonObject& rootObject)
         }
 
         addMarkerWithId(id, name, x, y, z);
+    }
+
+    const QJsonArray boxesArray =
+        rootObject.value("boxes").toArray();
+
+    for (const QJsonValue& boxValue : boxesArray) {
+        const QJsonObject boxObject = boxValue.toObject();
+
+        const int id = boxObject.value("id").toInt();
+        const QString name = boxObject.value("name").toString(
+            QString("Box %1").arg(id)
+        );
+
+        const double x = boxObject.value("x").toDouble();
+        const double y = boxObject.value("y").toDouble();
+        const double z = boxObject.value("z").toDouble();
+        const double length = boxObject.value("length").toDouble(100.0);
+        const double width = boxObject.value("width").toDouble(80.0);
+        const double height = boxObject.value("height").toDouble(60.0);
+
+        if (id <= 0) {
+            continue;
+        }
+
+        addBoxWithId(id, name, x, y, z, length, width, height);
     }
 
     return true;

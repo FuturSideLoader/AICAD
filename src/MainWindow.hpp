@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QJsonObject>
 #include <QMainWindow>
 
 #include "cad/CadDocument.hpp"
@@ -27,6 +28,9 @@ private slots:
     void saveDocument();
     void saveDocumentAs();
 
+    void undo();
+    void redo();
+
     void addAiMarker();
     void deleteSelectedMarker();
 
@@ -38,6 +42,9 @@ private slots:
     void onObjectSelected(QListWidgetItem* item);
     void onPositionEditorChanged();
     void selectMarkerById(int markerId);
+
+    void addBox();
+    void onBoxAdded(std::shared_ptr<CadBox> box);
 
 private:
     void createMenus();
@@ -51,10 +58,16 @@ private:
     void setDocumentModified(bool modified);
     void updateWindowTitle();
 
+    void saveUndoSnapshot();
+    void restoreDocumentSnapshot(const QJsonObject& snapshot);
+    void rebuildObjectPanelFromDocument();
+
     void showMarkerProperties(const std::shared_ptr<AiMarker>& marker);
     void clearPropertiesPanel();
     void updateObjectListItem(const std::shared_ptr<AiMarker>& marker);
     void removeObjectListItem(int markerId);
+
+    void showBoxProperties(const std::shared_ptr<CadBox>& box);
 
 private:
     CadDocument m_document;
@@ -72,6 +85,10 @@ private:
 
     QString m_currentFilePath;
     bool m_documentModified = false;
+
+    QVector<QJsonObject> m_undoStack;
+    QVector<QJsonObject> m_redoStack;
+    bool m_isRestoringSnapshot = false;
 
     int m_selectedMarkerId = 0;
     bool m_isUpdatingPropertiesUi = false;

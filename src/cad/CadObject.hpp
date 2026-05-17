@@ -9,7 +9,8 @@ enum class CadObjectType
     Shape,
     Sketch,
     Assembly,
-    ImportedComponent
+    ImportedComponent,
+    Box,
 };
 
 class CadObject

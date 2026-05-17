@@ -894,6 +894,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp",
+			"Mu",
+			"LPD5QU26FD/moc_CadBox.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp",
 			"Mu",
 			"LPD5QU26FD/moc_CadDocument.cpp",
@@ -989,6 +995,7 @@
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/MainWindow.cpp", "Mu", null ],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/OccView.cpp", "Mu", null ],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.cpp", "Mu", null ],
+		[ "/home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.cpp", "Mu", null ],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.cpp",
 			"Mu",

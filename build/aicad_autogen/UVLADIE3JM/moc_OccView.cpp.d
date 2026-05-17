@@ -1,6 +1,7 @@
 /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/UVLADIE3JM/moc_OccView.cpp: /home/alexis/Projet_VSCODE/AICAD/src/OccView.hpp \
   /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \

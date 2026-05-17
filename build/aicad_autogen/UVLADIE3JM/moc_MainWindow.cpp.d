@@ -1,6 +1,7 @@
 /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/UVLADIE3JM/moc_MainWindow.cpp: /home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
   /home/alexis/Projet_VSCODE/AICAD/build/aicad_autogen/moc_predefs.h \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
   /usr/include/alloca.h \
@@ -105,6 +106,7 @@
   /usr/include/c++/16.1.1/bits/charconv.h \
   /usr/include/c++/16.1.1/bits/chrono.h \
   /usr/include/c++/16.1.1/bits/chrono_io.h \
+  /usr/include/c++/16.1.1/bits/codecvt.h \
   /usr/include/c++/16.1.1/bits/concept_check.h \
   /usr/include/c++/16.1.1/bits/cpp_type_traits.h \
   /usr/include/c++/16.1.1/bits/cxxabi_forced.h \
@@ -114,6 +116,7 @@
   /usr/include/c++/16.1.1/bits/exception.h \
   /usr/include/c++/16.1.1/bits/exception_defines.h \
   /usr/include/c++/16.1.1/bits/exception_ptr.h \
+  /usr/include/c++/16.1.1/bits/formatfwd.h \
   /usr/include/c++/16.1.1/bits/functexcept.h \
   /usr/include/c++/16.1.1/bits/functional_hash.h \
   /usr/include/c++/16.1.1/bits/hash_bytes.h \
@@ -127,12 +130,16 @@
   /usr/include/c++/16.1.1/bits/list.tcc \
   /usr/include/c++/16.1.1/bits/locale_classes.h \
   /usr/include/c++/16.1.1/bits/locale_classes.tcc \
+  /usr/include/c++/16.1.1/bits/locale_conv.h \
   /usr/include/c++/16.1.1/bits/locale_facets.h \
   /usr/include/c++/16.1.1/bits/locale_facets.tcc \
+  /usr/include/c++/16.1.1/bits/locale_facets_nonio.h \
+  /usr/include/c++/16.1.1/bits/locale_facets_nonio.tcc \
   /usr/include/c++/16.1.1/bits/localefwd.h \
   /usr/include/c++/16.1.1/bits/max_size_type.h \
   /usr/include/c++/16.1.1/bits/memory_resource.h \
   /usr/include/c++/16.1.1/bits/memoryfwd.h \
+  /usr/include/c++/16.1.1/bits/monostate.h \
   /usr/include/c++/16.1.1/bits/move.h \
   /usr/include/c++/16.1.1/bits/nested_exception.h \
   /usr/include/c++/16.1.1/bits/new_allocator.h \
@@ -193,6 +200,8 @@
   /usr/include/c++/16.1.1/bits/streambuf_iterator.h \
   /usr/include/c++/16.1.1/bits/string_view.tcc \
   /usr/include/c++/16.1.1/bits/stringfwd.h \
+  /usr/include/c++/16.1.1/bits/unicode-data.h \
+  /usr/include/c++/16.1.1/bits/unicode.h \
   /usr/include/c++/16.1.1/bits/uniform_int_dist.h \
   /usr/include/c++/16.1.1/bits/unique_ptr.h \
   /usr/include/c++/16.1.1/bits/unordered_map.h \
@@ -239,17 +248,23 @@
   /usr/include/c++/16.1.1/iterator \
   /usr/include/c++/16.1.1/limits \
   /usr/include/c++/16.1.1/list \
+  /usr/include/c++/16.1.1/locale \
   /usr/include/c++/16.1.1/map \
   /usr/include/c++/16.1.1/memory \
   /usr/include/c++/16.1.1/new \
+  /usr/include/c++/16.1.1/numbers \
   /usr/include/c++/16.1.1/numeric \
   /usr/include/c++/16.1.1/optional \
   /usr/include/c++/16.1.1/ostream \
   /usr/include/c++/16.1.1/pstl/execution_defs.h \
+  /usr/include/c++/16.1.1/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/16.1.1/pstl/glue_memory_defs.h \
   /usr/include/c++/16.1.1/pstl/glue_numeric_defs.h \
   /usr/include/c++/16.1.1/pstl/pstl_config.h \
+  /usr/include/c++/16.1.1/ranges \
   /usr/include/c++/16.1.1/ratio \
   /usr/include/c++/16.1.1/set \
+  /usr/include/c++/16.1.1/span \
   /usr/include/c++/16.1.1/sstream \
   /usr/include/c++/16.1.1/stdexcept \
   /usr/include/c++/16.1.1/streambuf \
@@ -287,7 +302,9 @@
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/error_constants.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/gthr.h \
+  /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/messages_members.h \
   /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/os_defines.h \
+  /usr/include/c++/16.1.1/x86_64-pc-linux-gnu/bits/time_members.h \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
@@ -295,6 +312,7 @@
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
+  /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
