@@ -913,6 +913,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp",
+			"Mu",
+			"YPKJ5OE7LN/moc_ObjectTreePanel.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.hpp",
 			"Mu",
 			"YPKJ5OE7LN/moc_PropertiesPanel.cpp",
@@ -1010,6 +1016,11 @@
 		],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp", "Mu", null ],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/main.cpp", "Mu", null ],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.cpp",
+			"Mu",
+			null
+		],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.cpp",
 			"Mu",

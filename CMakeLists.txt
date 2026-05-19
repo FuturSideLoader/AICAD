@@ -52,6 +52,9 @@ add_executable(aicad
 
     src/ui/PropertiesPanel.hpp
     src/ui/PropertiesPanel.cpp
+
+    src/ui/ObjectTreePanel.hpp
+    src/ui/ObjectTreePanel.cpp
 )
 
 target_include_directories(aicad PRIVATE

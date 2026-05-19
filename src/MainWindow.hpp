@@ -12,11 +12,10 @@
 
 
 class QCloseEvent;
-class QListWidget;
-class QListWidgetItem;
 class OccView;
 class QAction;
 class PropertiesPanel;
+class ObjectTreePanel;
 
 enum class SelectedObjectKind
 {
@@ -59,7 +58,7 @@ private slots:
 
     void onDocumentCleared();
 
-    void onObjectSelected(QListWidgetItem* item);
+    void onObjectSelected(int objectId);
     void onPositionChanged(double x, double y, double z);
 
     void onBoxChanged(
@@ -95,9 +94,6 @@ private:
     void showBoxProperties(const std::shared_ptr<CadBox>& box);
     void clearPropertiesPanel();
 
-    void updateObjectListItem(const std::shared_ptr<AiMarker>& marker);
-    void updateObjectListItem(const std::shared_ptr<CadBox>& box);
-    void removeObjectListItem(int objectId);
 
     void createToolbar();
 
@@ -106,7 +102,7 @@ private:
 
     OccView* m_view = nullptr;
 
-    QListWidget* m_objectList = nullptr;
+    ObjectTreePanel* m_objectTreePanel = nullptr;
 
     PropertiesPanel* m_propertiesPanel = nullptr;
 

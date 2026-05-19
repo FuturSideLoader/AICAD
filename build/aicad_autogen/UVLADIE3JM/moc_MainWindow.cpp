@@ -63,8 +63,7 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "onBoxUpdated",
         "onDocumentCleared",
         "onObjectSelected",
-        "QListWidgetItem*",
-        "item",
+        "objectId",
         "onPositionChanged",
         "x",
         "y",
@@ -75,7 +74,6 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "height",
         "selectMarkerById",
         "selectObjectById",
-        "objectId",
         "PickedObjectKind",
         "kind"
     };
@@ -126,25 +124,25 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         // Slot 'onDocumentCleared'
         QtMocHelpers::SlotData<void()>(23, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onObjectSelected'
-        QtMocHelpers::SlotData<void(QListWidgetItem *)>(24, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 25, 26 },
+        QtMocHelpers::SlotData<void(int)>(24, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 25 },
         }}),
         // Slot 'onPositionChanged'
-        QtMocHelpers::SlotData<void(double, double, double)>(27, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Double, 28 }, { QMetaType::Double, 29 }, { QMetaType::Double, 30 },
+        QtMocHelpers::SlotData<void(double, double, double)>(26, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Double, 27 }, { QMetaType::Double, 28 }, { QMetaType::Double, 29 },
         }}),
         // Slot 'onBoxChanged'
-        QtMocHelpers::SlotData<void(double, double, double, double, double, double)>(31, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Double, 28 }, { QMetaType::Double, 29 }, { QMetaType::Double, 30 }, { QMetaType::Double, 32 },
-            { QMetaType::Double, 33 }, { QMetaType::Double, 34 },
+        QtMocHelpers::SlotData<void(double, double, double, double, double, double)>(30, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Double, 27 }, { QMetaType::Double, 28 }, { QMetaType::Double, 29 }, { QMetaType::Double, 31 },
+            { QMetaType::Double, 32 }, { QMetaType::Double, 33 },
         }}),
         // Slot 'selectMarkerById'
-        QtMocHelpers::SlotData<void(int)>(35, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(int)>(34, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::Int, 18 },
         }}),
         // Slot 'selectObjectById'
-        QtMocHelpers::SlotData<void(int, PickedObjectKind)>(36, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 37 }, { 0x80000000 | 38, 39 },
+        QtMocHelpers::SlotData<void(int, PickedObjectKind)>(35, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 25 }, { 0x80000000 | 36, 37 },
         }}),
     };
     QtMocHelpers::UintData qt_properties {
@@ -185,7 +183,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 13: _t->onBoxAdded((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
         case 14: _t->onBoxUpdated((*reinterpret_cast<std::add_pointer_t<std::shared_ptr<CadBox>>>(_a[1]))); break;
         case 15: _t->onDocumentCleared(); break;
-        case 16: _t->onObjectSelected((*reinterpret_cast<std::add_pointer_t<QListWidgetItem*>>(_a[1]))); break;
+        case 16: _t->onObjectSelected((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 17: _t->onPositionChanged((*reinterpret_cast<std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[3]))); break;
         case 18: _t->onBoxChanged((*reinterpret_cast<std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6]))); break;
         case 19: _t->selectMarkerById((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;

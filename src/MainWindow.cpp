@@ -7,12 +7,9 @@
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QKeySequence>
-#include <QListWidget>
-#include <QListWidgetItem>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QStatusBar>
-#include <QVariant>
 #include <QWidget>
 #include <QCloseEvent>
 #include <QFileInfo>
@@ -20,6 +17,7 @@
 #include <QToolBar>
 #include <QIcon>
 #include "ui/PropertiesPanel.hpp"
+#include "ui/ObjectTreePanel.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -99,8 +97,8 @@ MainWindow::MainWindow(QWidget* parent)
     );
 
     connect(
-        m_objectList,
-        &QListWidget::itemClicked,
+        m_objectTreePanel,
+        &ObjectTreePanel::objectSelected,
         this,
         &MainWindow::onObjectSelected
     );
@@ -242,10 +240,17 @@ void MainWindow::createObjectPanel()
     auto* dock = new QDockWidget("Objects", this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    m_objectList = new QListWidget(dock);
-    dock->setWidget(m_objectList);
+    m_objectTreePanel = new ObjectTreePanel(dock);
+    dock->setWidget(m_objectTreePanel);
 
     addDockWidget(Qt::LeftDockWidgetArea, dock);
+
+    connect(
+        m_objectTreePanel,
+        &ObjectTreePanel::objectSelected,
+        this,
+        &MainWindow::onObjectSelected
+    );
 }
 
 void MainWindow::createPropertiesPanel()
@@ -521,24 +526,11 @@ void MainWindow::deleteSelectedObject()
 
 void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)
 {
-    if (marker == nullptr || m_objectList == nullptr) {
+    if (marker == nullptr || m_objectTreePanel == nullptr) {
         return;
     }
 
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* existingItem = m_objectList->item(index);
-
-        if (existingItem != nullptr
-            && existingItem->data(Qt::UserRole).toInt() == marker->id()) {
-            existingItem->setText(marker->name());
-            return;
-        }
-    }
-
-    auto* item = new QListWidgetItem(marker->name());
-    item->setData(Qt::UserRole, marker->id());
-
-    m_objectList->addItem(item);
+    m_objectTreePanel->addOrUpdateMarker(marker);
 }
 
 void MainWindow::onMarkerUpdated(std::shared_ptr<AiMarker> marker)
@@ -547,7 +539,9 @@ void MainWindow::onMarkerUpdated(std::shared_ptr<AiMarker> marker)
         return;
     }
 
-    updateObjectListItem(marker);
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->addOrUpdateMarker(marker);
+    }
 
     if (marker->id() == m_selectedObjectId) {
         showMarkerProperties(marker);
@@ -564,7 +558,9 @@ void MainWindow::onMarkerUpdated(std::shared_ptr<AiMarker> marker)
 
 void MainWindow::onMarkerRemoved(int markerId)
 {
-    removeObjectListItem(markerId);
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->removeObject(markerId);
+    }
 
     if (m_selectedObjectKind == SelectedObjectKind::Marker
         && m_selectedObjectId == markerId) {
@@ -577,8 +573,8 @@ void MainWindow::onMarkerRemoved(int markerId)
 }
 void MainWindow::onDocumentCleared()
 {
-    if (m_objectList != nullptr) {
-        m_objectList->clear();
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->clearObjects();
     }
 
     clearPropertiesPanel();
@@ -588,9 +584,9 @@ void MainWindow::onDocumentCleared()
     }
 }
 
-void MainWindow::onObjectSelected(QListWidgetItem* item)
+void MainWindow::onObjectSelected(int objectId)
 {
-    if (item == nullptr) {
+    if (objectId <= 0) {
         clearPropertiesPanel();
 
         if (m_view != nullptr) {
@@ -600,9 +596,7 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
         return;
     }
 
-    const int selectedId = item->data(Qt::UserRole).toInt();
-
-    std::shared_ptr<AiMarker> marker = m_document.findMarkerById(selectedId);
+    std::shared_ptr<AiMarker> marker = m_document.findMarkerById(objectId);
 
     if (marker != nullptr) {
         showMarkerProperties(marker);
@@ -614,7 +608,7 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
         return;
     }
 
-    std::shared_ptr<CadBox> box = m_document.findBoxById(selectedId);
+    std::shared_ptr<CadBox> box = m_document.findBoxById(objectId);
 
     if (box != nullptr) {
         showBoxProperties(box);
@@ -742,37 +736,7 @@ void MainWindow::clearPropertiesPanel()
     }
 }
 
-void MainWindow::updateObjectListItem(const std::shared_ptr<AiMarker>& marker)
-{
-    if (marker == nullptr || m_objectList == nullptr) {
-        return;
-    }
 
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* item = m_objectList->item(index);
-
-        if (item != nullptr && item->data(Qt::UserRole).toInt() == marker->id()) {
-            item->setText(marker->name());
-            return;
-        }
-    }
-}
-
-void MainWindow::removeObjectListItem(int markerId)
-{
-    if (m_objectList == nullptr) {
-        return;
-    }
-
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* item = m_objectList->item(index);
-
-        if (item != nullptr && item->data(Qt::UserRole).toInt() == markerId) {
-            delete m_objectList->takeItem(index);
-            return;
-        }
-    }
-}
 
 
 bool MainWindow::maybeSaveBeforeDestructiveAction()
@@ -858,31 +822,14 @@ void MainWindow::restoreDocumentSnapshot(const QJsonObject& snapshot)
 
 void MainWindow::rebuildObjectPanelFromDocument()
 {
-    if (m_objectList == nullptr) {
+    if (m_objectTreePanel == nullptr) {
         return;
     }
 
-    m_objectList->clear();
-
-    for (const std::shared_ptr<AiMarker>& marker : m_document.markers()) {
-        if (marker == nullptr) {
-            continue;
-        }
-
-        auto* item = new QListWidgetItem(marker->name());
-        item->setData(Qt::UserRole, marker->id());
-        m_objectList->addItem(item);
-    }
-
-    for (const std::shared_ptr<CadBox>& box : m_document.boxes()) {
-        if (box == nullptr) {
-            continue;
-        }
-
-        auto* item = new QListWidgetItem(box->name());
-        item->setData(Qt::UserRole, box->id());
-        m_objectList->addItem(item);
-    }
+    m_objectTreePanel->rebuild(
+        m_document.markers(),
+        m_document.boxes()
+    );
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -919,24 +866,11 @@ void MainWindow::addBox()
 
 void MainWindow::onBoxAdded(std::shared_ptr<CadBox> box)
 {
-    if (box == nullptr || m_objectList == nullptr) {
+    if (box == nullptr || m_objectTreePanel == nullptr) {
         return;
     }
 
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* existingItem = m_objectList->item(index);
-
-        if (existingItem != nullptr
-            && existingItem->data(Qt::UserRole).toInt() == box->id()) {
-            existingItem->setText(box->name());
-            return;
-        }
-    }
-
-    auto* item = new QListWidgetItem(box->name());
-    item->setData(Qt::UserRole, box->id());
-
-    m_objectList->addItem(item);
+    m_objectTreePanel->addOrUpdateBox(box);
 }
 
 void MainWindow::showBoxProperties(const std::shared_ptr<CadBox>& box)
@@ -969,7 +903,9 @@ void MainWindow::onBoxUpdated(std::shared_ptr<CadBox> box)
         return;
     }
 
-    updateObjectListItem(box);
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->addOrUpdateBox(box);
+    }
 
     if (m_selectedObjectKind == SelectedObjectKind::Box
         && box->id() == m_selectedObjectId) {
@@ -981,25 +917,12 @@ void MainWindow::onBoxUpdated(std::shared_ptr<CadBox> box)
     );
 }
 
-void MainWindow::updateObjectListItem(const std::shared_ptr<CadBox>& box)
-{
-    if (box == nullptr || m_objectList == nullptr) {
-        return;
-    }
-
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* item = m_objectList->item(index);
-
-        if (item != nullptr && item->data(Qt::UserRole).toInt() == box->id()) {
-            item->setText(box->name());
-            return;
-        }
-    }
-}
 
 void MainWindow::onBoxRemoved(int boxId)
 {
-    removeObjectListItem(boxId);
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->removeObject(boxId);
+    }
 
     if (m_selectedObjectKind == SelectedObjectKind::Box
         && m_selectedObjectId == boxId) {
@@ -1053,16 +976,7 @@ void MainWindow::selectObjectById(int objectId, PickedObjectKind kind)
         }
     }
 
-    if (m_objectList == nullptr) {
-        return;
-    }
-
-    for (int index = 0; index < m_objectList->count(); ++index) {
-        QListWidgetItem* item = m_objectList->item(index);
-
-        if (item != nullptr && item->data(Qt::UserRole).toInt() == objectId) {
-            m_objectList->setCurrentItem(item);
-            break;
-        }
+    if (m_objectTreePanel != nullptr) {
+        m_objectTreePanel->selectObject(objectId);
     }
 }
