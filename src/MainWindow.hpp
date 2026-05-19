@@ -88,8 +88,6 @@ private:
     void setDocumentModified(bool modified);
     void updateWindowTitle();
 
-    void saveUndoSnapshot();
-    void restoreDocumentSnapshot(const QJsonObject& snapshot);
     void rebuildObjectPanelFromDocument();
 
     void showMarkerProperties(const std::shared_ptr<AiMarker>& marker);
@@ -115,9 +113,6 @@ private:
     QString m_currentFilePath;
     bool m_documentModified = false;
 
-    QVector<QJsonObject> m_undoStack;
-    QVector<QJsonObject> m_redoStack;
-    bool m_isRestoringSnapshot = false;
 
     int m_selectedObjectId = 0;
     SelectedObjectKind m_selectedObjectKind = SelectedObjectKind::None;

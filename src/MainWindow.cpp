@@ -13,7 +13,6 @@
 #include <QWidget>
 #include <QCloseEvent>
 #include <QFileInfo>
-#include <vector>
 #include <QToolBar>
 #include <QIcon>
 #include "ui/PropertiesPanel.hpp"
@@ -311,8 +310,7 @@ void MainWindow::newDocument()
     }
 
     m_currentFilePath.clear();
-    m_undoStack.clear();
-    m_redoStack.clear();
+
     m_commandStack.clear();
 
     m_document.clear();
@@ -350,8 +348,6 @@ void MainWindow::openDocument()
     m_currentFilePath = filePath;
     setDocumentModified(false);
 
-    m_undoStack.clear();
-    m_redoStack.clear();
     m_commandStack.clear();
 
     statusBar()->showMessage(QString("Opened %1").arg(filePath));
@@ -412,23 +408,15 @@ void MainWindow::saveDocumentAs()
 
 void MainWindow::undo()
 {
-    if (m_commandStack.canUndo()) {
-        if (m_commandStack.undo()) {
-            setDocumentModified(true);
-            statusBar()->showMessage("Undo");
-            return;
-        }
-    }
-
-    if (m_undoStack.isEmpty()) {
+    if (!m_commandStack.canUndo()) {
         statusBar()->showMessage("Nothing to undo");
         return;
     }
 
-    m_redoStack.push_back(m_document.toJson());
-
-    const QJsonObject snapshot = m_undoStack.takeLast();
-    restoreDocumentSnapshot(snapshot);
+    if (!m_commandStack.undo()) {
+        statusBar()->showMessage("Undo failed");
+        return;
+    }
 
     setDocumentModified(true);
     statusBar()->showMessage("Undo");
@@ -436,23 +424,15 @@ void MainWindow::undo()
 
 void MainWindow::redo()
 {
-    if (m_commandStack.canRedo()) {
-        if (m_commandStack.redo()) {
-            setDocumentModified(true);
-            statusBar()->showMessage("Redo");
-            return;
-        }
-    }
-
-    if (m_redoStack.isEmpty()) {
+    if (!m_commandStack.canRedo()) {
         statusBar()->showMessage("Nothing to redo");
         return;
     }
 
-    m_undoStack.push_back(m_document.toJson());
-
-    const QJsonObject snapshot = m_redoStack.takeLast();
-    restoreDocumentSnapshot(snapshot);
+    if (!m_commandStack.redo()) {
+        statusBar()->showMessage("Redo failed");
+        return;
+    }
 
     setDocumentModified(true);
     statusBar()->showMessage("Redo");
@@ -672,7 +652,7 @@ void MainWindow::onObjectSelected(int objectId)
 
 void MainWindow::onPositionChanged(double x, double y, double z)
 {
-    if (m_selectedObjectId <= 0 || m_isRestoringSnapshot) {
+    if (m_selectedObjectId <= 0) {
         return;
     }
 
@@ -758,20 +738,6 @@ void MainWindow::onPositionChanged(double x, double y, double z)
 
         setDocumentModified(true);
         statusBar()->showMessage("Box updated");
-
-        saveUndoSnapshot();
-
-        if (m_document.updateBox(
-                m_selectedObjectId,
-                x,
-                y,
-                z,
-                box->length(),
-                box->width(),
-                box->height()
-            )) {
-            setDocumentModified(true);
-        }
     }
 }
 
@@ -785,7 +751,6 @@ void MainWindow::onBoxChanged(
 )
 {
     if (m_selectedObjectId <= 0
-        || m_isRestoringSnapshot
         || m_selectedObjectKind != SelectedObjectKind::Box) {
         return;
     }
@@ -923,38 +888,7 @@ void MainWindow::updateWindowTitle()
     setWindowTitle(QString("AICAD - %1").arg(documentName));
 }
 
-void MainWindow::saveUndoSnapshot()
-{
-    if (m_isRestoringSnapshot) {
-        return;
-    }
 
-    m_undoStack.push_back(m_document.toJson());
-    m_redoStack.clear();
-
-    constexpr int maxUndoSteps = 100;
-
-    while (m_undoStack.size() > maxUndoSteps) {
-        m_undoStack.removeFirst();
-    }
-}
-
-void MainWindow::restoreDocumentSnapshot(const QJsonObject& snapshot)
-{
-    m_isRestoringSnapshot = true;
-
-    m_document.loadFromJson(snapshot);
-
-    rebuildObjectPanelFromDocument();
-    clearPropertiesPanel();
-
-    if (m_view != nullptr) {
-        m_view->selectMarkerVisual(0);
-        m_view->fitAll();
-    }
-
-    m_isRestoringSnapshot = false;
-}
 
 void MainWindow::rebuildObjectPanelFromDocument()
 {
