@@ -97,6 +97,8 @@ private:
 
     void createToolbar();
 
+    void updateUndoRedoActions();
+
     
 
 private:

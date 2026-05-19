@@ -79,7 +79,7 @@ QString CommandStack::undoText() const
         return "Undo";
     }
 
-    return QString("Undo %1").arg(m_undoStack.back()->name());
+    return QString("Undo: %1").arg(m_undoStack.back()->name());
 }
 
 QString CommandStack::redoText() const
@@ -88,7 +88,7 @@ QString CommandStack::redoText() const
         return "Redo";
     }
 
-    return QString("Redo %1").arg(m_redoStack.back()->name());
+    return QString("Redo: %1").arg(m_redoStack.back()->name());
 }
 
 void CommandStack::clear()

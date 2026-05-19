@@ -148,22 +148,14 @@ MainWindow::MainWindow(QWidget* parent)
         &m_commandStack,
         &CommandStack::changed,
         this,
-        [this]() {
-            if (m_undoAction != nullptr) {
-                m_undoAction->setText(m_commandStack.undoText());
-                m_undoAction->setEnabled(m_commandStack.canUndo());
-            }
-
-            if (m_redoAction != nullptr) {
-                m_redoAction->setText(m_commandStack.redoText());
-                m_redoAction->setEnabled(m_commandStack.canRedo());
-            }
-        }
+        &MainWindow::updateUndoRedoActions
     );
 
     clearPropertiesPanel();
 
     m_commandStack.clear();
+
+    updateUndoRedoActions();
 
     statusBar()->showMessage("AICAD V0.11 - Document save/load ready");
 }
@@ -231,11 +223,12 @@ void MainWindow::createMenus()
     aiMenu->addAction(m_addMarkerAction);
 }
 
+
 void MainWindow::createToolbar()
 {
     auto* mainToolBar = addToolBar("Main Toolbar");
     mainToolBar->setMovable(true);
-    mainToolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+    mainToolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
 
     mainToolBar->addAction(m_newAction);
     mainToolBar->addAction(m_openAction);
@@ -258,6 +251,21 @@ void MainWindow::createToolbar()
     mainToolBar->addSeparator();
 
     mainToolBar->addAction(m_fitAllAction);
+}
+
+void MainWindow::updateUndoRedoActions()
+{
+    if (m_undoAction != nullptr) {
+        m_undoAction->setText(m_commandStack.undoText());
+        m_undoAction->setToolTip(m_commandStack.undoText());
+        m_undoAction->setEnabled(m_commandStack.canUndo());
+    }
+
+    if (m_redoAction != nullptr) {
+        m_redoAction->setText(m_commandStack.redoText());
+        m_redoAction->setToolTip(m_commandStack.redoText());
+        m_redoAction->setEnabled(m_commandStack.canRedo());
+    }
 }
 
 void MainWindow::createObjectPanel()
@@ -738,6 +746,19 @@ void MainWindow::onPositionChanged(double x, double y, double z)
 
         setDocumentModified(true);
         statusBar()->showMessage("Box updated");
+
+
+        if (m_document.updateBox(
+                m_selectedObjectId,
+                x,
+                y,
+                z,
+                box->length(),
+                box->width(),
+                box->height()
+            )) {
+            setDocumentModified(true);
+        }
     }
 }
 
@@ -1051,3 +1072,4 @@ void MainWindow::selectObjectById(int objectId, PickedObjectKind kind)
         m_objectTreePanel->selectObject(objectId);
     }
 }
+
