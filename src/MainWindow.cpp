@@ -21,6 +21,7 @@
 #include "commands/AddMarkerCommand.hpp"
 #include <memory>
 #include "commands/AddBoxCommand.hpp"
+#include "commands/DeleteObjectCommand.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -528,37 +529,40 @@ void MainWindow::deleteSelectedObject()
         return;
     }
 
-    const int objectIdToDelete = m_selectedObjectId;
-
-    saveUndoSnapshot();
+    DeleteObjectKind commandKind = DeleteObjectKind::None;
 
     if (m_selectedObjectKind == SelectedObjectKind::Marker) {
-        if (!m_document.removeMarkerById(objectIdToDelete)) {
-            statusBar()->showMessage("Failed to delete selected marker");
-            return;
-        }
-
-        statusBar()->showMessage(
-            QString("Marker %1 deleted").arg(objectIdToDelete)
-        );
-
-        setDocumentModified(true);
-        return;
+        commandKind = DeleteObjectKind::Marker;
     }
 
     if (m_selectedObjectKind == SelectedObjectKind::Box) {
-        if (!m_document.removeBoxById(objectIdToDelete)) {
-            statusBar()->showMessage("Failed to delete selected box");
-            return;
-        }
+        commandKind = DeleteObjectKind::Box;
+    }
 
-        statusBar()->showMessage(
-            QString("Box %1 deleted").arg(objectIdToDelete)
-        );
-
-        setDocumentModified(true);
+    if (commandKind == DeleteObjectKind::None) {
+        statusBar()->showMessage("Unsupported object type");
         return;
     }
+
+    auto command = std::make_unique<DeleteObjectCommand>(
+        m_document,
+        m_selectedObjectId,
+        commandKind
+    );
+
+    if (!m_commandStack.executeCommand(std::move(command))) {
+        statusBar()->showMessage("Failed to delete selected object");
+        return;
+    }
+
+    clearPropertiesPanel();
+
+    if (m_view != nullptr) {
+        m_view->selectObjectVisual(0, PickedObjectKind::None);
+    }
+
+    setDocumentModified(true);
+    statusBar()->showMessage("Object deleted");
 }
 
 void MainWindow::onMarkerAdded(std::shared_ptr<AiMarker> marker)

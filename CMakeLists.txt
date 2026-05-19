@@ -65,6 +65,9 @@ add_executable(aicad
 
     src/commands/AddBoxCommand.hpp
     src/commands/AddBoxCommand.cpp
+
+    src/commands/DeleteObjectCommand.hpp
+    src/commands/DeleteObjectCommand.cpp
 )
 
 target_include_directories(aicad PRIVATE

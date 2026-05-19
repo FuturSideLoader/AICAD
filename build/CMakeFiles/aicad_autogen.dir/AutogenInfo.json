@@ -937,6 +937,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.hpp",
+			"Mu",
+			"6JCNSNR7WH/moc_DeleteObjectCommand.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp",
 			"Mu",
 			"YPKJ5OE7LN/moc_ObjectTreePanel.cpp",
@@ -1051,6 +1057,11 @@
 		],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.cpp",
 			"Mu",
 			null
 		],

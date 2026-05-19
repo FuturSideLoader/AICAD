@@ -24,6 +24,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CadCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/main.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp \
