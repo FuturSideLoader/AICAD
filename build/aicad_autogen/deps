@@ -17,6 +17,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CadCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.hpp \

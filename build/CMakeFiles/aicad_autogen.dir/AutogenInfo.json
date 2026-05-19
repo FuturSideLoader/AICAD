@@ -913,6 +913,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.hpp",
+			"Mu",
+			"6JCNSNR7WH/moc_AddMarkerCommand.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/CadCommand.hpp",
 			"Mu",
 			"6JCNSNR7WH/moc_CadCommand.cpp",
@@ -1027,6 +1033,11 @@
 			null
 		],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp", "Mu", null ],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.cpp",
+			"Mu",
+			null
+		],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.cpp",
 			"Mu",

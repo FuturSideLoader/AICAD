@@ -18,6 +18,8 @@
 #include <QIcon>
 #include "ui/PropertiesPanel.hpp"
 #include "ui/ObjectTreePanel.hpp"
+#include "commands/AddMarkerCommand.hpp"
+#include <memory>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -496,29 +498,25 @@ bool MainWindow::loadDocumentFromFile(const QString& filePath)
 
 void MainWindow::addAiMarker()
 {
-
-    saveUndoSnapshot();
-
-
     const int existingMarkerCount =
         static_cast<int>(m_document.markers().size());
 
     const double offset = static_cast<double>(existingMarkerCount) * 20.0;
 
-    std::shared_ptr<AiMarker> marker = m_document.addMarker(
+    auto command = std::make_unique<AddMarkerCommand>(
+        m_document,
         20.0 + offset,
         20.0 + offset,
         80.0
     );
 
-    statusBar()->showMessage(
-        QString("%1 added at X=%2 Y=%3 Z=%4")
-            .arg(marker->name())
-            .arg(marker->x())
-            .arg(marker->y())
-            .arg(marker->z())
-    );
+    if (!m_commandStack.executeCommand(std::move(command))) {
+        statusBar()->showMessage("Failed to add marker");
+        return;
+    }
+
     setDocumentModified(true);
+    statusBar()->showMessage("Marker added");
 }
 
 void MainWindow::deleteSelectedObject()

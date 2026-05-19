@@ -2,9 +2,11 @@
 /home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/main.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.cpp
+/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.cpp
+/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.cpp
 /home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp
  mmc:Q_OBJECT
@@ -1435,6 +1437,7 @@
  mdp:/usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stdbool.h
  mdp:/usr/lib/gcc/x86_64-pc-linux-gnu/16.1.1/include/stddef.h
+/home/alexis/Projet_VSCODE/AICAD/src/commands/AddMarkerCommand.hpp
 /home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp
 /home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp
  mmc:Q_OBJECT
@@ -3720,4 +3723,3 @@
 /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp
 /home/alexis/Projet_VSCODE/AICAD/src/commands/CadCommand.hpp
 /home/alexis/Projet_VSCODE/AICAD/src/MainWindow.cpp
-/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.cpp
