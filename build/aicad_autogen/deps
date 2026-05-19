@@ -9,6 +9,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/MainWindow.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/OccView.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/OccView.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/app/AppController.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/app/AppController.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/AiMarker.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.cpp \

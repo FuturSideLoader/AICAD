@@ -1,13 +1,18 @@
 {
+    "boxes": [
+        {
+            "height": 60,
+            "id": 1,
+            "length": 100,
+            "name": "Box 1",
+            "width": 80,
+            "x": 0,
+            "y": 0,
+            "z": 0
+        }
+    ],
     "format": "AICAD",
     "markers": [
-        {
-            "id": 1,
-            "name": "Marker 1",
-            "x": 28,
-            "y": 28,
-            "z": 80
-        }
     ],
     "nextObjectId": 2,
     "version": 1

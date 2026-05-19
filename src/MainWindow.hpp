@@ -10,6 +10,8 @@
 
 #include "commands/CommandStack.hpp"
 
+#include "app/AppController.hpp"
+
 
 
 
@@ -104,6 +106,8 @@ private:
 private:
     CadDocument m_document;
 
+    AppController m_appController;
+
     CommandStack m_commandStack;
 
     OccView* m_view = nullptr;
@@ -112,8 +116,6 @@ private:
 
     PropertiesPanel* m_propertiesPanel = nullptr;
 
-    QString m_currentFilePath;
-    bool m_documentModified = false;
 
 
     int m_selectedObjectId = 0;

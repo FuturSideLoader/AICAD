@@ -12,7 +12,6 @@
 #include <QStatusBar>
 #include <QWidget>
 #include <QCloseEvent>
-#include <QFileInfo>
 #include <QToolBar>
 #include <QIcon>
 #include "ui/PropertiesPanel.hpp"
@@ -27,6 +26,7 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       m_document(this),
+      m_appController(this),
       m_commandStack(this),
       m_view(new OccView(this))
 {
@@ -150,6 +150,15 @@ MainWindow::MainWindow(QWidget* parent)
         this,
         &MainWindow::updateUndoRedoActions
     );
+
+    connect(
+        &m_appController,
+        &AppController::stateChanged,
+        this,
+        &MainWindow::updateWindowTitle
+    );
+
+    updateWindowTitle();
 
     clearPropertiesPanel();
 
@@ -317,7 +326,7 @@ void MainWindow::newDocument()
         return;
     }
 
-    m_currentFilePath.clear();
+    m_appController.clearCurrentFilePath();
 
     m_commandStack.clear();
 
@@ -353,7 +362,7 @@ void MainWindow::openDocument()
         return;
     }
 
-    m_currentFilePath = filePath;
+    m_appController.setCurrentFilePath(filePath);
     setDocumentModified(false);
 
     m_commandStack.clear();
@@ -363,12 +372,14 @@ void MainWindow::openDocument()
 
 void MainWindow::saveDocument()
 {
-    if (m_currentFilePath.isEmpty()) {
+    const QString currentFilePath = m_appController.currentFilePath();
+
+    if (currentFilePath.isEmpty()) {
         saveDocumentAs();
         return;
     }
 
-    if (!saveDocumentToFile(m_currentFilePath)) {
+    if (!saveDocumentToFile(currentFilePath)) {
         QMessageBox::warning(
             this,
             "Save failed",
@@ -378,7 +389,7 @@ void MainWindow::saveDocument()
     }
 
     setDocumentModified(false);
-    statusBar()->showMessage(QString("Saved %1").arg(m_currentFilePath));
+    statusBar()->showMessage(QString("Saved %1").arg(currentFilePath));
 }
 
 void MainWindow::saveDocumentAs()
@@ -386,7 +397,7 @@ void MainWindow::saveDocumentAs()
     QString filePath = QFileDialog::getSaveFileName(
         this,
         "Save AICAD document",
-        m_currentFilePath,
+        m_appController.currentFilePath(),
         "AICAD Documents (*.aicad);;JSON Files (*.json);;All Files (*)"
     );
 
@@ -408,7 +419,7 @@ void MainWindow::saveDocumentAs()
         return;
     }
 
-    m_currentFilePath = filePath;
+    m_appController.setCurrentFilePath(filePath);
     setDocumentModified(false);
 
     statusBar()->showMessage(QString("Saved %1").arg(filePath));
@@ -863,7 +874,7 @@ void MainWindow::clearPropertiesPanel()
 
 bool MainWindow::maybeSaveBeforeDestructiveAction()
 {
-    if (!m_documentModified) {
+    if (!m_appController.isDocumentModified()) {
         return true;
     }
 
@@ -885,28 +896,17 @@ bool MainWindow::maybeSaveBeforeDestructiveAction()
 
     saveDocument();
 
-    return !m_documentModified;
+    return !m_appController.isDocumentModified();
 }
 
 void MainWindow::setDocumentModified(bool modified)
 {
-    m_documentModified = modified;
-    updateWindowTitle();
+    m_appController.setDocumentModified(modified);
 }
 
 void MainWindow::updateWindowTitle()
 {
-    QString documentName = "Untitled";
-
-    if (!m_currentFilePath.isEmpty()) {
-        documentName = QFileInfo(m_currentFilePath).fileName();
-    }
-
-    if (m_documentModified) {
-        documentName += "*";
-    }
-
-    setWindowTitle(QString("AICAD - %1").arg(documentName));
+    setWindowTitle(m_appController.windowTitle());
 }
 
 
@@ -1072,4 +1072,3 @@ void MainWindow::selectObjectById(int objectId, PickedObjectKind kind)
         m_objectTreePanel->selectObject(objectId);
     }
 }
-

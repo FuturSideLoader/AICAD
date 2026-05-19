@@ -74,6 +74,9 @@ add_executable(aicad
 
     src/commands/UpdateBoxCommand.hpp
     src/commands/UpdateBoxCommand.cpp
+
+    src/app/AppController.hpp
+    src/app/AppController.cpp
 )
 
 target_include_directories(aicad PRIVATE
