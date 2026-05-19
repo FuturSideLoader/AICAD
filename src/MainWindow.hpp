@@ -6,17 +6,17 @@
 #include "cad/CadDocument.hpp"
 
 #include "OccView.hpp"
+#include "ui/PropertiesPanel.hpp"
 
-#include <QIcon>
+
 
 
 class QCloseEvent;
-class QDoubleSpinBox;
-class QLabel;
 class QListWidget;
 class QListWidgetItem;
 class OccView;
 class QAction;
+class PropertiesPanel;
 
 enum class SelectedObjectKind
 {
@@ -60,8 +60,16 @@ private slots:
     void onDocumentCleared();
 
     void onObjectSelected(QListWidgetItem* item);
-    void onPositionEditorChanged();
-    void onBoxEditorChanged();
+    void onPositionChanged(double x, double y, double z);
+
+    void onBoxChanged(
+        double x,
+        double y,
+        double z,
+        double length,
+        double width,
+        double height
+    );
 
     void selectMarkerById(int markerId);
 
@@ -100,16 +108,7 @@ private:
 
     QListWidget* m_objectList = nullptr;
 
-    QLabel* m_propertyNameValue = nullptr;
-    QLabel* m_propertyTypeValue = nullptr;
-
-    QDoubleSpinBox* m_propertyXEditor = nullptr;
-    QDoubleSpinBox* m_propertyYEditor = nullptr;
-    QDoubleSpinBox* m_propertyZEditor = nullptr;
-
-    QDoubleSpinBox* m_propertyLengthEditor = nullptr;
-    QDoubleSpinBox* m_propertyWidthEditor = nullptr;
-    QDoubleSpinBox* m_propertyHeightEditor = nullptr;
+    PropertiesPanel* m_propertiesPanel = nullptr;
 
     QString m_currentFilePath;
     bool m_documentModified = false;
@@ -121,7 +120,6 @@ private:
     int m_selectedObjectId = 0;
     SelectedObjectKind m_selectedObjectKind = SelectedObjectKind::None;
 
-    bool m_isUpdatingPropertiesUi = false;
 
     QAction* m_newAction = nullptr;
     QAction* m_openAction = nullptr;

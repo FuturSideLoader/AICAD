@@ -18,6 +18,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/main.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.hpp \
 	/home/alexis/miniconda3/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake \
 	/home/alexis/miniconda3/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake \
 	/home/alexis/miniconda3/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake \
@@ -902,7 +904,6 @@ aicad_autogen/timestamp: \
 	/usr/include/qt6/QtCore/qversiontagging.h \
 	/usr/include/qt6/QtCore/qxptype_traits.h \
 	/usr/include/qt6/QtCore/qyieldcpu.h \
-	/usr/include/qt6/QtGui/QIcon \
 	/usr/include/qt6/QtGui/qaction.h \
 	/usr/include/qt6/QtGui/qbitmap.h \
 	/usr/include/qt6/QtGui/qbrush.h \

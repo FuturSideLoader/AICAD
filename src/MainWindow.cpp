@@ -3,13 +3,10 @@
 
 #include <QAction>
 #include <QDockWidget>
-#include <QDoubleSpinBox>
 #include <QFile>
 #include <QFileDialog>
-#include <QFormLayout>
 #include <QJsonDocument>
 #include <QKeySequence>
-#include <QLabel>
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QMenuBar>
@@ -22,6 +19,7 @@
 #include <vector>
 #include <QToolBar>
 #include <QIcon>
+#include "ui/PropertiesPanel.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -255,106 +253,23 @@ void MainWindow::createPropertiesPanel()
     auto* dock = new QDockWidget("Properties", this);
     dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 
-    auto* panel = new QWidget(dock);
-    auto* layout = new QFormLayout(panel);
-
-    m_propertyNameValue = new QLabel(panel);
-    m_propertyTypeValue = new QLabel(panel);
-
-    m_propertyXEditor = new QDoubleSpinBox(panel);
-    m_propertyYEditor = new QDoubleSpinBox(panel);
-    m_propertyZEditor = new QDoubleSpinBox(panel);
-
-    m_propertyLengthEditor = new QDoubleSpinBox(panel);
-    m_propertyWidthEditor = new QDoubleSpinBox(panel);
-    m_propertyHeightEditor = new QDoubleSpinBox(panel);
-
-    for (QDoubleSpinBox* editor : {
-             m_propertyXEditor,
-             m_propertyYEditor,
-             m_propertyZEditor,
-             m_propertyLengthEditor,
-             m_propertyWidthEditor,
-             m_propertyHeightEditor
-         }) {
-        editor->setRange(-1000000.0, 1000000.0);
-        editor->setDecimals(2);
-        editor->setSingleStep(1.0);
-        editor->setSuffix(" mm");
-    }
-
-    m_propertyLengthEditor->setMinimum(0.01);
-    m_propertyWidthEditor->setMinimum(0.01);
-    m_propertyHeightEditor->setMinimum(0.01);
-
-    layout->addRow("Name:", m_propertyNameValue);
-    layout->addRow("Type:", m_propertyTypeValue);
-    layout->addRow("X:", m_propertyXEditor);
-    layout->addRow("Y:", m_propertyYEditor);
-    layout->addRow("Z:", m_propertyZEditor);
-    layout->addRow("Length:", m_propertyLengthEditor);
-    layout->addRow("Width:", m_propertyWidthEditor);
-    layout->addRow("Height:", m_propertyHeightEditor);
-
-    panel->setLayout(layout);
-    dock->setWidget(panel);
+    m_propertiesPanel = new PropertiesPanel(dock);
+    dock->setWidget(m_propertiesPanel);
 
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
     connect(
-        m_propertyXEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
+        m_propertiesPanel,
+        &PropertiesPanel::positionChanged,
         this,
-        &MainWindow::onPositionEditorChanged
+        &MainWindow::onPositionChanged
     );
 
     connect(
-        m_propertyYEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
+        m_propertiesPanel,
+        &PropertiesPanel::boxChanged,
         this,
-        &MainWindow::onPositionEditorChanged
-    );
-
-    connect(
-        m_propertyZEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
-        this,
-        &MainWindow::onPositionEditorChanged
-    );
-
-    connect(
-        m_propertyLengthEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
-        this,
-        &MainWindow::onBoxEditorChanged
-    );
-
-    connect(
-        m_propertyWidthEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
-        this,
-        &MainWindow::onBoxEditorChanged
-    );
-
-    connect(
-        m_propertyHeightEditor,
-        qOverload<double>(&QDoubleSpinBox::valueChanged),
-        this,
-        &MainWindow::onBoxEditorChanged
-    );
-
-    connect(
-        &m_document,
-        &CadDocument::boxRemoved,
-        m_view,
-        &OccView::removeBoxDisplay
-    );
-
-    connect(
-        &m_document,
-        &CadDocument::boxRemoved,
-        this,
-        &MainWindow::onBoxRemoved
+        &MainWindow::onBoxChanged
     );
 }
 
@@ -718,11 +633,9 @@ void MainWindow::onObjectSelected(QListWidgetItem* item)
     }
 }
 
-void MainWindow::onPositionEditorChanged()
+void MainWindow::onPositionChanged(double x, double y, double z)
 {
-    if (m_isUpdatingPropertiesUi
-        || m_selectedObjectId <= 0
-        || m_isRestoringSnapshot) {
+    if (m_selectedObjectId <= 0 || m_isRestoringSnapshot) {
         return;
     }
 
@@ -731,9 +644,9 @@ void MainWindow::onPositionEditorChanged()
 
         if (m_document.updateMarkerPosition(
                 m_selectedObjectId,
-                m_propertyXEditor->value(),
-                m_propertyYEditor->value(),
-                m_propertyZEditor->value()
+                x,
+                y,
+                z
             )) {
             setDocumentModified(true);
         }
@@ -742,14 +655,38 @@ void MainWindow::onPositionEditorChanged()
     }
 
     if (m_selectedObjectKind == SelectedObjectKind::Box) {
-        onBoxEditorChanged();
+        std::shared_ptr<CadBox> box = m_document.findBoxById(m_selectedObjectId);
+
+        if (box == nullptr) {
+            return;
+        }
+
+        saveUndoSnapshot();
+
+        if (m_document.updateBox(
+                m_selectedObjectId,
+                x,
+                y,
+                z,
+                box->length(),
+                box->width(),
+                box->height()
+            )) {
+            setDocumentModified(true);
+        }
     }
 }
 
-void MainWindow::onBoxEditorChanged()
+void MainWindow::onBoxChanged(
+    double x,
+    double y,
+    double z,
+    double length,
+    double width,
+    double height
+)
 {
-    if (m_isUpdatingPropertiesUi
-        || m_selectedObjectId <= 0
+    if (m_selectedObjectId <= 0
         || m_isRestoringSnapshot
         || m_selectedObjectKind != SelectedObjectKind::Box) {
         return;
@@ -759,12 +696,12 @@ void MainWindow::onBoxEditorChanged()
 
     if (m_document.updateBox(
             m_selectedObjectId,
-            m_propertyXEditor->value(),
-            m_propertyYEditor->value(),
-            m_propertyZEditor->value(),
-            m_propertyLengthEditor->value(),
-            m_propertyWidthEditor->value(),
-            m_propertyHeightEditor->value()
+            x,
+            y,
+            z,
+            length,
+            width,
+            height
         )) {
         setDocumentModified(true);
     }
@@ -777,67 +714,32 @@ void MainWindow::selectMarkerById(int markerId)
 
 void MainWindow::showMarkerProperties(const std::shared_ptr<AiMarker>& marker)
 {
-    if (marker == nullptr) {
+    if (marker == nullptr || m_propertiesPanel == nullptr) {
         clearPropertiesPanel();
         return;
     }
 
-    m_isUpdatingPropertiesUi = true;
-
     m_selectedObjectId = marker->id();
     m_selectedObjectKind = SelectedObjectKind::Marker;
 
-    m_propertyNameValue->setText(marker->name());
-    m_propertyTypeValue->setText("AI Marker");
-
-    m_propertyXEditor->setEnabled(true);
-    m_propertyYEditor->setEnabled(true);
-    m_propertyZEditor->setEnabled(true);
-
-    m_propertyLengthEditor->setEnabled(false);
-    m_propertyWidthEditor->setEnabled(false);
-    m_propertyHeightEditor->setEnabled(false);
-
-    m_propertyXEditor->setValue(marker->x());
-    m_propertyYEditor->setValue(marker->y());
-    m_propertyZEditor->setValue(marker->z());
-
-    m_propertyLengthEditor->setValue(0.01);
-    m_propertyWidthEditor->setValue(0.01);
-    m_propertyHeightEditor->setValue(0.01);
-
-    m_isUpdatingPropertiesUi = false;
+    m_propertiesPanel->showMarker(
+        marker->name(),
+        marker->x(),
+        marker->y(),
+        marker->z()
+    );
 
     statusBar()->showMessage(QString("%1 selected").arg(marker->name()));
 }
 
 void MainWindow::clearPropertiesPanel()
 {
-    m_isUpdatingPropertiesUi = true;
-
     m_selectedObjectId = 0;
     m_selectedObjectKind = SelectedObjectKind::None;
 
-    m_propertyNameValue->setText("-");
-    m_propertyTypeValue->setText("-");
-
-    m_propertyXEditor->setValue(0.0);
-    m_propertyYEditor->setValue(0.0);
-    m_propertyZEditor->setValue(0.0);
-
-    m_propertyLengthEditor->setValue(0.01);
-    m_propertyWidthEditor->setValue(0.01);
-    m_propertyHeightEditor->setValue(0.01);
-
-    m_propertyXEditor->setEnabled(false);
-    m_propertyYEditor->setEnabled(false);
-    m_propertyZEditor->setEnabled(false);
-
-    m_propertyLengthEditor->setEnabled(false);
-    m_propertyWidthEditor->setEnabled(false);
-    m_propertyHeightEditor->setEnabled(false);
-
-    m_isUpdatingPropertiesUi = false;
+    if (m_propertiesPanel != nullptr) {
+        m_propertiesPanel->showEmpty();
+    }
 }
 
 void MainWindow::updateObjectListItem(const std::shared_ptr<AiMarker>& marker)
@@ -1039,36 +941,23 @@ void MainWindow::onBoxAdded(std::shared_ptr<CadBox> box)
 
 void MainWindow::showBoxProperties(const std::shared_ptr<CadBox>& box)
 {
-    if (box == nullptr) {
+    if (box == nullptr || m_propertiesPanel == nullptr) {
         clearPropertiesPanel();
         return;
     }
 
-    m_isUpdatingPropertiesUi = true;
-
     m_selectedObjectId = box->id();
     m_selectedObjectKind = SelectedObjectKind::Box;
 
-    m_propertyNameValue->setText(box->name());
-    m_propertyTypeValue->setText("Box");
-
-    m_propertyXEditor->setEnabled(true);
-    m_propertyYEditor->setEnabled(true);
-    m_propertyZEditor->setEnabled(true);
-
-    m_propertyLengthEditor->setEnabled(true);
-    m_propertyWidthEditor->setEnabled(true);
-    m_propertyHeightEditor->setEnabled(true);
-
-    m_propertyXEditor->setValue(box->x());
-    m_propertyYEditor->setValue(box->y());
-    m_propertyZEditor->setValue(box->z());
-
-    m_propertyLengthEditor->setValue(box->length());
-    m_propertyWidthEditor->setValue(box->width());
-    m_propertyHeightEditor->setValue(box->height());
-
-    m_isUpdatingPropertiesUi = false;
+    m_propertiesPanel->showBox(
+        box->name(),
+        box->x(),
+        box->y(),
+        box->z(),
+        box->length(),
+        box->width(),
+        box->height()
+    );
 
     statusBar()->showMessage(QString("%1 selected").arg(box->name()));
 }

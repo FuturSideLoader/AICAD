@@ -911,6 +911,12 @@
 			"Mu",
 			"LPD5QU26FD/moc_CadObject.cpp",
 			null
+		],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.hpp",
+			"Mu",
+			"YPKJ5OE7LN/moc_PropertiesPanel.cpp",
+			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
@@ -1003,7 +1009,12 @@
 			null
 		],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.cpp", "Mu", null ],
-		[ "/home/alexis/Projet_VSCODE/AICAD/src/main.cpp", "Mu", null ]
+		[ "/home/alexis/Projet_VSCODE/AICAD/src/main.cpp", "Mu", null ],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.cpp",
+			"Mu",
+			null
+		]
 	],
 	"USE_BETTER_GRAPH" : true,
 	"VERBOSITY" : 0

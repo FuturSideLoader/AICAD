@@ -49,6 +49,9 @@ add_executable(aicad
 
     src/cad/CadBox.hpp
     src/cad/CadBox.cpp
+
+    src/ui/PropertiesPanel.hpp
+    src/ui/PropertiesPanel.cpp
 )
 
 target_include_directories(aicad PRIVATE

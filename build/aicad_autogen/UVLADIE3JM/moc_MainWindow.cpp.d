@@ -5,6 +5,7 @@
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -886,7 +887,6 @@
   /usr/include/qt6/QtCore/qversiontagging.h \
   /usr/include/qt6/QtCore/qxptype_traits.h \
   /usr/include/qt6/QtCore/qyieldcpu.h \
-  /usr/include/qt6/QtGui/QIcon \
   /usr/include/qt6/QtGui/qaction.h \
   /usr/include/qt6/QtGui/qbitmap.h \
   /usr/include/qt6/QtGui/qbrush.h \
