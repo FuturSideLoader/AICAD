@@ -71,6 +71,9 @@ add_executable(aicad
     
     src/commands/UpdateMarkerCommand.hpp
     src/commands/UpdateMarkerCommand.cpp
+
+    src/commands/UpdateBoxCommand.hpp
+    src/commands/UpdateBoxCommand.cpp
 )
 
 target_include_directories(aicad PRIVATE

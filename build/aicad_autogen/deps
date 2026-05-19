@@ -26,6 +26,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateBoxCommand.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateBoxCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/main.cpp \

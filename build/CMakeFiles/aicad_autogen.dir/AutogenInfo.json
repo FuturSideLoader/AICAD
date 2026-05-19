@@ -943,6 +943,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateBoxCommand.hpp",
+			"Mu",
+			"6JCNSNR7WH/moc_UpdateBoxCommand.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.hpp",
 			"Mu",
 			"6JCNSNR7WH/moc_UpdateMarkerCommand.cpp",
@@ -1068,6 +1074,11 @@
 		],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateBoxCommand.cpp",
 			"Mu",
 			null
 		],

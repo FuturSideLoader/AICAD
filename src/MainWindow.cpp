@@ -23,6 +23,7 @@
 #include "commands/AddBoxCommand.hpp"
 #include "commands/DeleteObjectCommand.hpp"
 #include "commands/UpdateMarkerCommand.hpp"
+#include "commands/UpdateBoxCommand.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -722,6 +723,42 @@ void MainWindow::onPositionChanged(double x, double y, double z)
             return;
         }
 
+        const bool unchanged =
+            box->x() == x
+            && box->y() == y
+            && box->z() == z;
+
+        if (unchanged) {
+            return;
+        }
+
+        auto command = std::make_unique<UpdateBoxCommand>(
+            m_document,
+            box->id(),
+
+            box->x(),
+            box->y(),
+            box->z(),
+            box->length(),
+            box->width(),
+            box->height(),
+
+            x,
+            y,
+            z,
+            box->length(),
+            box->width(),
+            box->height()
+        );
+
+        if (!m_commandStack.executeCommand(std::move(command))) {
+            statusBar()->showMessage("Failed to update box position");
+            return;
+        }
+
+        setDocumentModified(true);
+        statusBar()->showMessage("Box updated");
+
         saveUndoSnapshot();
 
         if (m_document.updateBox(
@@ -753,19 +790,51 @@ void MainWindow::onBoxChanged(
         return;
     }
 
-    saveUndoSnapshot();
+    std::shared_ptr<CadBox> box =
+        m_document.findBoxById(m_selectedObjectId);
 
-    if (m_document.updateBox(
-            m_selectedObjectId,
-            x,
-            y,
-            z,
-            length,
-            width,
-            height
-        )) {
-        setDocumentModified(true);
+    if (box == nullptr) {
+        return;
     }
+
+    const bool unchanged =
+        box->x() == x
+        && box->y() == y
+        && box->z() == z
+        && box->length() == length
+        && box->width() == width
+        && box->height() == height;
+
+    if (unchanged) {
+        return;
+    }
+
+    auto command = std::make_unique<UpdateBoxCommand>(
+        m_document,
+        box->id(),
+
+        box->x(),
+        box->y(),
+        box->z(),
+        box->length(),
+        box->width(),
+        box->height(),
+
+        x,
+        y,
+        z,
+        length,
+        width,
+        height
+    );
+
+    if (!m_commandStack.executeCommand(std::move(command))) {
+        statusBar()->showMessage("Failed to update box");
+        return;
+    }
+
+    setDocumentModified(true);
+    statusBar()->showMessage("Box updated");
 }
 
 void MainWindow::selectMarkerById(int markerId)
