@@ -68,6 +68,9 @@ add_executable(aicad
 
     src/commands/DeleteObjectCommand.hpp
     src/commands/DeleteObjectCommand.cpp
+    
+    src/commands/UpdateMarkerCommand.hpp
+    src/commands/UpdateMarkerCommand.cpp
 )
 
 target_include_directories(aicad PRIVATE

@@ -943,6 +943,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.hpp",
+			"Mu",
+			"6JCNSNR7WH/moc_UpdateMarkerCommand.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp",
 			"Mu",
 			"YPKJ5OE7LN/moc_ObjectTreePanel.cpp",
@@ -1062,6 +1068,11 @@
 		],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/commands/DeleteObjectCommand.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.cpp",
 			"Mu",
 			null
 		],

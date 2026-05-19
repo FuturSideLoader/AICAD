@@ -22,6 +22,7 @@
 #include <memory>
 #include "commands/AddBoxCommand.hpp"
 #include "commands/DeleteObjectCommand.hpp"
+#include "commands/UpdateMarkerCommand.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -675,22 +676,47 @@ void MainWindow::onPositionChanged(double x, double y, double z)
     }
 
     if (m_selectedObjectKind == SelectedObjectKind::Marker) {
-        saveUndoSnapshot();
+        std::shared_ptr<AiMarker> marker =
+            m_document.findMarkerById(m_selectedObjectId);
 
-        if (m_document.updateMarkerPosition(
-                m_selectedObjectId,
-                x,
-                y,
-                z
-            )) {
-            setDocumentModified(true);
+        if (marker == nullptr) {
+            return;
         }
+
+        const bool unchanged =
+            marker->x() == x
+            && marker->y() == y
+            && marker->z() == z;
+
+        if (unchanged) {
+            return;
+        }
+
+        auto command = std::make_unique<UpdateMarkerCommand>(
+            m_document,
+            marker->id(),
+            marker->x(),
+            marker->y(),
+            marker->z(),
+            x,
+            y,
+            z
+        );
+
+        if (!m_commandStack.executeCommand(std::move(command))) {
+            statusBar()->showMessage("Failed to update marker");
+            return;
+        }
+
+        setDocumentModified(true);
+        statusBar()->showMessage("Marker updated");
 
         return;
     }
 
     if (m_selectedObjectKind == SelectedObjectKind::Box) {
-        std::shared_ptr<CadBox> box = m_document.findBoxById(m_selectedObjectId);
+        std::shared_ptr<CadBox> box =
+            m_document.findBoxById(m_selectedObjectId);
 
         if (box == nullptr) {
             return;
