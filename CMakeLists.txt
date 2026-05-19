@@ -62,6 +62,9 @@ add_executable(aicad
 
     src/commands/AddMarkerCommand.hpp
     src/commands/AddMarkerCommand.cpp
+
+    src/commands/AddBoxCommand.hpp
+    src/commands/AddBoxCommand.cpp
 )
 
 target_include_directories(aicad PRIVATE

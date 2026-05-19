@@ -20,6 +20,7 @@
 #include "ui/ObjectTreePanel.hpp"
 #include "commands/AddMarkerCommand.hpp"
 #include <memory>
+#include "commands/AddBoxCommand.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -881,9 +882,8 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
 void MainWindow::addBox()
 {
-    saveUndoSnapshot();
-
-    std::shared_ptr<CadBox> box = m_document.addBox(
+    auto command = std::make_unique<AddBoxCommand>(
+        m_document,
         0.0,
         0.0,
         0.0,
@@ -892,11 +892,13 @@ void MainWindow::addBox()
         60.0
     );
 
-    statusBar()->showMessage(
-        QString("%1 created").arg(box->name())
-    );
+    if (!m_commandStack.executeCommand(std::move(command))) {
+        statusBar()->showMessage("Failed to create box");
+        return;
+    }
 
     setDocumentModified(true);
+    statusBar()->showMessage("Box created");
 }
 
 
