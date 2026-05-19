@@ -2,5 +2,6 @@
 #include "UVLADIE3JM/moc_MainWindow.cpp"
 #include "UVLADIE3JM/moc_OccView.cpp"
 #include "LPD5QU26FD/moc_CadDocument.cpp"
+#include "6JCNSNR7WH/moc_CommandStack.cpp"
 #include "YPKJ5OE7LN/moc_ObjectTreePanel.cpp"
 #include "YPKJ5OE7LN/moc_PropertiesPanel.cpp"

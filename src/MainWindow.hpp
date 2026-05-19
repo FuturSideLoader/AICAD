@@ -8,6 +8,8 @@
 #include "OccView.hpp"
 #include "ui/PropertiesPanel.hpp"
 
+#include "commands/CommandStack.hpp"
+
 
 
 
@@ -97,8 +99,12 @@ private:
 
     void createToolbar();
 
+    
+
 private:
     CadDocument m_document;
+
+    CommandStack m_commandStack;
 
     OccView* m_view = nullptr;
 

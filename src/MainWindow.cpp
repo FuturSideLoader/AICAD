@@ -22,6 +22,7 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       m_document(this),
+      m_commandStack(this),
       m_view(new OccView(this))
 {
     updateWindowTitle();
@@ -138,7 +139,26 @@ MainWindow::MainWindow(QWidget* parent)
         &MainWindow::selectObjectById
     );
 
+    connect(
+        &m_commandStack,
+        &CommandStack::changed,
+        this,
+        [this]() {
+            if (m_undoAction != nullptr) {
+                m_undoAction->setText(m_commandStack.undoText());
+                m_undoAction->setEnabled(m_commandStack.canUndo());
+            }
+
+            if (m_redoAction != nullptr) {
+                m_redoAction->setText(m_commandStack.redoText());
+                m_redoAction->setEnabled(m_commandStack.canRedo());
+            }
+        }
+    );
+
     clearPropertiesPanel();
+
+    m_commandStack.clear();
 
     statusBar()->showMessage("AICAD V0.11 - Document save/load ready");
 }
@@ -287,6 +307,7 @@ void MainWindow::newDocument()
     m_currentFilePath.clear();
     m_undoStack.clear();
     m_redoStack.clear();
+    m_commandStack.clear();
 
     m_document.clear();
     setDocumentModified(false);
@@ -325,6 +346,7 @@ void MainWindow::openDocument()
 
     m_undoStack.clear();
     m_redoStack.clear();
+    m_commandStack.clear();
 
     statusBar()->showMessage(QString("Opened %1").arg(filePath));
 }
@@ -384,6 +406,14 @@ void MainWindow::saveDocumentAs()
 
 void MainWindow::undo()
 {
+    if (m_commandStack.canUndo()) {
+        if (m_commandStack.undo()) {
+            setDocumentModified(true);
+            statusBar()->showMessage("Undo");
+            return;
+        }
+    }
+
     if (m_undoStack.isEmpty()) {
         statusBar()->showMessage("Nothing to undo");
         return;
@@ -400,6 +430,14 @@ void MainWindow::undo()
 
 void MainWindow::redo()
 {
+    if (m_commandStack.canRedo()) {
+        if (m_commandStack.redo()) {
+            setDocumentModified(true);
+            statusBar()->showMessage("Redo");
+            return;
+        }
+    }
+
     if (m_redoStack.isEmpty()) {
         statusBar()->showMessage("Nothing to redo");
         return;

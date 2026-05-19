@@ -5,6 +5,8 @@
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadBox.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadDocument.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/cad/CadObject.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/commands/CadCommand.hpp \
+  /home/alexis/Projet_VSCODE/AICAD/src/commands/CommandStack.hpp \
   /home/alexis/Projet_VSCODE/AICAD/src/ui/PropertiesPanel.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \

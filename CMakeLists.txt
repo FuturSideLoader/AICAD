@@ -55,6 +55,10 @@ add_executable(aicad
 
     src/ui/ObjectTreePanel.hpp
     src/ui/ObjectTreePanel.cpp
+
+    src/commands/CadCommand.hpp
+    src/commands/CommandStack.hpp
+    src/commands/CommandStack.cpp
 )
 
 target_include_directories(aicad PRIVATE
