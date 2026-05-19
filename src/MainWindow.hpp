@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QJsonObject>
 #include <QMainWindow>
 
 #include "cad/CadDocument.hpp"
@@ -83,8 +82,6 @@ private:
     void createObjectPanel();
     void createPropertiesPanel();
 
-    bool saveDocumentToFile(const QString& filePath);
-    bool loadDocumentFromFile(const QString& filePath);
 
     bool maybeSaveBeforeDestructiveAction();
     void setDocumentModified(bool modified);

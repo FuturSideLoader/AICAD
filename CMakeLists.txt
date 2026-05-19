@@ -77,6 +77,9 @@ add_executable(aicad
 
     src/app/AppController.hpp
     src/app/AppController.cpp
+
+    src/io/DocumentIO.hpp
+    src/io/DocumentIO.cpp
 )
 
 target_include_directories(aicad PRIVATE

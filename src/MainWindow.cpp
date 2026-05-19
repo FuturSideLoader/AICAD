@@ -3,9 +3,7 @@
 
 #include <QAction>
 #include <QDockWidget>
-#include <QFile>
 #include <QFileDialog>
-#include <QJsonDocument>
 #include <QKeySequence>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -22,6 +20,8 @@
 #include "commands/DeleteObjectCommand.hpp"
 #include "commands/UpdateMarkerCommand.hpp"
 #include "commands/UpdateBoxCommand.hpp"
+#include "io/DocumentIO.hpp"
+
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -353,7 +353,7 @@ void MainWindow::openDocument()
         return;
     }
 
-    if (!loadDocumentFromFile(filePath)) {
+    if (!DocumentIO::loadFromFile(m_document, filePath)) {
         QMessageBox::warning(
             this,
             "Open failed",
@@ -379,7 +379,7 @@ void MainWindow::saveDocument()
         return;
     }
 
-    if (!saveDocumentToFile(currentFilePath)) {
+    if (!DocumentIO::saveToFile(m_document, currentFilePath)) {
         QMessageBox::warning(
             this,
             "Save failed",
@@ -410,7 +410,7 @@ void MainWindow::saveDocumentAs()
         filePath += ".aicad";
     }
 
-    if (!saveDocumentToFile(filePath)) {
+    if (!DocumentIO::saveToFile(m_document, filePath)) {
         QMessageBox::warning(
             this,
             "Save failed",
@@ -455,48 +455,6 @@ void MainWindow::redo()
 
     setDocumentModified(true);
     statusBar()->showMessage("Redo");
-}
-
-bool MainWindow::saveDocumentToFile(const QString& filePath)
-{
-    QFile file(filePath);
-
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        return false;
-    }
-
-    const QJsonDocument jsonDocument(m_document.toJson());
-
-    file.write(jsonDocument.toJson(QJsonDocument::Indented));
-    file.close();
-
-    return true;
-}
-
-bool MainWindow::loadDocumentFromFile(const QString& filePath)
-{
-    QFile file(filePath);
-
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return false;
-    }
-
-    const QByteArray data = file.readAll();
-    file.close();
-
-    QJsonParseError parseError;
-    const QJsonDocument jsonDocument =
-        QJsonDocument::fromJson(data, &parseError);
-
-    if (parseError.error != QJsonParseError::NoError) {
-        return false;
-    }
-
-    if (!jsonDocument.isObject()) {
-        return false;
-    }
-
-    return m_document.loadFromJson(jsonDocument.object());
 }
 
 void MainWindow::addAiMarker()

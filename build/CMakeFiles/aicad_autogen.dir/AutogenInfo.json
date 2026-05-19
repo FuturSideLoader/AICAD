@@ -961,6 +961,12 @@
 			null
 		],
 		[
+			"/home/alexis/Projet_VSCODE/AICAD/src/io/DocumentIO.hpp",
+			"Mu",
+			"F43WJJHJFQ/moc_DocumentIO.cpp",
+			null
+		],
+		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp",
 			"Mu",
 			"YPKJ5OE7LN/moc_ObjectTreePanel.cpp",
@@ -1098,6 +1104,7 @@
 			"Mu",
 			null
 		],
+		[ "/home/alexis/Projet_VSCODE/AICAD/src/io/DocumentIO.cpp", "Mu", null ],
 		[ "/home/alexis/Projet_VSCODE/AICAD/src/main.cpp", "Mu", null ],
 		[
 			"/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.cpp",

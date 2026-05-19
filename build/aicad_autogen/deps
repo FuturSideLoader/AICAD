@@ -32,6 +32,8 @@ aicad_autogen/timestamp: \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateBoxCommand.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/commands/UpdateMarkerCommand.hpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/io/DocumentIO.cpp \
+	/home/alexis/Projet_VSCODE/AICAD/src/io/DocumentIO.hpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/main.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.cpp \
 	/home/alexis/Projet_VSCODE/AICAD/src/ui/ObjectTreePanel.hpp \

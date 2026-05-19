@@ -128,7 +128,6 @@
   /usr/include/c++/16.1.1/bits/exception.h \
   /usr/include/c++/16.1.1/bits/exception_defines.h \
   /usr/include/c++/16.1.1/bits/exception_ptr.h \
-  /usr/include/c++/16.1.1/bits/formatfwd.h \
   /usr/include/c++/16.1.1/bits/fstream.tcc \
   /usr/include/c++/16.1.1/bits/functexcept.h \
   /usr/include/c++/16.1.1/bits/functional_hash.h \
@@ -152,7 +151,6 @@
   /usr/include/c++/16.1.1/bits/max_size_type.h \
   /usr/include/c++/16.1.1/bits/memory_resource.h \
   /usr/include/c++/16.1.1/bits/memoryfwd.h \
-  /usr/include/c++/16.1.1/bits/monostate.h \
   /usr/include/c++/16.1.1/bits/move.h \
   /usr/include/c++/16.1.1/bits/nested_exception.h \
   /usr/include/c++/16.1.1/bits/new_allocator.h \
@@ -215,8 +213,6 @@
   /usr/include/c++/16.1.1/bits/streambuf_iterator.h \
   /usr/include/c++/16.1.1/bits/string_view.tcc \
   /usr/include/c++/16.1.1/bits/stringfwd.h \
-  /usr/include/c++/16.1.1/bits/unicode-data.h \
-  /usr/include/c++/16.1.1/bits/unicode.h \
   /usr/include/c++/16.1.1/bits/uniform_int_dist.h \
   /usr/include/c++/16.1.1/bits/unique_ptr.h \
   /usr/include/c++/16.1.1/bits/unordered_map.h \
@@ -271,19 +267,14 @@
   /usr/include/c++/16.1.1/map \
   /usr/include/c++/16.1.1/memory \
   /usr/include/c++/16.1.1/new \
-  /usr/include/c++/16.1.1/numbers \
   /usr/include/c++/16.1.1/numeric \
   /usr/include/c++/16.1.1/optional \
   /usr/include/c++/16.1.1/ostream \
   /usr/include/c++/16.1.1/pstl/execution_defs.h \
-  /usr/include/c++/16.1.1/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/16.1.1/pstl/glue_memory_defs.h \
   /usr/include/c++/16.1.1/pstl/glue_numeric_defs.h \
   /usr/include/c++/16.1.1/pstl/pstl_config.h \
-  /usr/include/c++/16.1.1/ranges \
   /usr/include/c++/16.1.1/ratio \
   /usr/include/c++/16.1.1/set \
-  /usr/include/c++/16.1.1/span \
   /usr/include/c++/16.1.1/sstream \
   /usr/include/c++/16.1.1/stdexcept \
   /usr/include/c++/16.1.1/streambuf \
